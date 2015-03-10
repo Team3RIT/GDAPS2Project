@@ -1,0 +1,15 @@
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\SDL.dll
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\@interface.exe
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\@interface.pdb
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\Lidgren.Network.dll
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\MonoGame.Framework.dll
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\OpenTK.dll
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\Tao.Sdl.dll
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\obj\x86\Debug\interface.csprojResolveAssemblyReference.cache
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\obj\x86\Debug\@interface.exe
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\obj\x86\Debug\@interface.pdb
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\Content\Font1.xnb
+c:\users\serra_000\documents\visual studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\Content\USUP.xnb
+C:\Users\serra_000\Documents\Visual Studio 2013\Projects\interface\interface\bin\WindowsGL\Debug\Content\StillAlive.xnb
+C:\Users\Margaret\Desktop\interface\interface\interface\obj\x86\Debug\@interface.exe
+C:\Users\Margaret\Desktop\interface\interface\interface\obj\x86\Debug\@interface.pdb
