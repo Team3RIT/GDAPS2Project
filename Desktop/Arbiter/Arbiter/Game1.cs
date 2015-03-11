@@ -21,7 +21,6 @@ namespace Arbiter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SoundEffect music;
         SpriteFont font;
         MenuBoxes pandora;
 
@@ -30,6 +29,9 @@ namespace Arbiter
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = GameVariables.screenWidth;  //sets the window size. DO NOT SET THIS DIRECTLY, change in GameVariables class
+            graphics.PreferredBackBufferHeight = GameVariables.screenHeight;   
+            graphics.ApplyChanges();
         }
         
         /// <summary>
@@ -56,7 +58,6 @@ namespace Arbiter
             
             // TODO: use this.Content to load your game content here
             font = Content.Load<SpriteFont>("Font1");
-            //music = Content.Load<SoundEffect>("StillAlive");
         }
 
         /// <summary>
