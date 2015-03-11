@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics; //added
 using Microsoft.Xna.Framework.Input; //added
 using Microsoft.Xna.Framework.Storage; //added
 using Microsoft.Xna.Framework.GamerServices; //added
-namespace Team3Game
+namespace Arbiter
 {
     //holds all of the methods for displaying popup boxes and menus
     public class MenuBoxes

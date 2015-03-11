@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
 
-namespace Team3Game
+namespace Arbiter
 {
     abstract class Piece
     {

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Audio;//added this
 using System.Collections; //added this
 #endregion
 
-namespace Team3Game
+namespace Arbiter
 {
     /// <summary>
     /// This is the main type for your game
