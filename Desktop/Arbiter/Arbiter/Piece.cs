@@ -12,17 +12,17 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Arbiter
 {
-    abstract class Piece
+    public abstract class Piece
     {
         public Vector2 location;
         public Texture2D icon;
-
-        Player player;
-        public List<Vector2> possibleMoves; //the legal moves that a player can make
+        
+        public bool color; //true is white, false is black
+        public List<Vector2> possibleMoves = new List<Vector2>(); //the legal moves that a player can make
         public Rectangle region;
         public bool hasMoved = false;
 
-        public Piece(int x, int y, Texture2D icn, Player plyr)
+        public Piece(int x, int y, Texture2D icn, bool colr)
         {
            if(x>=0 && x <GameVariables.boardSpaceDim && y >=0 && x < GameVariables.boardSpaceDim && GameVariables.board[x,y] == null) // if both are within bounds and the space is empty
            {                                                                      // the array gets checked last so there's no out of bounds exception       
@@ -31,9 +31,9 @@ namespace Arbiter
                GameVariables.board[x, y] = this;
            }
            icon = icn;
-           possibleMoves = new List<Vector2>();
-           region = new Rectangle((int)location.X,(int) location.Y, GameVariables.spaceDim, GameVariables.spaceDim);
-           player = plyr;
+           
+           region = new Rectangle((int)(location.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal),(int) (location.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical), GameVariables.spaceDim, GameVariables.spaceDim);
+           color = colr;
 
         }
 
@@ -41,7 +41,7 @@ namespace Arbiter
         {
             GameVariables.board[(int)location.X, (int)location.Y] = null;
             location = newLocation;
-            if(GameVariables.board[(int)location.X,(int)location.Y] != null && GameVariables.board[(int)location.X,(int)location.Y].player != this.player) //have to check to make sure there is a piece there before trying to look at its color
+            if(GameVariables.board[(int)location.X,(int)location.Y] != null && GameVariables.board[(int)location.X,(int)location.Y].color != this.color) //have to check to make sure there is a piece there before trying to look at its color
             {
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
@@ -49,7 +49,7 @@ namespace Arbiter
             hasMoved = true;
 
         }
-        abstract public void Select();
+        abstract public List<Vector2> Select();
         
         public void Remove(Piece piece) //removed piece double verifies being taken
         {
@@ -63,8 +63,8 @@ namespace Arbiter
             #region Removing piece from Game1 Lists
 
             //take it off the "physical" board
-
-
+            //Kings shouldn't ever be taken, because checkmate is an endgame condition.
+            //this stuff is Chess specific, will be adapted to future unit types
             /*if(this is Pawn)
             {
                 if(this.color)
@@ -121,8 +121,9 @@ namespace Arbiter
                 {
                     Game1.blackQueen.Remove((Queen)this);
                 }
-            }*/
-            #endregion
+            }
+             */
+            #endregion 
         }
 
         public bool PathTracker(Vector2 locationinitial, Vector2 locationfinal, string type)//makes sure nothing is in the way
@@ -268,18 +269,20 @@ namespace Arbiter
                         return true;
                     }
             }
-            if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].player != this.player)
+            if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].color != this.color)
                 return true;
             else
                 return false;
         }
 
 
-        public void Trim(List<Vector2> list) //takes moves that would take you off the board out of possible moves
+        public void Trim(ref List<Vector2> list) //takes moves that would take you off the board out of possible moves
         {
-            foreach(Vector2 space in list)
+            foreach(Vector2 space in list.ToList()) //program doesn't like changing the actual list while enumerating
             {
-                if (space.X < 0 || space.X >= GameVariables.boardSpaceDim || space.Y < 0 || space.Y >= GameVariables.boardSpaceDim)
+                if (!GameVariables.OnBoard(space))
+                    list.Remove(space);
+                else if (GameVariables.board[(int)space.X, (int)space.Y] != null && GameVariables.board[(int)space.X, (int)space.Y].color == this.color)
                     list.Remove(space);
                 
             }
