@@ -9,11 +9,12 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
+//Margaret
 namespace Arbiter
 {
     static class GameVariables
     {
-        static public Piece[,] board = new Piece[boardSpaceDim,boardSpaceDim]; //white is bottom, black is top
+        static public Piece[,] board = new Piece[boardSpaceDim,boardSpaceDim]; 
         public const int screenWidth = 800;
         public const int screenHeight = 680;
         public const int boardDim = 400; //square board, only need one dimension
