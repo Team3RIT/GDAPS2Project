@@ -15,7 +15,7 @@ namespace Arbiter
 {
     public static class FileIO
     {
-        private static BinaryReader reader;
+        private static BinaryReader reader; //everything in binary files
         private static BinaryWriter writer;
 
         public static void ReadMapFile(string filepath) //will read file and make changes to board. 
@@ -53,18 +53,26 @@ namespace Arbiter
                 {
                     if (GameVariables.board[x, y] != null)
                     {
-                        if (GameVariables.board[x, y].Rank == 1) //two pieces have rank 1
+                        if (GameVariables.board[x, y].Rank == 2) //two pieces have rank 2
                         {
                             if (GameVariables.board[x, y] is StandardUnit)
                             {
-                                writer.Write(GameVariables.board[x, y].Rank); 
+                                writer.Write(GameVariables.board[x, y].Rank); //writes out rank, then owner id, then owner name
+                                writer.Write(GameVariables.board[x, y].owner.ID);
+                                writer.Write(GameVariables.board[x, y].owner.Name);
                             }
                             else
+                            {
                                 writer.Write(4);
+                                writer.Write(GameVariables.board[x, y].owner.ID);
+                                writer.Write(GameVariables.board[x, y].owner.Name);
+                            }
                         }
                         else
                         {
                             writer.Write(GameVariables.board[x, y].Rank);
+                            writer.Write(GameVariables.board[x, y].owner.ID);
+                            writer.Write(GameVariables.board[x, y].owner.Name);
                         }
                     }
                     else
@@ -82,18 +90,53 @@ namespace Arbiter
             int i;
             int x = 0;
             int y = 0;
+            Player player;
+            int ownerID;
+            string ownerName;
             while((i = reader.ReadInt32()) != null)
             {
+                ownerID = reader.ReadInt32();
+                ownerName = reader.ReadString(); //data will come in sets of 3, so these ones should not be null.
+                player = new Player(ownerName, ownerID);
+                if (!GameVariables.players.Contains(player)) //don't want duplicates in the list
+                    GameVariables.players.Add(player);
                 switch(i)
                 {
-                    case -1:
+                    case -1: //empty space
                         {
                             GameVariables.board[x, y] = null;
                             break;
                         }
-                    case 0:
+                    case 0: //tower
                         {
-                            
+                            GameVariables.board[x, y] = new Tower(x, y, null); // all of these units need filler content
+                            break;
+                        }
+                    case 1: //light unit
+                        {
+
+                            //GameVariables.board[x,y] = new LightUnit(x,y,null,player);
+                            break;
+                        }
+                    case 2: //standard unit
+                        {
+                            GameVariables.board[x,y] = new StandardUnit(x,y,null,player);
+                            break;
+                        }
+                    case 3: //heavy unit
+                        {
+                            //GameVariables.board[x,y] = new HeavyUnit(x,y,null,player);
+                            break;
+                        }
+                    case 4: //jumper unit
+                        {
+                            //GameVariables.board[x,y] = new JumperUnit(x,y,null,player);
+                            break;
+                        }
+                    case 5: //structure
+                        {
+                            GameVariables.board[x,y] = new Structure(x,y,null);
+                            break;
                         }
                 }
             }

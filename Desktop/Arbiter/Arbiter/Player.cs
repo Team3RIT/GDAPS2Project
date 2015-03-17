@@ -21,5 +21,20 @@ namespace Arbiter
             playerNum = playerNumber;
         }
         #endregion
+
+        public int ID
+        {
+            get
+            {
+                return playerNum;
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
     }
 }

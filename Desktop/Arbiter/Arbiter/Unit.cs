@@ -82,81 +82,74 @@ namespace Arbiter
             
 
         }
-        abstract public List<Vector2> Select();
+        public List<Vector2> Select()
+        {
+            possibleMoves.Clear(); //clears out the list so it's a new set
+            Vector2 plannedMove;
+
+            for (int i = 1; i <= rank; i++) //moving down 
+            {
+                plannedMove = new Vector2(location.X, location.Y + i);
+                if (this.PathTracker(this.location, new Vector2(plannedMove.X, plannedMove.Y + i), "vertical"))
+                    possibleMoves.Add(plannedMove);
+            }
+            for (int i = 1; i <= rank; i++) //moving up 
+            {
+                plannedMove = new Vector2(location.X, location.Y - i);
+                if (this.PathTracker(this.location, new Vector2(plannedMove.X, plannedMove.Y - i), "vertical"))
+                    possibleMoves.Add(plannedMove);
+            }
+            for (int i = 1; i <= rank; i++) //moving right
+            {
+                plannedMove = new Vector2(location.X+i, location.Y);
+                if (this.PathTracker(this.location, new Vector2(plannedMove.X+i, plannedMove.Y), "horizontal"))
+                    possibleMoves.Add(plannedMove);
+            }
+            for (int i = 1; i <= rank; i++) //moving left
+            {
+                plannedMove = new Vector2(location.X-i, location.Y);
+                if (this.PathTracker(this.location, new Vector2(plannedMove.X-i, plannedMove.Y), "horizontal"))
+                    possibleMoves.Add(plannedMove);
+            }
+            for (int i = 1; i <= rank/2; i++) //diagonally up and left
+            {
+                plannedMove = new Vector2(location.X-i, location.Y-i);
+                if (this.PathTracker(this.location, new Vector2(plannedMove.X - i, plannedMove.Y - i), "diagonal"))
+                    possibleMoves.Add(plannedMove);
+            }
+            for (int i = 1; i <= rank / 2; i++) //diagonally up and right
+            {
+                plannedMove = new Vector2(location.X - i, location.Y - i);
+                if (this.PathTracker(this.location, new Vector2(plannedMove.X + i, plannedMove.Y - i), "diagonal"))
+                    possibleMoves.Add(plannedMove);
+            }
+            for (int i = 1; i <= rank / 2; i++) //diagonally down and left
+            {
+                plannedMove = new Vector2(location.X - i, location.Y - i);
+                if (this.PathTracker(this.location, new Vector2(plannedMove.X - i, plannedMove.Y + i), "diagonal"))
+                    possibleMoves.Add(plannedMove);
+            }
+            for (int i = 1; i <= rank / 2; i++) //diagonally down and right
+            {
+                plannedMove = new Vector2(location.X - i, location.Y - i);
+                if (this.PathTracker(this.location, new Vector2(plannedMove.X + i, plannedMove.Y + i), "diagonal"))
+                    possibleMoves.Add(plannedMove);
+            }
+            this.Trim(ref possibleMoves);
+            return possibleMoves;
+        }
+        
         
         public void Remove(Unit piece) //removed piece double verifies being taken
         {
             if(location.X == piece.location.X && location.Y == piece.location.Y)
             {
                 
-                GameVariables.board[(int)location.X, (int)location.Y] = piece; //take it off the back end board
+                GameVariables.board[(int)location.X, (int)location.Y] = piece; //take it off the board
 
             }
 
-            #region Removing piece from Game1 Lists
-
-            //take it off the "physical" board
-            //Kings shouldn't ever be taken, because checkmate is an endgame condition.
-            //this stuff is Chess specific, will be adapted to future unit types
-            /*if(this is Pawn)
-            {
-                if(this.color)
-                {
-                    Game1.whitePawns.Remove((Pawn)this);
-                }
-                else
-                {
-                    Game1.blackPawns.Remove((Pawn)this);
-                }
-            }
-
-            if (this is Knight)
-            {
-                if (this.color)
-                {
-                    Game1.whiteKnights.Remove((Knight)this);
-                }
-                else
-                {
-                    Game1.blackKnights.Remove((Knight)this);
-                }
-            }
-
-            if (this is Bishop)
-            {
-                if (this.color)
-                {
-                    Game1.whiteBishops.Remove((Bishop)this);
-                }
-                else
-                {
-                    Game1.blackBishops.Remove((Bishop)this);
-                }
-            }
-            if (this is Rook)
-            {
-                if (this.color)
-                {
-                    Game1.whiteRooks.Remove((Rook)this);
-                }
-                else
-                {
-                    Game1.blackRooks.Remove((Rook)this);
-                }
-            }
-            if (this is Queen)
-            {
-                if (this.color)
-                {
-                    Game1.whiteQueen.Remove((Queen)this);
-                }
-                else
-                {
-                    Game1.blackQueen.Remove((Queen)this);
-                }
-            }
-             */
-            #endregion 
+          
         }
 
         public bool PathTracker(Vector2 locationinitial, Vector2 locationfinal, string type)//makes sure nothing is in the way
