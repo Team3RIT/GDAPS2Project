@@ -17,7 +17,9 @@ namespace Arbiter
         protected Vector2 location;
         protected Texture2D icon;
         protected Rectangle region;
-        public Player owner;
+        public Player owner = new Player("Map",-1); //There will be essentially a map player that never has a turn that owns inanimate pieces, just to allow the use of a Piece array.
+                                                    //IMPORTANT: Do not use negative ID numbers for other players!
+        protected int rank;
 
 
         public Rectangle Region
@@ -45,6 +47,14 @@ namespace Arbiter
             }
         }
 
+        public int Rank
+        {
+            get
+            {
+                return rank;
+            }
+        }
+
 
 
         public Piece(int x, int y, Texture2D icn)
@@ -59,18 +69,16 @@ namespace Arbiter
             }
         }
 
-        public void Remove(Unit piece) //removed piece double verifies being taken
+        public void Remove(Unit piece)
         {
-            if (location.X == piece.location.X && location.Y == piece.location.Y && piece is Kamikaze)
+            if (location.X == piece.location.X && location.Y == piece.location.Y)
             {
-                //Kamikaze will get destroyed in his own code
-                GameVariables.board[(int)location.X, (int)location.Y] = piece; //take it off the back end board
 
-                //add code to take it off the Game1 board
-
-               
+                GameVariables.board[(int)location.X, (int)location.Y] = piece; //takes itself off the back end board
 
             }
         }
+
+        
     }
 }

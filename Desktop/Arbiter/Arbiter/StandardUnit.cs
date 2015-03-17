@@ -6,7 +6,7 @@ using System.Text;
 namespace Arbiter
 {
     //Margaret
-    class Kamikaze:Unit
+    class StandardUnit:Unit
     {
         public override List<Microsoft.Xna.Framework.Vector2> Select()
         {

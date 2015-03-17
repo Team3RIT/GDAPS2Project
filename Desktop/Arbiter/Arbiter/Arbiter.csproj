@@ -37,10 +37,11 @@
   <ItemGroup>
     <Compile Include="Game1.cs" />
     <Compile Include="GameVariables.cs" />
-    <Compile Include="Kamikaze.cs" />
+    <Compile Include="StandardUnit.cs" />
     <Compile Include="MapFileIO.cs" />
     <Compile Include="MenuBoxes.cs" />
     <Compile Include="Piece.cs" />
+    <Compile Include="Tower.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

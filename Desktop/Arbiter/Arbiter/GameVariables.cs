@@ -14,7 +14,9 @@ namespace Arbiter
 {
     static class GameVariables
     {
-        static public Piece[,] board = new Piece[boardSpaceDim,boardSpaceDim]; 
+        static public Piece[,] board = new Piece[boardSpaceDim,boardSpaceDim];
+        static public List<Tower> towers = new List<Tower>();
+        static public List<Structure> structures = new List<Structure>();
         public const int screenWidth = 800;
         public const int screenHeight = 680;
         public const int boardDim = 400; //square board, only need one dimension

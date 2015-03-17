@@ -50,9 +50,31 @@ namespace Arbiter
         #region methods
         public void Move(Vector2 newLocation) //the new location should be well validated before making it here
         {
-            GameVariables.board[(int)location.X, (int)location.Y] = null;
+            
+            Tower myTower = null; // will be null if the loop doesnt find a tower
+            Tower newTower = null;// will be null if you aren't moving to the tower
+            foreach(Tower tower in GameVariables.towers) //checks all the towers to see if this piece is currently on one before moving
+            {
+                if (tower.Location == this.Location)
+                {
+                   
+                    myTower = tower;
+                    break;
+                }
+                if(tower.Location == newLocation)
+                {
+                    newTower = tower;
+                }
+            }
+            if (myTower != null)
+                myTower.Abandon(this); //abandon it if you're on one
+            else
+                GameVariables.board[(int)location.X, (int)location.Y] = null; //otherwise your space will be left empty
+            
             location = newLocation;
-            if(GameVariables.board[(int)location.X,(int)location.Y] is Unit && GameVariables.board[(int)location.X,(int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
+            if(newTower != null)
+                newTower.Claim(this);
+            if(GameVariables.board[(int)location.X,(int)location.Y].Rank < rank && GameVariables.board[(int)location.X,(int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
             {
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
@@ -280,8 +302,14 @@ namespace Arbiter
                         return true;
                     }
             }
-            if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].owner != this.owner)
-                return true;
+            if ((GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].owner != this.owner)
+                && rank > GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank) //The piece is allowed in that spot
+            {
+                if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank == 0 && rank == 3) //heavy units cant go into towers
+                    return false;
+                else
+                    return true;
+            }
             else
                 return false;
         }

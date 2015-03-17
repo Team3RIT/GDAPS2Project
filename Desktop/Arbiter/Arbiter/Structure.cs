@@ -17,7 +17,8 @@ namespace Arbiter
         //this class allows towers and blocked spaces to be stored on the board, which is a Piece array. It's a little hacky.
         public Structure(int x, int y, Texture2D icn):base(x,y,icn) //will be owned by a non-player
         {
-            
+            rank = 10; //ridiculously high, will not be captured
+            GameVariables.structures.Add(this);
         }
         
     }
