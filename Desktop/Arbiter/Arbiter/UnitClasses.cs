@@ -121,13 +121,14 @@ namespace Arbiter
 
             //code for jump movement
             List<Piece> pieces = CheckSides(this);
-            List<Piece> pieces2;
+            List<Piece> pieces2 = new List<Piece>();
+            //needs more code
             foreach(Piece piece in pieces) //go through each possible jump configuration
             {
-                
-                    pieces2 = CheckSides(piece);
-                    //this code needs more work
-                
+
+                if (CheckSides(piece).Count > 1) //it has to be touching at least one piece
+                    pieces2.Add(piece);
+                       
             }
 
             return possibleMoves;
