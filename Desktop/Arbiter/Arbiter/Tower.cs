@@ -18,7 +18,7 @@ namespace Arbiter
 
         public Tower(int x, int y, Texture2D icn):base(x,y,icn)
         {
-            rank = 0;
+            rank = 5; //anything should be able to get in unless the if statement below catches it
             GameVariables.towers.Add(this);
         }
 

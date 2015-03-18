@@ -50,7 +50,8 @@ namespace Arbiter
         #region methods
         public void Move(Vector2 newLocation) //the new location should be well validated before making it here
         {
-            
+            if (!possibleMoves.Contains(newLocation)) //if it's not valid, just another check..
+                return; //quit the method
             Tower myTower = null; // will be null if the loop doesnt find a tower
             Tower newTower = null;// will be null if you aren't moving to the tower
             foreach(Tower tower in GameVariables.towers) //checks all the towers to see if this piece is currently on one before moving
@@ -140,7 +141,7 @@ namespace Arbiter
         }
         
         
-        public void Remove(Unit piece) //removed piece double verifies being taken
+        new public void Remove(Unit piece) //removed piece double verifies being taken
         {
             if(location.X == piece.location.X && location.Y == piece.location.Y)
             {
@@ -296,7 +297,7 @@ namespace Arbiter
                     }
             }
             if ((GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].owner != this.owner)
-                && rank > GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank) //The piece is allowed in that spot
+                && rank < GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank) //The piece is allowed in that spot
             {
                 if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank == 0 && rank == 3) //heavy units cant go into towers
                     return false;

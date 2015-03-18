@@ -18,6 +18,7 @@ namespace Arbiter
         private static BinaryReader reader; //everything in binary files
         private static BinaryWriter writer;
 
+        #region map methods
         public static void ReadMapFile(string filepath) //will read file and make changes to board. 
         {
             if (!File.Exists(filepath))
@@ -42,8 +43,11 @@ namespace Arbiter
                     new Tower(x, y, null); //same deal with the tower texture
 
             }
+            reader.Close();
         }
+        #endregion
 
+        #region save file handling
         public static void SaveGame(string filepath) //saves game data
         {
             writer = new BinaryWriter(File.Open(filepath, FileMode.Create)); //initialize the reader, it will overwrite or create the file
@@ -53,9 +57,9 @@ namespace Arbiter
                 {
                     if (GameVariables.board[x, y] != null)
                     {
-                        if (GameVariables.board[x, y].Rank == 2) //two pieces have rank 2
+                        if (GameVariables.board[x, y].Rank == 1) //two pieces have rank 1
                         {
-                            if (GameVariables.board[x, y] is StandardUnit)
+                            if (GameVariables.board[x, y] is HeavyUnit)
                             {
                                 writer.Write(GameVariables.board[x, y].Rank); //writes out rank, then owner id, then owner name
                                 writer.Write(GameVariables.board[x, y].owner.ID);
@@ -79,6 +83,7 @@ namespace Arbiter
                         writer.Write(-1); //for blank spaces
                 }
             }
+            writer.Close();
         }
 
         public static void LoadGame(string filepath) //loads game data
@@ -107,15 +112,15 @@ namespace Arbiter
                             GameVariables.board[x, y] = null;
                             break;
                         }
-                    case 0: //tower
+                    case 0: //structure
                         {
-                            GameVariables.board[x, y] = new Tower(x, y, null); // all of these units need filler content
+                            GameVariables.board[x, y] = new Structure(x, y, null); // all of these units need filler content
                             break;
                         }
-                    case 1: //light unit
+                    case 1: //heavy unit
                         {
 
-                            //GameVariables.board[x,y] = new LightUnit(x,y,null,player);
+                            GameVariables.board[x,y] = new HeavyUnit(x,y,null,player);
                             break;
                         }
                     case 2: //standard unit
@@ -123,24 +128,27 @@ namespace Arbiter
                             GameVariables.board[x,y] = new StandardUnit(x,y,null,player);
                             break;
                         }
-                    case 3: //heavy unit
+                    case 3: //light unit
                         {
-                            //GameVariables.board[x,y] = new HeavyUnit(x,y,null,player);
+                            GameVariables.board[x,y] = new LightUnit(x,y,null,player);
                             break;
                         }
                     case 4: //jumper unit
                         {
-                            //GameVariables.board[x,y] = new JumperUnit(x,y,null,player);
+                            GameVariables.board[x,y] = new JumperUnit(x,y,null,player);
                             break;
                         }
-                    case 5: //structure
+                    case 5: //Tower
                         {
-                            GameVariables.board[x,y] = new Structure(x,y,null);
+                            GameVariables.board[x,y] = new Tower(x,y,null);
                             break;
                         }
                 }
             }
+            reader.Close();
         }
+
+        #endregion
 
 
     }

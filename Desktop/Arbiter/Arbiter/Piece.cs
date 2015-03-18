@@ -12,16 +12,18 @@ using Microsoft.Xna.Framework.GamerServices;
 namespace Arbiter
 {
     //Margaret
-    abstract class Piece
+    public abstract class Piece
     {
+        #region attributes
         protected Vector2 location;
         protected Texture2D icon;
         protected Rectangle region;
         public Player owner = new Player("Map",-1); //There will be essentially a map player that never has a turn that owns inanimate pieces, just to allow the use of a Piece array.
                                                     //IMPORTANT: Do not use negative ID numbers for other players!
         protected int rank;
+        #endregion
 
-
+        #region properties
         public Rectangle Region
         {
             get
@@ -55,8 +57,9 @@ namespace Arbiter
             }
         }
 
+        #endregion
 
-
+        #region constructor
         public Piece(int x, int y, Texture2D icn)
         {
             if (x >= 0 && x < GameVariables.boardSpaceDim && y >= 0 && x < GameVariables.boardSpaceDim && GameVariables.board[x, y] == null) // if both are within bounds and the space is empty
@@ -68,7 +71,9 @@ namespace Arbiter
                 icon = icn;
             }
         }
+        #endregion
 
+        #region methods
         public void Remove(Unit piece)
         {
             if (location.X == piece.location.X && location.Y == piece.location.Y)
@@ -78,7 +83,7 @@ namespace Arbiter
 
             }
         }
+        #endregion
 
-        
     }
 }

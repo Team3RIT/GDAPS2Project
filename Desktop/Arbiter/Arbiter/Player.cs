@@ -6,7 +6,7 @@ using System.Text;
 //Margaret
 namespace Arbiter
 {
-    class Player
+    public class Player
     {
         #region attributes
         string name; //player name

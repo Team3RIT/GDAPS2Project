@@ -23,7 +23,7 @@ namespace Arbiter
         /// <returns>an array of strings object</returns>
         private object[] WrapText(string text, float Length, SpriteFont font)
         {
-            string[] words = text.Split(' '); //splits text by ',' and stores in array
+            string[] words = text.Split(' '); //splits text by ' ' and stores in array
             ArrayList Lines = new ArrayList(); //new arraylist to store all of the lines of text
             float linewidth = 0f;
             float spaceWidth = font.MeasureString(" ").X;
