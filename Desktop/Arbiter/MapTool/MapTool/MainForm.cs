@@ -21,6 +21,7 @@ namespace MapTool
             form = new InfoForm(this);
             form.Show();
             
+            
         }
 
         public void MapBuilder(int x, int y)
@@ -51,6 +52,7 @@ namespace MapTool
 
                     // Add the PictureBox to the form. 
                     this.Controls.Add(this.tiles[i, j]);
+                    tiles[i,j].Click += new EventHandler(pictureBox_Click); //when it's clicked, it'll call the function
                     
 
                 }
@@ -60,6 +62,13 @@ namespace MapTool
             submitButton.Location = new System.Drawing.Point(30, 30 * y + 80);
             submitButton.Text = "Submit";
             this.Controls.Add(submitButton);
+
+            
+        }
+
+        private void pictureBox_Click(object sender, System.EventArgs e)
+        {
+            // Add event handler code here.
         }
     }
 }
