@@ -24,7 +24,6 @@ namespace Arbiter
         SpriteFont font;
         MenuDisplay pandora;
         MenuLogic shrodingers;
-        SoundEffect music;
         
 
         public Game1()
@@ -33,11 +32,13 @@ namespace Arbiter
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = GameVariables.screenWidth;  //sets the window size. DO NOT SET THIS DIRECTLY, change in GameVariables class
-            graphics.PreferredBackBufferHeight = GameVariables.screenHeight;   
+            graphics.PreferredBackBufferHeight = GameVariables.screenHeight; 
             graphics.ApplyChanges();
 
+            IsMouseVisible = true;
+
             //define menu objects
-            shrodingers = new MenuLogic();
+            shrodingers = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret
             pandora = new MenuDisplay();
         }
         
@@ -50,6 +51,9 @@ namespace Arbiter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            
+              
+           
             
             base.Initialize();
         }
