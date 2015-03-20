@@ -175,28 +175,28 @@ namespace Arbiter
             {
                 case 0:
                     {
-                        if (GameVariables.board[(int)origin.X, (int)origin.Y-1] != null)
+                        if (GameVariables.OnBoard(new Vector2(origin.X, origin.Y-1)) && GameVariables.board[(int)origin.X, (int)origin.Y - 1] != null)
                             return true;
                         else
                             return false;
                     }
                 case 1:
                     {
-                        if (GameVariables.board[(int)origin.X + 1, (int)origin.Y] != null)
+                        if (GameVariables.OnBoard(new Vector2(origin.X+1, origin.Y)) && GameVariables.board[(int)origin.X + 1, (int)origin.Y] != null)
                             return true;
                         else
                             return false;
                     }
                 case 2:
                     {
-                        if (GameVariables.board[(int)origin.X, (int)origin.Y + 1] != null)
+                        if (GameVariables.OnBoard(new Vector2(origin.X, origin.Y+1)) && GameVariables.board[(int)origin.X, (int)origin.Y + 1] != null)
                             return true;
                         else
                             return false;
                     }
                 case 3:
                     {
-                        if (GameVariables.board[(int)origin.X-1, (int)origin.Y] != null)
+                        if (GameVariables.OnBoard(new Vector2 (origin.X-1, origin.Y))&& GameVariables.board[(int)origin.X-1, (int)origin.Y] != null)
                             return true;
                         else 
                             return false;
