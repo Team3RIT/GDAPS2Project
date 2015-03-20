@@ -120,31 +120,91 @@ namespace Arbiter
             base.Select(); // get normal movement
 
             //code for jump movement
-            List<Piece> pieces = CheckSides(this);
-            List<Piece> pieces2 = new List<Piece>();
-            //needs more code
-            foreach(Piece piece in pieces) //go through each possible jump configuration
-            {
+            bool up = CheckSides(this.Location,0);
+            bool down = CheckSides(this.Location,2);
+            bool left = CheckSides(this.Location, 3);
+            bool right = CheckSides(this.Location, 1);
+            int i = 0;
+            if(up)
+            {   //must check that it's on the board first to avoid out of bounds exception
+                while (GameVariables.OnBoard(new Vector2(Location.X, Location.Y + i)) && CheckSides(new Vector2(Location.X, Location.Y - i), 0)) //follows that line until it ends
+                {
+                    i++;
+                }
+                
+                possibleMoves.Add(new Vector2(this.Location.X, Location.Y - i - 1)); //add on +1 to be the space after the last occupied space
+                i = 0; //reset to 0 for next one
 
-                if (CheckSides(piece).Count > 1) //it has to be touching at least one piece
-                    pieces2.Add(piece);
-                       
+            }
+            if(down)
+            {
+                while (GameVariables.OnBoard(new Vector2(Location.X, Location.Y + i)) && CheckSides(new Vector2(Location.X, Location.Y + i), 2)) //follows that line until it ends
+                {
+                    i++;
+                }
+                possibleMoves.Add(new Vector2(this.Location.X, Location.Y + i + 1)); //add on +1 to be the space after the last occupied space
+                i = 0; //reset to 0 for next one
+            }
+            if(left)
+            {
+                while (GameVariables.OnBoard(new Vector2(Location.X-i, Location.Y)) && CheckSides(new Vector2(Location.X-i, Location.Y), 3)) //follows that line until it ends
+                {
+                    i++;
+                }
+                possibleMoves.Add(new Vector2(this.Location.X-i-1, Location.Y)); //add on 1 to be the space after the last occupied space
+                i = 0; //reset to 0 for next one
+            }
+            if (right)
+            {
+                while (GameVariables.OnBoard(new Vector2(Location.X + i, Location.Y)) && CheckSides(new Vector2(Location.X+i, Location.Y), 1)) //follows that line until it ends
+                {
+                    i++;
+                }
+                possibleMoves.Add(new Vector2(this.Location.X + i + 1, Location.Y)); //add on 1 to be the space after the last occupied space
+                i = 0; //reset to 0 for next one
             }
 
+
+            this.Trim(ref possibleMoves);
             return possibleMoves;
         }
-        public List<Piece> CheckSides(Piece origin) //checks all 4 adjacent spaces for more pieces.
+        public bool CheckSides(Vector2 origin, int direction) //0 is up, 1 is right, 2 is down, 3 is left
         {
-            List<Piece> pieces = new List<Piece>();
-            if (GameVariables.board[(int)origin.Location.X + 1, (int)origin.Location.Y] != null)
-                pieces.Add(GameVariables.board[(int)origin.Location.X + 1, (int)origin.Location.Y]);
-            if (GameVariables.board[(int)origin.Location.X - 1, (int)origin.Location.Y] != null)
-                pieces.Add(GameVariables.board[(int)origin.Location.X - 1, (int)origin.Location.Y]);
-            if (GameVariables.board[(int)origin.Location.X, (int)origin.Location.Y+1] != null)
-                pieces.Add(GameVariables.board[(int)origin.Location.X, (int)origin.Location.Y + 1]);
-            if (GameVariables.board[(int)origin.Location.X, (int)origin.Location.Y-1] != null)
-                pieces.Add(GameVariables.board[(int)origin.Location.X, (int)origin.Location.Y - 1]);
-            return pieces;
+            
+            switch(direction)
+            {
+                case 0:
+                    {
+                        if (GameVariables.board[(int)origin.X, (int)origin.Y-1] != null)
+                            return true;
+                        else
+                            return false;
+                    }
+                case 1:
+                    {
+                        if (GameVariables.board[(int)origin.X + 1, (int)origin.Y] != null)
+                            return true;
+                        else
+                            return false;
+                    }
+                case 2:
+                    {
+                        if (GameVariables.board[(int)origin.X, (int)origin.Y + 1] != null)
+                            return true;
+                        else
+                            return false;
+                    }
+                case 3:
+                    {
+                        if (GameVariables.board[(int)origin.X-1, (int)origin.Y] != null)
+                            return true;
+                        else 
+                            return false;
+                    }
+                    
+            }
+            return 
+                false;
         }
     }
 

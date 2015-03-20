@@ -41,7 +41,7 @@
     <Compile Include="MenuLogic.cs" />
     <Compile Include="MenuVariables.cs" />
     <Compile Include="UnitClasses.cs" />
-    <Compile Include="MapFileIO.cs" />
+    <Compile Include="FileIO.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="Tower.cs" />
     <Compile Include="Unit.cs" />
