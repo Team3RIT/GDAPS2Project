@@ -34,13 +34,40 @@ namespace Arbiter
         ////////////////////////////////////////////////COLOR VARIABLES///////////////////////////////////////////////////////
         //change the color of different boxes for different menus?
         public static Color BoxColor = Color.Black; //thecolor for generic title menu boxes - either equal to normal color, or to hovercolor
-        public static Color NormalColor = Color.Black; //a single default color for now, use whenever a mouse is not hovering over a rectangle
-        public static Color HoverColor = Color.Orange; //color for when mouse is hovering over a rectangle (not main rectangle)
-        public static Color BackgroundColor = Color.CadetBlue; //Color for the mainmenuboxes - used in the background - changes with each update version
+        
+        public static Color HoverColor = Color.MediumBlue; //color for when mouse is hovering over a rectangle (not main rectangle)
+        public static Color BackgroundColor = Color.Lime; //Color for the mainmenuboxes - used in the background - changes with each update version
+
+        // main menu box colors
+        public static Color MainMenuBoxColor = BoxColor;
+        public static Color MainTitleColor = BoxColor;
+        public static Color MainNewGameColor = BoxColor;
+        public static Color MainLoadGameColor = BoxColor;
+        public static Color MainOptionsColor = BoxColor;
+        public static Color MainExitColor = BoxColor;
+
+        //NewGame specifc colors
+        public static Color NewGameMenuBoxColor = BoxColor;
+        public static Color NewGameTitleColor = BoxColor;
+        public static Color NewGameMainMenuReturnColor = BoxColor;
+
+        //LoadGame specific colors
+        public static Color LoadMenuBoxColor = BoxColor;
+        public static Color LoadTitleColor = BoxColor;
+        public static Color LoadMainMenuReturnColor = BoxColor;
+        public static Color LoadTextBoxColor = BoxColor; //this functionality currently doesn't exist!
+
+        //options specific colors
+        public static Color OptionsMenuBoxColor = BoxColor;
+        public static Color OptionsTitleColor = BoxColor;
+        public static Color OptionsMainMenuReturnColor = BoxColor;
+        
         /*UPDATES:
         1.0 Cornflowerblue
         1.1 MediumSpringGreen
         2.0 CadetBlue;
+        3.0 Lime - boxes change to MediumBlue
+         
         */
         /////////////////////////////////////////////// RECTANGLE VARIABLES /////////////////////////////////////////////////////
         
@@ -51,7 +78,13 @@ namespace Arbiter
         public static Rectangle MainLoadGame;
         public static Rectangle MainOptions;
         public static Rectangle MainExit;
-        
+
+        //NewGame rectangles
+        public static Rectangle NewGameMenuBox;
+        public static Rectangle NewGameTitle;
+        public static Rectangle NewGameMainMenuReturn;
+
+
         //LoadGame rectangle
         public static Rectangle LoadMenuBox;
         public static Rectangle LoadTitle;

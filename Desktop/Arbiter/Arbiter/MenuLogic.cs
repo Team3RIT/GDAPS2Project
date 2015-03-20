@@ -19,14 +19,15 @@ namespace Arbiter
     //1.0 CornFlowerblue
     //1.1 MediumSpringGreen
     //2.0 Cadetblue
+    //3.0 Lime - boxes change to MediumBlue
     class MenuLogic
         
     {
         //contains the code for all of the logic behind the menu interfaces
 
         //////////////////////////////// VARIABLES ///////////////////////////////////////
-        
-        MouseState poppy = new MouseState(); //new mouseState object - poppy from Poppy!!!!
+
+         //new mouseState object - poppy from Poppy!!!!
 
 
 
@@ -44,9 +45,11 @@ namespace Arbiter
         /// <returns>true if within rectangles, false if not</returns>
         public bool ThinkInsideTheBox(Rectangle roy)
         {
+            
             //if mouse is within the rectangle, then return true
-            if (poppy.X >= roy.X && poppy.X <= (roy.X + roy.Width) && poppy.Y  >= roy.Y && poppy.Y <= (roy.Y + roy.Height))
+            if (Game1.poppy.X >= roy.X && Game1.poppy.X <= (roy.X + roy.Width) && Game1.poppy.Y  >= roy.Y && Game1.poppy.Y <= (roy.Y + roy.Height))
             {
+                
                 return true;
             }
             return false; //if not within box return false
@@ -61,7 +64,7 @@ namespace Arbiter
         public bool ThinkOutsideTheBox(Rectangle roy)
         {
             //if mouse is not within the given box, then return true
-            if (poppy.X < roy.X || poppy.X > (roy.X + roy.Width) || poppy.Y < roy.Y || poppy.Y > (roy.Y + roy.Height))
+            if (Game1.poppy.X < roy.X || Game1.poppy.X > (roy.X + roy.Width) || Game1.poppy.Y < roy.Y || Game1.poppy.Y > (roy.Y + roy.Height))
             {
                 return true;
             }
@@ -210,17 +213,84 @@ namespace Arbiter
             MenuVariables.MainOptions = CreateTitleBox("Options", 500, 200, font, MenuVariables.MainMenuBox);
             MenuVariables.MainExit = CreateTitleBox("Exit", 500, 250, font, MenuVariables.MainMenuBox);  
 
+            
+
             //handles all the event based logic for the main menu
             if (ThinkInsideTheBox(MenuVariables.MainNewGame) == true)
             {
-                MenuVariables.BoxColor = MenuVariables.HoverColor;
-                if(poppy.LeftButton == ButtonState.Released)
+                MenuVariables.MainNewGameColor = MenuVariables.HoverColor;
+                if(Game1.poppy.LeftButton == ButtonState.Pressed)
                 {
-                    
+                    //pull up new game menu, get rid of main menu
+                    MenuVariables.newGame = true;
+                    MenuVariables.main = false;
+                }
+                
+            }
+            if (ThinkOutsideTheBox(MenuVariables.MainNewGame) == true)
+            {
+                MenuVariables.MainNewGameColor = MenuVariables.BoxColor;
+            }
+
+            //load game
+            if (ThinkInsideTheBox(MenuVariables.MainLoadGame) == true)
+            {
+                MenuVariables.MainLoadGameColor = MenuVariables.HoverColor;
+                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                {
+                    //pull up new game menu, get rid of main menu
+                    MenuVariables.loadGame = true;
+                    MenuVariables.main = false;
+                }
+
+            }
+            
+            if (ThinkOutsideTheBox(MenuVariables.MainLoadGame) == true)
+            {
+                MenuVariables.MainLoadGameColor = MenuVariables.BoxColor;
+            }
+
+            //options
+            if (ThinkInsideTheBox(MenuVariables.MainOptions) == true)
+            {
+                MenuVariables.MainOptionsColor = MenuVariables.HoverColor;
+                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                {
+                    //pull up options menu, get rid of main menu
+                    MenuVariables.options = true;
+                    MenuVariables.main = false;
                 }
             }
             
-        }
+            if (ThinkOutsideTheBox(MenuVariables.MainOptions) == true)
+            {
+                MenuVariables.MainOptionsColor = MenuVariables.BoxColor;
+            }
+            ///exit
+            if (ThinkInsideTheBox(MenuVariables.MainExit) == true)
+            {
+                MenuVariables.MainExitColor = MenuVariables.HoverColor;
+                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                {
+                    //pull up new game menu, get rid of main menu
+                    
+                    ////////////////END THE GAME SOMEHOW!!!!!!!!!! ///////////////////////////////
+                    MenuVariables.main = false;
+                    Environment.Exit(0);
+                }
+
+            }
+            if (ThinkOutsideTheBox(MenuVariables.MainExit) == true)
+            {
+                MenuVariables.MainExitColor = MenuVariables.BoxColor;
+            }
+            
+        
+            
+        }////////////////////////// end of main menu logic //////////////////////////
+
+
+        //      ---- OPTIONS MENU ---
         public void OptionsMenuLogic(Game1 checkers, SpriteFont font)
         {
             //create the options menu
@@ -233,12 +303,21 @@ namespace Arbiter
             //handles all the event based logic for the options menu
             if (ThinkInsideTheBox(MenuVariables.OptionsMainMenuReturn) == true)
             {
-
-                if (poppy.LeftButton == ButtonState.Released)
+                MenuVariables.OptionsMainMenuReturnColor = MenuVariables.HoverColor;
+                if (Game1.poppy.LeftButton == ButtonState.Pressed)
                 {
-
+                    //pull up new game menu, get rid of main menu
+                    MenuVariables.main = true;
+                    MenuVariables.options = false;
                 }
+
             }
+            if (ThinkOutsideTheBox(MenuVariables.OptionsMainMenuReturn) == true)
+            {
+                MenuVariables.OptionsMainMenuReturnColor = MenuVariables.BoxColor;
+            }
+
+
         }
         public void LoadGameMenuLogic(Game1 checkers, SpriteFont font)
         {
@@ -253,9 +332,50 @@ namespace Arbiter
 
 
             //handles all the event based logic for the load game menu
-            if (poppy.LeftButton == ButtonState.Released && ThinkInsideTheBox(MenuVariables.MainLoadGame) == true)
+            if (ThinkInsideTheBox(MenuVariables.LoadMainMenuReturn) == true)
             {
+                MenuVariables.LoadMainMenuReturnColor = MenuVariables.HoverColor;
+                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                {
+                    //pull up main menu, get rid of loadGame menu
+                    MenuVariables.main = true;
+                    MenuVariables.loadGame = false;
+                }
 
+            }
+            if (ThinkOutsideTheBox(MenuVariables.OptionsMainMenuReturn) == true)
+            {
+                MenuVariables.LoadMainMenuReturnColor = MenuVariables.BoxColor;
+            }
+        }
+
+        public void NewGameMenuLogic(Game1 checkers, SpriteFont font)
+        {
+            //create the load game menu
+
+            //define all of the necessary rectangles - variables inherited from MenuVariables
+            //define rectangles boxes thingys
+            MenuVariables.NewGameMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.NewGameTitle = CreateTitleBox("New Game Menu", 600, 50, font, MenuVariables.NewGameMenuBox);  //give LoadGame a title
+            MenuVariables.NewGameMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 100, font, MenuVariables.NewGameMenuBox);  //Return to main menu
+            
+
+
+            //handles all the event based logic for the load game menu
+            if (ThinkInsideTheBox(MenuVariables.NewGameMainMenuReturn) == true)
+            {
+                MenuVariables.NewGameMainMenuReturnColor = MenuVariables.HoverColor;
+                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                {
+                    //pull up main menu, get rid of loadGame menu
+                    MenuVariables.main = true;
+                    MenuVariables.newGame = false;
+                }
+
+            }
+            if (ThinkOutsideTheBox(MenuVariables.NewGameMainMenuReturn) == true)
+            {
+                MenuVariables.NewGameMainMenuReturnColor = MenuVariables.BoxColor;
             }
         }
 
