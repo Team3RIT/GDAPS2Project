@@ -22,7 +22,10 @@ namespace Arbiter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
-        MenuBoxes pandora;
+        MenuDisplay pandora;
+        MenuLogic shrodingers;
+        SoundEffect music;
+        
 
         public Game1()
             : base()
@@ -32,6 +35,10 @@ namespace Arbiter
             graphics.PreferredBackBufferWidth = GameVariables.screenWidth;  //sets the window size. DO NOT SET THIS DIRECTLY, change in GameVariables class
             graphics.PreferredBackBufferHeight = GameVariables.screenHeight;   
             graphics.ApplyChanges();
+
+            //define menu objects
+            shrodingers = new MenuLogic();
+            pandora = new MenuDisplay();
         }
         
         /// <summary>
@@ -43,7 +50,7 @@ namespace Arbiter
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            pandora = new MenuBoxes(); //create a menuboxes object
+            
             base.Initialize();
         }
 
@@ -81,8 +88,12 @@ namespace Arbiter
 
             // TODO: Add your update logic here
 
+            //menu control
+            shrodingers.MainMenuLogic(this, font);
+
+            //music.Play();
             
-               //music.Play();
+            
             
             base.Update(gameTime);
         }
@@ -98,7 +109,10 @@ namespace Arbiter
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             //pandora.DisplayTestPopup("Tower Control Game of No-Names", "this is some test text", "USUP", spriteBatch, font, this);
-            //pandora.DisplayMainMenu(spriteBatch, font, this);
+            if (MenuVariables.main == true)
+            {
+                pandora.DisplayMainMenu(spriteBatch, font, this);
+            }
             //pandora.DisplayOptionsMenu(spriteBatch, font, this);
             //pandora.DisplayLoadGameMenu(spriteBatch, font, this);
             spriteBatch.End();
