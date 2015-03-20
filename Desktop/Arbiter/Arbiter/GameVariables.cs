@@ -20,14 +20,14 @@ namespace Arbiter
         static public List<Structure> structures = new List<Structure>();
         static public List<Player> players = new List<Player>();
 
-        //constants
-        public const int screenWidth = 800;
-        public const int screenHeight = 680;
-        public const int boardDim = 400; //square board, only need one dimension
-        public const int spaceDim = boardDim / boardSpaceDim; //square spaces, one dimension
-        public const int boardSpaceDim = 10; //icons should be 64px square
-        public const int screenbufferHorizontal = (screenWidth - boardDim)/2;
-        public const int screenbufferVertical = (screenHeight - boardDim) / 2;
+        //board dimensions
+        public static int screenWidth = 800;
+        public static int screenHeight = 680;
+        public static int boardDim = 640; //square board, only need one dimension
+        public static int spaceDim = boardDim / boardSpaceDim; //square spaces, one dimension
+        public static int boardSpaceDim = 10; //icons should be 64px square
+        public static int screenbufferHorizontal = (screenWidth - boardDim)/2;
+        public static int screenbufferVertical = (screenHeight - boardDim) / 2;
         
         //location.X*spaceDim, location.Y*spaceDim will work for giving a top left screen location.
 

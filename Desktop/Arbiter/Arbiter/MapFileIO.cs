@@ -29,6 +29,8 @@ namespace Arbiter
             Piece[,] board = new Piece[GameVariables.boardSpaceDim, GameVariables.boardSpaceDim];
             int x;
             int y;
+            x = reader.ReadInt32();
+            GameVariables.boardSpaceDim = x;
             while ((x = reader.ReadInt32()) != -1) // -1 will be used as the sign to switch from structures to towers
             {
                 y = reader.ReadInt32();

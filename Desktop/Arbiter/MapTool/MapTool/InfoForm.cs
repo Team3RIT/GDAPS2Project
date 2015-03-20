@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace MapTool
 {
     public partial class InfoForm : Form
     {
         public int x;
-        public int y;
+        
         MainForm owner;
         public InfoForm(MainForm own)
         {
@@ -29,20 +30,15 @@ namespace MapTool
             if (!success || x < 1 || x > 20)
             {
                 textBoxX.Clear();
-                textBoxY.Clear();
                 return;
             }
-            success = Int32.TryParse(this.textBoxY.Text, out y);
-            if (!success || y < 1 || y > 20)
-            {
-                textBoxX.Clear();
-                textBoxY.Clear();
-                return;
-            }
+            
 
-            owner.MapBuilder(x, y);
+            owner.MapBuilder(x);
             this.Close();
 
         }
+
+       
     }
 }
