@@ -112,19 +112,21 @@ namespace MapTool
 
         private void submitButton_Click(object sender, System.EventArgs e)
         {
-            bool success = true;
-            if (textBox.Text.Length != 1)
-              success = MapWrite(textBox.Text);
-            else
-                textBox.Clear();
+            bool success = true; //tracks if the map was written successfully
 
-            if(!success)
+            label = new Label(); //label for output to user
+            label.Location = new System.Drawing.Point(30, 30 * dim + 130);
+            label.AutoSize = true;
+            this.Controls.Add(label);
+
+            if (textBox.Text.Length != 1) //if there is a filename
+              success = MapWrite(textBox.Text); //will return true if the layout is acceptable
+
+            if(!success) //towers were not good
             {
-                label = new Label();
+                
                 label.Text = "Must include between 5 and 11 towers. There must be an odd number of towers.";
-                label.Location = new System.Drawing.Point(30, 30 * dim + 120);
-                label.AutoSize = true;
-                this.Controls.Add(label);
+                
             }
             else
             {
@@ -132,11 +134,11 @@ namespace MapTool
                 {
                     for (int j = 0; j < dim; j++)
                     {
-                        tiles[i, j].Image = null;
+                        tiles[i, j].Image = null; //reset the board so they can make a new file
                         nums[i, j] = 0;
                     }
                 }
-                label.Text = "File Written Successfully. File can be found in Arbiter/bin.";
+                label.Text = "File Written Successfully. File can be found in Arbiter/bin/maps.";
             }
         }
 
@@ -174,7 +176,7 @@ namespace MapTool
                 return false;
             }
 
-            writer = new BinaryWriter(File.Open("..\\..\\..\\..\\Arbiter\\bin"+path,FileMode.Create));
+            writer = new BinaryWriter(File.Open("..\\..\\..\\..\\Arbiter\\bin\\maps\\"+path,FileMode.Create));
 
             writer.Write(dim); //first thing in the map file is dimension of board in spaces
 

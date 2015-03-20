@@ -10,3 +10,5 @@ C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\serra_000\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.csprojResolveAssemblyReference.cache
 C:\Users\serra_000\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.exe
 C:\Users\serra_000\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.pdb
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.exe
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.pdb
