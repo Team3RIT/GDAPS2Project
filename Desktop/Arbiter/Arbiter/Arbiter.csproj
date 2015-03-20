@@ -37,9 +37,11 @@
   <ItemGroup>
     <Compile Include="Game1.cs" />
     <Compile Include="GameVariables.cs" />
+    <Compile Include="MenuDisplay.cs" />
+    <Compile Include="MenuLogic.cs" />
+    <Compile Include="MenuVariables.cs" />
     <Compile Include="UnitClasses.cs" />
     <Compile Include="MapFileIO.cs" />
-    <Compile Include="MenuBoxes.cs" />
     <Compile Include="Piece.cs" />
     <Compile Include="Tower.cs" />
     <Compile Include="Unit.cs" />
