@@ -22,7 +22,7 @@ namespace Arbiter
         #endregion
 
         #region constructor
-        public Unit(int x, int y, Texture2D icn, Player own):base(x,y,icn)
+        public Unit(int x, int y, Player own):base(x,y)
         {
            owner = own;
 

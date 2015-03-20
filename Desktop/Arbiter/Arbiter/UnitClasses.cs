@@ -14,8 +14,8 @@ namespace Arbiter
     //Margaret
     class StandardUnit : Unit
     {
-        public StandardUnit(int x, int y, Texture2D icn, Player own)
-            : base(x, y, icn, own)
+        public StandardUnit(int x, int y, Player own)
+            : base(x, y, own)
         {
             rank = 2;
         }
@@ -23,8 +23,8 @@ namespace Arbiter
     }
     class HeavyUnit : Unit
     {
-        public HeavyUnit(int x, int y, Texture2D icn, Player own)
-            : base(x, y, icn, own)
+        public HeavyUnit(int x, int y, Player own)
+            : base(x, y, own)
         {
             rank = 1;
         }
@@ -32,8 +32,8 @@ namespace Arbiter
 
     class LightUnit : Unit
     {
-        public LightUnit(int x, int y, Texture2D icn, Player own)
-            : base(x, y, icn, own)
+        public LightUnit(int x, int y, Player own)
+            : base(x, y, own)
         {
             rank = 3;
         }
@@ -109,8 +109,8 @@ namespace Arbiter
 
     class JumperUnit : Unit
     {
-        public JumperUnit(int x, int y, Texture2D icn, Player own)
-            : base(x, y, icn, own)
+        public JumperUnit(int x, int y,  Player own)
+            : base(x, y, own)
         {
             rank = 1;
         }

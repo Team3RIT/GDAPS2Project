@@ -16,7 +16,6 @@ namespace Arbiter
     {
         #region attributes
         protected Vector2 location;
-        protected Texture2D icon;
         protected Rectangle region;
         public Player owner = new Player("Map",-1); //There will be essentially a map player that never has a turn that owns inanimate pieces, just to allow the use of a Piece array.
                                                     //IMPORTANT: Do not use negative ID numbers for other players!
@@ -60,7 +59,7 @@ namespace Arbiter
         #endregion
 
         #region constructor
-        public Piece(int x, int y, Texture2D icn)
+        public Piece(int x, int y)
         {
             if (x >= 0 && x < GameVariables.boardSpaceDim && y >= 0 && x < GameVariables.boardSpaceDim && GameVariables.board[x, y] == null) // if both are within bounds and the space is empty
             {                                                                      // the array gets checked last so there's no out of bounds exception       
@@ -68,7 +67,6 @@ namespace Arbiter
                 location.Y = y;
                 GameVariables.board[x, y] =this;
                 region = new Rectangle((int)(location.X * GameVariables.spaceDim + GameVariables.screenbufferHorizontal), (int)(location.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical), GameVariables.spaceDim, GameVariables.spaceDim);
-                icon = icn;
             }
         }
         #endregion

@@ -21,10 +21,10 @@ namespace Arbiter
         #region map methods
         public static void ReadMapFile(string filepath) //will read file and make changes to board. 
         {
-            if (!File.Exists(filepath))
+            if (!File.Exists("..\\maps\\"+filepath))
                 return; //method just dies if it's a bad path
-            
-            reader = new BinaryReader(File.Open(filepath,FileMode.Open)); //initialize the reader
+
+            reader = new BinaryReader(File.Open("..\\maps\\" + filepath, FileMode.Open)); //initialize the reader
 
             Piece[,] board = new Piece[GameVariables.boardSpaceDim, GameVariables.boardSpaceDim];
             int x;
@@ -35,14 +35,14 @@ namespace Arbiter
             {
                 y = reader.ReadInt32();
                 if (x < GameVariables.boardSpaceDim && x >= 0 && y < GameVariables.boardSpaceDim && y >= 0)
-                new Structure(x, y, null); //this null thing needs to be switched out with a structure texture. As it is it will mess things up.
+                   new Structure(x, y); 
                 
             }
             while((x = reader.ReadInt32()) != null) //until end of file
             {
                 y = reader.ReadInt32();
                 if (x < GameVariables.boardSpaceDim && x >= 0 && y < GameVariables.boardSpaceDim && y >= 0)
-                    new Tower(x, y, null); //same deal with the tower texture
+                    new Tower(x, y); 
 
             }
             reader.Close();
@@ -116,33 +116,33 @@ namespace Arbiter
                         }
                     case 0: //structure
                         {
-                            GameVariables.board[x, y] = new Structure(x, y, null); // all of these units need filler content
+                            GameVariables.board[x, y] = new Structure(x, y); // all of these units need filler content
                             break;
                         }
                     case 1: //heavy unit
                         {
 
-                            GameVariables.board[x,y] = new HeavyUnit(x,y,null,player);
+                            GameVariables.board[x,y] = new HeavyUnit(x,y,player);
                             break;
                         }
                     case 2: //standard unit
                         {
-                            GameVariables.board[x,y] = new StandardUnit(x,y,null,player);
+                            GameVariables.board[x,y] = new StandardUnit(x,y,player);
                             break;
                         }
                     case 3: //light unit
                         {
-                            GameVariables.board[x,y] = new LightUnit(x,y,null,player);
+                            GameVariables.board[x,y] = new LightUnit(x,y,player);
                             break;
                         }
                     case 4: //jumper unit
                         {
-                            GameVariables.board[x,y] = new JumperUnit(x,y,null,player);
+                            GameVariables.board[x,y] = new JumperUnit(x,y,player);
                             break;
                         }
                     case 5: //Tower
                         {
-                            GameVariables.board[x,y] = new Tower(x,y,null);
+                            GameVariables.board[x,y] = new Tower(x,y);
                             break;
                         }
                 }

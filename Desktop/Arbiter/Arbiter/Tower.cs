@@ -16,10 +16,11 @@ namespace Arbiter
         private bool isClaimed = false;
         private Unit claimedBy;
 
-        public Tower(int x, int y, Texture2D icn):base(x,y,icn)
+        public Tower(int x, int y):base(x,y)
         {
             rank = 5; //anything should be able to get in unless the if statement below catches it
             GameVariables.towers.Add(this);
+            GameVariables.board[x, y] = this;
         }
 
         public void Claim(Unit unit)

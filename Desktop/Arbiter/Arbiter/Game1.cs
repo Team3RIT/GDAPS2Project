@@ -123,6 +123,46 @@ namespace Arbiter
             base.Draw(gameTime);
         }
         
+        public void DrawBoard() //should be between spritebatch Begin and End
+        {
+            for (int i = 0; i < GameVariables.boardSpaceDim; i++)
+            {
+                for (int j = 0; j < GameVariables.boardSpaceDim; j++)
+                {
+                    //spriteBatch.Draw(blank space picture)
+                    if(GameVariables.board[i,j] == null)
+                    {
+                        //spriteBatch.Draw(ground texture)
+
+                    }
+                    else if(GameVariables.board[i,j] is Tower)
+                    {
+                        //spriteBatch.Draw(tower)
+
+                    }
+                    else if(GameVariables.board[i,j] is Structure)
+                    {
+                        //spriteBatch.Draw(structure)
+                    }
+                    else if(GameVariables.board[i,j] is StandardUnit)
+                    {
+                        //spriteBatch.Draw(standardUnit)
+                    }
+                    else if(GameVariables.board[i,j] is LightUnit)
+                    {
+                        //spriteBatch.Draw(LightUnit)
+                    }
+                    else if(GameVariables.board[i,j] is HeavyUnit)
+                    {
+                        //spriteBatch.Draw(HeavyUnit)
+                    }
+                    else if(GameVariables.board[i,j] is JumperUnit)
+                    {
+                        //spriteBatch.Draw(HeavyUnit)
+                    }
+                }
+            }
+        }
     
     }
 }
