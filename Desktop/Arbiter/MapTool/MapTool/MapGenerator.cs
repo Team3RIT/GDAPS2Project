@@ -10,68 +10,111 @@ namespace MapTool
     //Margaret
 
     //STILL NEEDS A SHIT TON OF WORK
-    //will augment with midpoint displacement and logic later. Right now it's ultra random
+    //
     public static class MapGenerator
     {
         public static Random rng = new Random();
         //for weighting the random number generator results
-        private static int totalWeight; // range of rng
-        private static int towerWeight;
-        private static int structureWeight;
+        
         private static int towerCount;
         private static int structureCount;
+        private static int midpoint1;
+        private static int midpoint2;
         static MainForm owner;
         public static void GenerateMap(int dim, MainForm own)
         {
-            int randomNum;
+            
             owner = own;
             if (dim < 20)
             {
                 towerCount = rng.Next(5, 8); //smaller space, less towers.
+                if (towerCount % 2 == 0)//keep it odd
+                    towerCount++;
             }
             else
             {
                 towerCount = rng.Next(5, 12);
+                if (towerCount % 2 == 0)
+                    towerCount++;
             }
             if (dim < 20)
             {
                 structureCount = rng.Next(5, 16); //smaller space, less structures.
+                
             }
             else
             {
                 structureCount = rng.Next(5, 20);
+                
             }
 
-            totalWeight = (int)Math.Pow((double)dim, 2.0); //the casting won't lose data, square of an int is an int
-            
-            for(int i = 0; i < dim; i++)
-            {
-                for(int j = 0; j < dim; j++)
+            int randomx;
+            int randomy;
+            int quadrantCount = 0; //keeps track of the quadrant. Q2 = 0, Q1 = 1, Q4 = 2, Q3 = 3
+            bool success = false; //if a tower was put down successfully
+                midpoint1 = dim / 2;
+                midpoint2 = dim / 4;
+
+                while(towerCount > 0 ) //do the towers first
                 {
-                    structureWeight = towerCount + structureCount; //keep the weighting accurate
-                    towerWeight = towerCount;
-                    randomNum = rng.Next(0, totalWeight + 1);
+                    randomx = rng.Next(-midpoint2, midpoint2);
+                    randomy = rng.Next(-midpoint2, midpoint2);
+                    
+                    switch(quadrantCount)
+                    {
+                        case 0: //upper left quadrant (Q2)
+                            {
+                                if (owner.nums[midpoint2 + randomx, midpoint2 + randomy] == 0)
+                                {
+                                    owner.nums[midpoint2 + randomx, midpoint2 + randomy] = 2;
+                                    owner.tiles[midpoint2 + randomx, midpoint2 + randomy].Image = Image.FromFile("../Images/tower.png");
+                                    success = true;
+                                }
+                                break;
+                            }
+                        case 1: //upper right quadrant (Q1)
+                            {
+                                if (owner.nums[midpoint1 + midpoint2 + randomx, midpoint2 + randomy] == 0)
+                                {
+                                    owner.nums[midpoint1 + midpoint2 + randomx, midpoint2 + randomy] = 2;
+                                    owner.tiles[midpoint1 + midpoint2 + randomx, midpoint2 + randomy].Image = Image.FromFile("../Images/tower.png");
+                                    success = true;
+                                }
+                                break;
+                            }
+                        case 2: //lower right quadrant (Q4)
+                            {
+                                if (owner.nums[midpoint1 + midpoint2 + randomx, midpoint1 + midpoint2 + randomy] == 0)
+                                {
+                                    owner.nums[midpoint1 + midpoint2 + randomx, midpoint1 + midpoint2 + randomy] = 2;
+                                    owner.tiles[midpoint1 + midpoint2 + randomx, midpoint1 + midpoint2 + randomy].Image = Image.FromFile("../Images/tower.png");
+                                    success = true;
+                                }
+                                break;
+                            }
+                        case 3: //lower left quadrant (Q3)
+                            {
+                                if (owner.nums[midpoint2 + randomx, midpoint1 + midpoint2 + randomy] == 0)
+                                {
+                                    owner.nums[midpoint2 + randomx, midpoint1 + midpoint2 + randomy] = 2;
+                                    owner.tiles[midpoint2 + randomx, midpoint1 + midpoint2 + randomy].Image = Image.FromFile("../Images/tower.png");
+                                    success = true;
+                                }
+                                break;
+                            }
+                    }
+                    if(success)
+                    towerCount--; //a tower has been placed, so one less exists
 
-                    if(randomNum < towerWeight && towerCount != 0)
-                    {
-                        owner.nums[i, j] = 2;
-                        owner.tiles[i, j].Image = Image.FromFile("../Images/tower.png");
-                        towerCount--;
-                    }
-                    else if(randomNum < structureWeight && structureCount != 0)
-                    {
-                        owner.nums[i, j] = 1;
-                        owner.tiles[i, j].Image = Image.FromFile("../Images/structure.jpg");
-                        structureCount--;
-                    }
+                    if(quadrantCount == 3) //keep quadrant looping
+                        quadrantCount = 0;
                     else
-                    {
-                        owner.nums[i, j] = 0;
-                        owner.tiles[i, j].Image = null;
-                    }
-                    totalWeight--;
+                        quadrantCount++;
+
+                    success = false;
                 }
-            }
+                
+            
 
 
 

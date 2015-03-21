@@ -127,8 +127,10 @@ namespace MapTool
             label.AutoSize = true;
             this.Controls.Add(label);
 
-            if (textBox.Text.Length != 1) //if there is a filename
-              success = MapWrite(textBox.Text); //will return true if the layout is acceptable
+            if (textBox.Text.Length != 0) //if there is a filename
+                success = MapWrite(textBox.Text); //will return true if the layout is acceptable
+            else
+                label.Text = "Please enter a file name.";
 
             if(!success) //towers were not good
             {
