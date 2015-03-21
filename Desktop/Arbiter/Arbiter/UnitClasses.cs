@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.GamerServices;
 namespace Arbiter
 {
     //Margaret
+
+    
     class StandardUnit : Unit
     {
         public StandardUnit(int x, int y, Player own)
@@ -21,6 +23,7 @@ namespace Arbiter
         }
 
     }
+   
     class HeavyUnit : Unit
     {
         public HeavyUnit(int x, int y, Player own)

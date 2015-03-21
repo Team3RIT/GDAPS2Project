@@ -21,6 +21,7 @@ namespace MapTool
         TextBox textBox;
         Button submitButton;
         Label label;
+        Button randomButton;
         public MainForm()
         {
             InitializeComponent();
@@ -70,6 +71,13 @@ namespace MapTool
             submitButton.Text = "Submit";
             submitButton.Click += new EventHandler(submitButton_Click);
             this.Controls.Add(submitButton);
+
+            randomButton = new Button();
+            randomButton.Location = new System.Drawing.Point(210, 30 * x + 100);
+            randomButton.Text = "Randomize";
+            randomButton.Click += new EventHandler(randomButton_Click);
+            this.Controls.Add(randomButton);
+
 
             textBox = new TextBox();
             textBox.Location = new System.Drawing.Point(30, 30*x + 80);
@@ -153,16 +161,16 @@ namespace MapTool
                 {
                     switch (nums[i, j])
                     {
-                        case 0:
+                        case 0: //blank
                             {
                                 break;
                             }
-                        case 1:
+                        case 1: //structure
                             {
                                 structures.Add(new Point(i, j));
                                 break;
                             }
-                        case 2:
+                        case 2: //tower
                             {
                                 towers.Add(new Point(i, j));
                                 break;
@@ -195,5 +203,11 @@ namespace MapTool
             writer.Close();
             return true;
         }
+
+        private void randomButton_Click(object sender, System.EventArgs e)
+        {
+            MapGenerator.GenerateMap(dim, this);
+        }
+
     }
 }
