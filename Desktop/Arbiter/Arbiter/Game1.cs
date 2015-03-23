@@ -22,9 +22,9 @@ namespace Arbiter
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
-        MenuDisplay pandora;
-        MenuLogic shrodingers;
-        public static MouseState poppy; // the mouse state for the menus
+        MenuDisplay DisplayBox;
+        MenuLogic LogicBox;
+        public static MouseState click; // the mouse state for the menus
 
         public Game1()
             : base()
@@ -38,8 +38,8 @@ namespace Arbiter
             IsMouseVisible = true;
             
             //define menu objects
-            shrodingers = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret
-            pandora = new MenuDisplay();
+            LogicBox = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret -NEVER!!!, alright, fine..... - Nick
+            DisplayBox = new MenuDisplay();
             
         }
         
@@ -95,23 +95,23 @@ namespace Arbiter
             // TODO: Add your update logic here
 
             //update the mouse
-            poppy = Mouse.GetState();
+            click = Mouse.GetState();
             //menu control
             if (MenuVariables.main == true)
             {
-                shrodingers.MainMenuLogic(this, font);
+                LogicBox.MainMenuLogic(this, font);
             }
             if (MenuVariables.newGame == true)
             {
-                shrodingers.NewGameMenuLogic(this, font);
+                LogicBox.NewGameMenuLogic(this, font);
             }
             if (MenuVariables.options == true)
             {
-                shrodingers.OptionsMenuLogic(this, font);
+                LogicBox.OptionsMenuLogic(this, font);
             }
             if (MenuVariables.loadGame == true)
             {
-                shrodingers.LoadGameMenuLogic(this, font);
+                LogicBox.LoadGameMenuLogic(this, font);
             }
 
             //music.Play();
@@ -137,19 +137,19 @@ namespace Arbiter
             //pandora.DisplayTestPopup("Tower Control Game of No-Names", "this is some test text", "USUP", spriteBatch, font, this);
             if (MenuVariables.main == true)
             {
-                pandora.DisplayMainMenu(spriteBatch, font, this);
+                DisplayBox.DisplayMainMenu(spriteBatch, font, this);
             }
             if(MenuVariables.newGame == true)
             {
-                pandora.DisplayNewGameMenu(spriteBatch, font, this);
+                DisplayBox.DisplayNewGameMenu(spriteBatch, font, this);
             }
             if (MenuVariables.options == true)
             {
-                pandora.DisplayOptionsMenu(spriteBatch, font, this);
+                DisplayBox.DisplayOptionsMenu(spriteBatch, font, this);
             }
             if (MenuVariables.loadGame == true)
             {
-                pandora.DisplayLoadGameMenu(spriteBatch, font, this);
+                DisplayBox.DisplayLoadGameMenu(spriteBatch, font, this);
             }
             
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////

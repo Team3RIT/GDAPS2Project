@@ -15,6 +15,7 @@ namespace Arbiter
    
     //holds all of the methods for displaying popup boxes and menus - used to be known as MenuBoxes
     //responsible for the methods thrown into the Draw method in the Game1 class
+    //whats drawn can be changed by the methods from MenuLogic, by influencing MenuVariables
     //Development Coding Color
     //1.0 CornFlowerblue
     //1.1 MediumSpringGreen
@@ -109,7 +110,7 @@ namespace Arbiter
             FillText.SetData(new Color[] { Color.White });
 
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.OptionsMenuBox, MenuVariables.BackgroundColor); //cornflowerblue, mediumspringgreen
+            batch.Draw(FillText, MenuVariables.LoadMenuBox, MenuVariables.BackgroundColor); //cornflowerblue, mediumspringgreen
             
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.LoadTitle, MenuVariables.LoadTitleColor); // draws the box
@@ -125,8 +126,8 @@ namespace Arbiter
 
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        #region PopUpBox TestCase
         //displays a test version of a menubox, one which uses all the different types of boxes (including a text box which does not have an independant method)
         public void DisplayTestPopup(string Title, string text, string AssetPicturePath, SpriteBatch batch, SpriteFont font, Game1 chess)
         {
@@ -187,7 +188,7 @@ namespace Arbiter
 
         }
 
-
+        #endregion
 
     }//end of class
 }

@@ -27,7 +27,7 @@ namespace Arbiter
 
         //////////////////////////////// VARIABLES ///////////////////////////////////////
 
-         //new mouseState object - poppy from Poppy!!!!
+         
 
 
 
@@ -36,7 +36,7 @@ namespace Arbiter
 
 
         ///////////////////////////////---- HELPER METHODS ----/////////////////////////////////////////////////////
-
+        #region HELPER METHODS
 
         /// <summary>
         /// method which checks if mouse is within the given rectangle
@@ -47,7 +47,7 @@ namespace Arbiter
         {
             
             //if mouse is within the rectangle, then return true
-            if (Game1.poppy.X >= roy.X && Game1.poppy.X <= (roy.X + roy.Width) && Game1.poppy.Y  >= roy.Y && Game1.poppy.Y <= (roy.Y + roy.Height))
+            if (Game1.click.X >= roy.X && Game1.click.X <= (roy.X + roy.Width) && Game1.click.Y  >= roy.Y && Game1.click.Y <= (roy.Y + roy.Height))
             {
                 
                 return true;
@@ -64,14 +64,16 @@ namespace Arbiter
         public bool ThinkOutsideTheBox(Rectangle roy)
         {
             //if mouse is not within the given box, then return true
-            if (Game1.poppy.X < roy.X || Game1.poppy.X > (roy.X + roy.Width) || Game1.poppy.Y < roy.Y || Game1.poppy.Y > (roy.Y + roy.Height))
+            if (Game1.click.X < roy.X || Game1.click.X > (roy.X + roy.Width) || Game1.click.Y < roy.Y || Game1.click.Y > (roy.Y + roy.Height))
             {
                 return true;
             }
             return false; //if within box return false
         }
-        /////////////////////////////// ---- CREATE MENU BOXES HELPER METHODS ---- //////////////////////////////////////
 
+#endregion
+        /////////////////////////////// ---- CREATE MENU BOXES HELPER METHODS ---- //////////////////////////////////////
+        #region CREATE MENU BOXES HELPER METHODS
         /// <summary>
         /// takes text, seperates it by its ',' into individual lines and returns them as an array
         /// </summary>
@@ -195,7 +197,7 @@ namespace Arbiter
             return TitleBox; //returns the titlebox
         }
 
-
+        #endregion
 
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -219,7 +221,7 @@ namespace Arbiter
             if (ThinkInsideTheBox(MenuVariables.MainNewGame) == true)
             {
                 MenuVariables.MainNewGameColor = MenuVariables.HoverColor;
-                if(Game1.poppy.LeftButton == ButtonState.Pressed)
+                if(Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up new game menu, get rid of main menu
                     MenuVariables.newGame = true;
@@ -236,7 +238,7 @@ namespace Arbiter
             if (ThinkInsideTheBox(MenuVariables.MainLoadGame) == true)
             {
                 MenuVariables.MainLoadGameColor = MenuVariables.HoverColor;
-                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up new game menu, get rid of main menu
                     MenuVariables.loadGame = true;
@@ -254,7 +256,7 @@ namespace Arbiter
             if (ThinkInsideTheBox(MenuVariables.MainOptions) == true)
             {
                 MenuVariables.MainOptionsColor = MenuVariables.HoverColor;
-                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up options menu, get rid of main menu
                     MenuVariables.options = true;
@@ -270,7 +272,7 @@ namespace Arbiter
             if (ThinkInsideTheBox(MenuVariables.MainExit) == true)
             {
                 MenuVariables.MainExitColor = MenuVariables.HoverColor;
-                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up new game menu, get rid of main menu
                     
@@ -297,14 +299,14 @@ namespace Arbiter
             MenuVariables.OptionsMenuBox = CreateMainBox(checkers, 800, 680);
             MenuVariables.OptionsTitle = CreateTitleBox("Options Menu", 600, 50, font, MenuVariables.OptionsMenuBox);  //give options a title
 
-            MenuVariables.OptionsMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 100, font, MenuVariables.OptionsMenuBox);  //return to main menu
+            MenuVariables.OptionsMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 400, font, MenuVariables.OptionsMenuBox);  //return to main menu
 
 
             //handles all the event based logic for the options menu
             if (ThinkInsideTheBox(MenuVariables.OptionsMainMenuReturn) == true)
             {
                 MenuVariables.OptionsMainMenuReturnColor = MenuVariables.HoverColor;
-                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up new game menu, get rid of main menu
                     MenuVariables.main = true;
@@ -327,15 +329,15 @@ namespace Arbiter
             //define rectangles boxes thingys
             MenuVariables.LoadMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
             MenuVariables.LoadTitle = CreateTitleBox("Load Game Menu", 600, 50, font, MenuVariables.LoadMenuBox);  //give LoadGame a title
-            MenuVariables.LoadMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 100, font, MenuVariables.LoadMenuBox);  //Return to main menu
-            MenuVariables.LoadTextBox = CreateTitleBox("this functionality currently doesn't exist!", 500, 150, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
+            MenuVariables.LoadMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 400, font, MenuVariables.LoadMenuBox);  //Return to main menu
+            MenuVariables.LoadTextBox = CreateTitleBox("this functionality currently doesn't exist!", 500, 100, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
 
 
             //handles all the event based logic for the load game menu
             if (ThinkInsideTheBox(MenuVariables.LoadMainMenuReturn) == true)
             {
                 MenuVariables.LoadMainMenuReturnColor = MenuVariables.HoverColor;
-                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up main menu, get rid of loadGame menu
                     MenuVariables.main = true;
@@ -357,7 +359,7 @@ namespace Arbiter
             //define rectangles boxes thingys
             MenuVariables.NewGameMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
             MenuVariables.NewGameTitle = CreateTitleBox("New Game Menu", 600, 50, font, MenuVariables.NewGameMenuBox);  //give LoadGame a title
-            MenuVariables.NewGameMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 100, font, MenuVariables.NewGameMenuBox);  //Return to main menu
+            MenuVariables.NewGameMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 400, font, MenuVariables.NewGameMenuBox);  //Return to main menu
             
 
 
@@ -365,7 +367,7 @@ namespace Arbiter
             if (ThinkInsideTheBox(MenuVariables.NewGameMainMenuReturn) == true)
             {
                 MenuVariables.NewGameMainMenuReturnColor = MenuVariables.HoverColor;
-                if (Game1.poppy.LeftButton == ButtonState.Pressed)
+                if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up main menu, get rid of loadGame menu
                     MenuVariables.main = true;
