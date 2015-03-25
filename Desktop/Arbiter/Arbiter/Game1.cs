@@ -24,6 +24,7 @@ namespace Arbiter
         SpriteFont font;
         MenuDisplay DisplayBox;
         MenuLogic LogicBox;
+        GamePadState gstate = new GamePadState();
         public static MouseState click; // the mouse state for the menus
 
         public Game1()

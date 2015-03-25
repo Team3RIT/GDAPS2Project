@@ -6,6 +6,10 @@ using System.Text;
 //Margaret
 namespace Arbiter
 {
+    /// <summary>
+    /// Class for players, also includes the 'map player' (who simply owns the structures and towers, 
+    /// but does not make it on the player lists or get a turn), may include AI player if AI is implemented.
+    /// </summary>
     public class Player
     {
         #region attributes

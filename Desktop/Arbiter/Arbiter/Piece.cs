@@ -12,6 +12,10 @@ using Microsoft.Xna.Framework.GamerServices;
 namespace Arbiter
 {
     //Margaret
+
+    /// <summary>
+    /// Parent of all objects on the board
+    /// </summary>
     public abstract class Piece
     {
         #region attributes
@@ -72,6 +76,13 @@ namespace Arbiter
         #endregion
 
         #region methods
+
+        /// <summary>
+        /// checks to make sure its space is occupied by another piece now, removes itself from the board array,
+        /// but not any lists. (Something not inheriting from Unit, which has an override, has no reason to remove
+        /// itself permanently from the lists).
+        /// </summary>
+        /// <param name="piece"></param>
         public void Remove(Unit piece)
         {
             if (location.X == piece.location.X && location.Y == piece.location.Y)

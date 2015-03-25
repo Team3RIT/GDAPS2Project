@@ -13,7 +13,10 @@ namespace Arbiter
 {
     //Margaret
 
-    
+    /// <summary>
+    /// This .cs file holds all of the Unit subclasses.
+    /// They should have fairly self identifying names that match up with the rules document.
+    /// </summary>
     class StandardUnit : Unit
     {
         public StandardUnit(int x, int y, Player own)

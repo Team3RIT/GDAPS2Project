@@ -12,6 +12,10 @@ using Microsoft.Xna.Framework.GamerServices;
 //Margaret
 namespace Arbiter
 {
+    /// <summary>
+    /// Holds the static variables and constants that are needed for gameplay implementation and
+    /// drawing of the map/board.
+    /// </summary>
     static class GameVariables
     {
         static public Piece[,] board = new Piece[boardSpaceDim,boardSpaceDim]; //game board
@@ -31,6 +35,11 @@ namespace Arbiter
         
         //location.X*spaceDim, location.Y*spaceDim will work for giving a top left screen location.
 
+        /// <summary>
+        /// Determines if the vector is within the bounds of the board array.
+        /// </summary>
+        /// <param name="vector">should be an integer value just by nature of the game, but not required</param>
+        /// <returns>True if on board, false if not.</returns>
         public static bool OnBoard(Vector2 vector)
         {
             if (vector.X >= 0 && vector.Y >= 0 && vector.X < boardSpaceDim && vector.Y < boardSpaceDim)

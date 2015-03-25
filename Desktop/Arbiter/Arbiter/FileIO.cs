@@ -13,12 +13,28 @@ using Microsoft.Xna.Framework.GamerServices;
 // Margaret
 namespace Arbiter
 {
+    /// <summary>
+    /// Handles the reading of maps from binary files, as well as reading/writing save games from/to binary files.
+    /// </summary>
     public static class FileIO
     {
         private static BinaryReader reader; //everything in binary files
         private static BinaryWriter writer;
 
         #region map methods
+
+        /// <summary>
+        /// Reads and creates a map from a file. Will change board array and tower/structure lists automatically.
+        /// Does nothing if file path does not exist.
+        /// 
+        /// File Format:
+        /// int board dimension (square board only needs 1)
+        /// int x, int y of structure locations looped until
+        /// int -1 to signal switch
+        /// int x, int y of tower locations looped until
+        /// end of file.
+        /// </summary>
+        /// <param name="filepath">name of file only. will read from maps directory within the bin folder</param>
         public static void ReadMapFile(string filepath) //will read file and make changes to board. 
         {
             if (!File.Exists("..\\maps\\"+filepath))
@@ -50,9 +66,17 @@ namespace Arbiter
         #endregion
 
         #region save file handling
+
+        /// <summary>
+        /// Writes save game to a binary file. Includes all pieces, objects, and owners.
+        /// Will include all map details by default.
+        /// Will create file if no file exists, overwrite otherwise.
+        /// </summary>
+        /// <param name="filepath"> should be name only. Saves in default directory </param>
         public static void SaveGame(string filepath) //saves game data
         {
             writer = new BinaryWriter(File.Open(filepath, FileMode.Create)); //initialize the reader, it will overwrite or create the file
+            writer.Write(GameVariables.boardSpaceDim);
             for (int y = 0; y < GameVariables.boardSpaceDim; y++) //cycle through all the array values
             {
                 for (int x = 0; x < GameVariables.boardSpaceDim; x++) 
@@ -88,6 +112,18 @@ namespace Arbiter
             writer.Close();
         }
 
+
+        /// <summary>
+        /// File format is as follows:
+        /// int dimension
+        /// loops until end of file in sets of 3
+        /// int identifier (-1 = blank, 0 = structure, 1 = heavy, 2 = standard, 3 = light, 4 = jumper, 5 = tower)
+        /// int ownerID (player #, or -1 for owned by map)
+        /// string playerName
+        /// 
+        /// will have one set of data for each space on the board + the dimension at the beginning.
+        /// </summary>
+        /// <param name="filepath"> should be same filepath as used to save game</param>
         public static void LoadGame(string filepath) //loads game data
         {
             if (!File.Exists(filepath))
@@ -100,6 +136,7 @@ namespace Arbiter
             Player player;
             int ownerID;
             string ownerName;
+            GameVariables.boardSpaceDim = reader.ReadInt32(); //gets board dimension
             while((i = reader.ReadInt32()) != null)
             {
                 ownerID = reader.ReadInt32();

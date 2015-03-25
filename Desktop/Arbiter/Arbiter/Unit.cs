@@ -12,6 +12,9 @@ using Microsoft.Xna.Framework.GamerServices;
 //Margaret
 namespace Arbiter
 {
+    /// <summary>
+    /// Class for moveable, player controlled pieces.
+    /// </summary>
     public abstract class Unit:Piece
     {
         #region attributes
@@ -48,6 +51,12 @@ namespace Arbiter
         #endregion
 
         #region methods
+
+        /// <summary>
+        /// Moves a piece after checking that it is legal.
+        /// Handles the claiming of towers and the taking of other pieces.
+        /// </summary>
+        /// <param name="newLocation">the destination of the piece</param>
         public void Move(Vector2 newLocation) //the new location should be well validated before making it here
         {
             if (!possibleMoves.Contains(newLocation)) //if it's not valid, just another check..
@@ -83,6 +92,11 @@ namespace Arbiter
             
 
         }
+
+        /// <summary>
+        /// Compiles and returns a list of possible moves that the unit can make. The bulk of the movement code.
+        /// </summary>
+        /// <returns>A list of legal moves, which is also saved in the possibleMoves attribute.</returns>
         public List<Vector2> Select()
         {
             possibleMoves.Clear(); //clears out the list so it's a new set
@@ -141,6 +155,11 @@ namespace Arbiter
         }
         
         
+        /// <summary>
+        /// Replaces the remove method in Piece.
+        /// If we have lists of pieces in Game1, this will include code to take them out of Game1
+        /// </summary>
+        /// <param name="piece">The piece calling the remove method</param>
         new public void Remove(Unit piece) //removed piece double verifies being taken
         {
             if(location.X == piece.location.X && location.Y == piece.location.Y)
@@ -153,6 +172,13 @@ namespace Arbiter
           
         }
 
+        /// <summary>
+        /// Checks the path to make sure that there is no interruption on it. Ie, pieces cannot move through each other
+        /// </summary>
+        /// <param name="locationinitial">piece's current position</param>
+        /// <param name="locationfinal">presumed end location after move being checked</param>
+        /// <param name="type">The type of movement being checked (vertical, horizontal, diagonal)</param>
+        /// <returns></returns>
         public bool PathTracker(Vector2 locationinitial, Vector2 locationfinal, string type)//makes sure nothing is in the way
         {
             switch(type.ToLower()) //just in case a capital letter sneaks in to the hard coding
@@ -308,7 +334,11 @@ namespace Arbiter
                 return false;
         }
 
-
+        /// <summary>
+        /// Removes moves that will take the unit off the board from lists. Passed by reference so the 
+        /// original list is changed.
+        /// </summary>
+        /// <param name="list">List that contains vectors pertaining to the baord. Right now, possibleMoves is likely.</param>
         public void Trim(ref List<Vector2> list) //takes moves that would take you off the board out of possible moves //note: this is a pass by reference, we haven't covered it in class yet so if you aren't familiar, READ UP
         {
             foreach(Vector2 space in list.ToList()) //program doesn't like changing the actual list while enumerating

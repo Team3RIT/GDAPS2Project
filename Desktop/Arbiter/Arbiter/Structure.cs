@@ -12,6 +12,9 @@ using Microsoft.Xna.Framework.GamerServices;
 // Margaret
 namespace Arbiter
 {
+    /// <summary>
+    /// Class for obstacles on the board. 
+    /// </summary>
     class Structure:Piece
     {
         //this class allows towers and blocked spaces to be stored on the board, which is a Piece array. It's a little hacky.

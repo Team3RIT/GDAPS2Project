@@ -11,6 +11,10 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Arbiter
 {
+    /// <summary>
+    /// The towers of the game. Contains methods for claiming and leaving towers, as well as
+    /// properties for checking the win condition.
+    /// </summary>
     class Tower:Piece
     {
         private bool isClaimed = false;
