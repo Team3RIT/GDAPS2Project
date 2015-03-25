@@ -26,6 +26,19 @@ namespace Arbiter
         MenuLogic LogicBox;
         public static MouseState click; // the mouse state for the menus
 
+        //images for game peices/board states
+        Texture2D Heavy;
+        Texture2D Light;
+        Texture2D Jumper;
+        Texture2D Standard;
+        Texture2D Tower;
+        Texture2D Normal;
+        Texture2D Obstacle;
+
+
+
+
+
         public Game1()
             : base()
         {
@@ -71,6 +84,18 @@ namespace Arbiter
             
             // TODO: use this.Content to load your game content here
             font = Content.Load<SpriteFont>("Font1");
+
+            //load in the images for the pieces and game tiles
+            Heavy = Content.Load<Texture2D>("Heavy");
+            Light = Content.Load<Texture2D>("Light");
+            Jumper = Content.Load<Texture2D>("Jumper");
+            Standard = Content.Load<Texture2D>("Standard");
+            Tower = Content.Load<Texture2D>("Tower");
+            Normal = Content.Load<Texture2D>("NormalTile");
+            Obstacle = Content.Load<Texture2D>("Obstacle");
+
+
+
         }
 
         /// <summary>
@@ -202,36 +227,36 @@ namespace Arbiter
             {
                 for (int j = 0; j < GameVariables.boardSpaceDim; j++)
                 {
-                    //spriteBatch.Draw(blank space picture)
+                    //spriteBatch.Draw(blank space picture)   //Not sure what this is??? - Nick
                     if(GameVariables.board[i,j] == null)
                     {
-                        //spriteBatch.Draw(ground texture)
+                        spriteBatch.Draw(Normal);
 
                     }
                     else if(GameVariables.board[i,j] is Tower)
                     {
-                        //spriteBatch.Draw(tower)
+                        spriteBatch.Draw(Tower);
 
                     }
                     else if(GameVariables.board[i,j] is Structure)
                     {
-                        //spriteBatch.Draw(structure)
+                        spriteBatch.Draw(Obstacle);
                     }
                     else if(GameVariables.board[i,j] is StandardUnit)
                     {
-                        //spriteBatch.Draw(standardUnit)
+                        spriteBatch.Draw(Standard);
                     }
                     else if(GameVariables.board[i,j] is LightUnit)
                     {
-                        //spriteBatch.Draw(LightUnit)
+                        spriteBatch.Draw(Light);
                     }
                     else if(GameVariables.board[i,j] is HeavyUnit)
                     {
-                        //spriteBatch.Draw(HeavyUnit)
+                        spriteBatch.Draw(Heavy);
                     }
                     else if(GameVariables.board[i,j] is JumperUnit)
                     {
-                        //spriteBatch.Draw(HeavyUnit)
+                        spriteBatch.Draw(Jumper);
                     }
                 }
             }
