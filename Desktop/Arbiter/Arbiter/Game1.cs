@@ -25,6 +25,7 @@ namespace Arbiter
         MenuDisplay DisplayBox;
         MenuLogic LogicBox;
         public static MouseState click; // the mouse state for the menus
+        GamePadState gstate = new GamePadState();
 
         //images for game peices/board states
         Texture2D Heavy;
