@@ -48,12 +48,15 @@ namespace Arbiter
             graphics.PreferredBackBufferWidth = GameVariables.screenWidth;  //sets the window size. DO NOT SET THIS DIRECTLY, change in GameVariables class
             graphics.PreferredBackBufferHeight = GameVariables.screenHeight; 
             graphics.ApplyChanges();
+            
 
             IsMouseVisible = true;
             
             //define menu objects
             LogicBox = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret -NEVER!!!, alright, fine..... - Nick
             DisplayBox = new MenuDisplay();
+
+            
             
         }
         
@@ -65,6 +68,8 @@ namespace Arbiter
         /// </summary>
         protected override void Initialize()
         {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
             
             //make the mouse visible on screen
@@ -80,8 +85,7 @@ namespace Arbiter
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+           
             
             // TODO: use this.Content to load your game content here
             font = Content.Load<SpriteFont>("Font1");
@@ -167,7 +171,8 @@ namespace Arbiter
             }
             if(MenuVariables.newGame == true)
             {
-                DisplayBox.DisplayNewGameMenu(spriteBatch, font, this);
+                //DisplayBox.DisplayNewGameMenu(spriteBatch, font, this);
+                DrawBoard();
             }
             if (MenuVariables.options == true)
             {
@@ -224,40 +229,42 @@ namespace Arbiter
         
         public void DrawBoard() //should be between spritebatch Begin and End
         {
-            for (int i = 0; i < GameVariables.boardSpaceDim; i++)
+            for (int i = 0; i < GameVariables.BoardSpaceDim; i++)
             {
-                for (int j = 0; j < GameVariables.boardSpaceDim; j++)
+                for (int j = 0; j < GameVariables.BoardSpaceDim; j++)
                 {
-                    //spriteBatch.Draw(blank space picture)   //Not sure what this is??? - Nick
-                    if(GameVariables.board[i,j] == null)
+                    spriteBatch.Draw(Normal, new Rectangle(i * GameVariables.spaceDim + GameVariables.screenbufferHorizontal, j * GameVariables.spaceDim + GameVariables.screenbufferVertical, GameVariables.spaceDim, GameVariables.spaceDim), Color.White);   //Not sure what this is??? - Nick
+                    //we need a picture to represent a tile with nothing on it,
+                    //it could theoretically just be a white square - Margaret
+                    if (GameVariables.board[i, j] == null)
                     {
-                        spriteBatch.Draw(Normal);
+                       //nothing
 
                     }
-                    else if(GameVariables.board[i,j] is Tower)
+                    else if (GameVariables.board[i, j] is Tower)
                     {
-                        spriteBatch.Draw(Tower);
+                        spriteBatch.Draw(Tower, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
 
                     }
-                    else if(GameVariables.board[i,j] is Structure)
+                    else if (GameVariables.board[i, j] is Structure)
                     {
-                        spriteBatch.Draw(Obstacle);
+                        spriteBatch.Draw(Obstacle, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
                     }
-                    else if(GameVariables.board[i,j] is StandardUnit)
+                    else if (GameVariables.board[i, j] is StandardUnit)
                     {
-                        spriteBatch.Draw(Standard);
+                        spriteBatch.Draw(Standard, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
                     }
-                    else if(GameVariables.board[i,j] is LightUnit)
+                    else if (GameVariables.board[i, j] is LightUnit)
                     {
-                        spriteBatch.Draw(Light);
+                        spriteBatch.Draw(Light, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
                     }
-                    else if(GameVariables.board[i,j] is HeavyUnit)
+                    else if (GameVariables.board[i, j] is HeavyUnit)
                     {
-                        spriteBatch.Draw(Heavy);
+                        spriteBatch.Draw(Heavy, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
                     }
-                    else if(GameVariables.board[i,j] is JumperUnit)
+                    else if (GameVariables.board[i, j] is JumperUnit)
                     {
-                        spriteBatch.Draw(Jumper);
+                        spriteBatch.Draw(Jumper, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
                     }
                 }
             }

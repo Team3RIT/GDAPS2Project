@@ -26,22 +26,23 @@ namespace Arbiter
 
             reader = new BinaryReader(File.Open("..\\maps\\" + filepath, FileMode.Open)); //initialize the reader
 
-            Piece[,] board = new Piece[GameVariables.boardSpaceDim, GameVariables.boardSpaceDim];
-            int x;
+            Piece[,] board = new Piece[GameVariables.BoardSpaceDim, GameVariables.BoardSpaceDim];
+            int x; 
             int y;
             x = reader.ReadInt32();
-            GameVariables.boardSpaceDim = x;
+            GameVariables.BoardSpaceDim = (int)x;
             while ((x = reader.ReadInt32()) != -1) // -1 will be used as the sign to switch from structures to towers
             {
                 y = reader.ReadInt32();
-                if (x < GameVariables.boardSpaceDim && x >= 0 && y < GameVariables.boardSpaceDim && y >= 0)
+                if (x < GameVariables.BoardSpaceDim && x >= 0 && y < GameVariables.BoardSpaceDim && y >= 0)
                    new Structure(x, y); 
                 
             }
-            while((x = reader.ReadInt32()) != null) //until end of file
+            while(reader.BaseStream.Position != reader.BaseStream.Length) //until end of file
             {
+                x = reader.ReadInt32();
                 y = reader.ReadInt32();
-                if (x < GameVariables.boardSpaceDim && x >= 0 && y < GameVariables.boardSpaceDim && y >= 0)
+                if (x < GameVariables.BoardSpaceDim && x >= 0 && y < GameVariables.BoardSpaceDim && y >= 0)
                     new Tower(x, y); 
 
             }
@@ -53,9 +54,9 @@ namespace Arbiter
         public static void SaveGame(string filepath) //saves game data
         {
             writer = new BinaryWriter(File.Open(filepath, FileMode.Create)); //initialize the reader, it will overwrite or create the file
-            for (int y = 0; y < GameVariables.boardSpaceDim; y++) //cycle through all the array values
+            for (int y = 0; y < GameVariables.BoardSpaceDim; y++) //cycle through all the array values
             {
-                for (int x = 0; x < GameVariables.boardSpaceDim; x++) 
+                for (int x = 0; x < GameVariables.BoardSpaceDim; x++) 
                 {
                     if (GameVariables.board[x, y] != null)
                     {
@@ -100,8 +101,9 @@ namespace Arbiter
             Player player;
             int ownerID;
             string ownerName;
-            while((i = reader.ReadInt32()) != null)
+            while (reader.BaseStream.Position != reader.BaseStream.Length)
             {
+                i = reader.ReadInt32();
                 ownerID = reader.ReadInt32();
                 ownerName = reader.ReadString(); //data will come in sets of 3, so these ones should not be null.
                 player = new Player(ownerName, ownerID);

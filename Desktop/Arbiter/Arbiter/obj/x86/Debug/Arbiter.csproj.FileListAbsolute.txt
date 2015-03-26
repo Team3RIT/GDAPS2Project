@@ -22,3 +22,10 @@ C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\MonoGame.Framework
 C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\Margaret\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.csprojResolveAssemblyReference.cache
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Heavy.png
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Jumper.png
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Light.png
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\NormalTile.png
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Obstacle.png
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Standard.png
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Tower.png
