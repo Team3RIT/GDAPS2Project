@@ -68,15 +68,27 @@ namespace Arbiter
 
 
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.MainMenuBox, MenuVariables.BackgroundColor); //cornflowerblue, mediumspringgreen
+            batch.Draw(FillText, MenuVariables.MainMenuBox, MenuVariables.BackgroundColor); 
 
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.NewGameTitle, MenuVariables.NewGameTitleColor); // draws the box
-            batch.DrawString(font, "New Game", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("Options").X / 2, MenuVariables.NewGameTitle.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "New Game", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("New Game").X / 2, MenuVariables.NewGameTitle.Y), Color.Crimson); //draws the text within the box
+
+            batch.Draw(FillText, MenuVariables.NewGameTwoPlayer, MenuVariables.NewGameTwoPlayerColor); // draws the box
+            batch.DrawString(font, "Start a Two Player Game", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("Start a Two Player Game").X / 2, MenuVariables.NewGameTwoPlayer.Y), Color.Crimson); //draws the text within the box
+
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.NewGameMainMenuReturn, MenuVariables.NewGameMainMenuReturnColor); // draws the box
             batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.NewGameMainMenuReturn.Y), Color.Crimson); //draws the text within the box
 
+            if (MenuVariables.ControllerConnected == false)
+            {
+                //show text if no gamepad is connected
+                batch.Draw(FillText, MenuVariables.NewGameControllerConnected, Color.Black); // draws the box around the no gamepad text
+                batch.DrawString(font, "YOU FOOL(S)! CONNECT A GAMEPAD TO PLAY THE GAME", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("YOU FOOL(S)! CONNECT A GAMEPAD TO PLAY THE GAME").X / 2, 250), Color.Lime);
+
+                
+            }
 
         }
 
@@ -91,7 +103,7 @@ namespace Arbiter
             
 
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.MainMenuBox, MenuVariables.BackgroundColor); //cornflowerblue, mediumspringgreen
+            batch.Draw(FillText, MenuVariables.OptionsMenuBox, MenuVariables.BackgroundColor); 
 
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.OptionsTitle, MenuVariables.OptionsTitleColor); // draws the box
@@ -110,7 +122,7 @@ namespace Arbiter
             FillText.SetData(new Color[] { Color.White });
 
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.LoadMenuBox, MenuVariables.BackgroundColor); //cornflowerblue, mediumspringgreen
+            batch.Draw(FillText, MenuVariables.LoadMenuBox, MenuVariables.BackgroundColor); 
             
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.LoadTitle, MenuVariables.LoadTitleColor); // draws the box
@@ -123,6 +135,70 @@ namespace Arbiter
             batch.Draw(FillText, MenuVariables.LoadTextBox, MenuVariables.LoadTextBoxColor); // draws the box
             batch.DrawString(font, "This Functionality Currently Doesn't Exist!", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("This functionality currently Doesn't Exist").X / 2, MenuVariables.LoadTextBox.Y), Color.Crimson); //draws the text within the textbox
         }
+
+        /////////////////in game menus ////////////////////////////////////////////////////////////
+
+        public void DisplayPauseMenu(SpriteBatch batch, SpriteFont font, Game1 checkers)
+        {
+
+            //define all of the rectangles
+            Texture2D FillText = new Texture2D(checkers.GraphicsDevice, 1, 1);
+            FillText.SetData(new Color[] { Color.White });
+
+            //define rectangles boxes thingys
+
+
+            //draw MainBox
+            batch.Draw(FillText, MenuVariables.PauseMenuBox, MenuVariables.BackgroundColor);
+
+            //Draw TitleBox
+            batch.Draw(FillText, MenuVariables.PauseTitle, MenuVariables.PauseTitleColor); // draws the box
+            batch.DrawString(font, "GAME PAUSED", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("GAME PAUSED").X / 2, MenuVariables.PauseTitle.Y), Color.Crimson);  //by now i hope you realize these just draw the text in the boxes
+            //draw save game
+            batch.Draw(FillText, MenuVariables.PauseSaveGame, MenuVariables.PauseSaveGameColor); // draws the box
+            batch.DrawString(font, "Save Game", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Save Game").X / 2, MenuVariables.PauseSaveGame.Y), Color.Crimson); 
+
+            //draw return to game box
+            batch.Draw(FillText, MenuVariables.PauseReturnToGame, MenuVariables.PauseReturnToGameColor); // draws the box
+            batch.DrawString(font, "Return to Game", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Return to Game").X / 2, MenuVariables.PauseReturnToGame.Y), Color.Crimson); 
+            
+            
+            //Draw mainmenu return box
+            batch.Draw(FillText, MenuVariables.PauseMainMenuReturn, MenuVariables.PauseMainMenuReturnColor); // draws the box
+            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.PauseMainMenuReturn.Y), Color.Crimson); 
+
+
+        }
+
+        public void DisplayWinMenu(SpriteBatch batch, SpriteFont font, Game1 checkers)
+        {
+
+            //define all of the rectangles
+            Texture2D FillText = new Texture2D(checkers.GraphicsDevice, 1, 1);
+            FillText.SetData(new Color[] { Color.White });
+
+            //define rectangles boxes thingys
+
+
+            //draw MainBox
+            batch.Draw(FillText, MenuVariables.WinMenuBox, MenuVariables.BackgroundColor); 
+
+            //Draw TitleBox
+            batch.Draw(FillText, MenuVariables.WinTitle, MenuVariables.WinTitleColor); // draws the box for the victory screen title
+            batch.DrawString(font, "Congratulations, Someone has won!", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Congratualtions, Someone has won!").X / 2, MenuVariables.WinTitle.Y), Color.Crimson);  //by now i hope you realize these just draw the text in the boxes
+
+            //draw return to game box
+            batch.Draw(FillText, MenuVariables.WinMainMenuReturn, MenuVariables.WinMainMenuReturnColor); // draws the box for returning to main menu
+            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.WinMainMenuReturn.Y), Color.Crimson);
+
+
+            //Draw mainmenu return box
+            batch.Draw(FillText, MenuVariables.WinExit, MenuVariables.WinExitColor); // draws the box for exiting the game from the win screen
+            batch.DrawString(font, "Exit Game", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Exit Game").X / 2, MenuVariables.WinExit.Y), Color.Crimson);
+
+
+        }
+
 
 
 

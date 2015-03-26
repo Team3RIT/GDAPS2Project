@@ -223,9 +223,12 @@ namespace Arbiter
                 MenuVariables.MainNewGameColor = MenuVariables.HoverColor;
                 if(Game1.click.LeftButton == ButtonState.Pressed)
                 {
-                    //pull up new game menu, get rid of main menu
-                    MenuVariables.newGame = true;
-                    MenuVariables.main = false;
+                    //if (MenuVariables.ControllerConnected == true) //only works if there is a controller connected
+                    {
+                        //pull up new game, get rid of main menu
+                        MenuVariables.newGame = true;
+                        MenuVariables.main = false;
+                    }
                 }
                 
             }
@@ -350,26 +353,32 @@ namespace Arbiter
                 MenuVariables.LoadMainMenuReturnColor = MenuVariables.BoxColor;
             }
         }
-
+       
+        /// /////////////// NEW GAME MENU CURRENTLY NOT IN SERVICE - STILL FUNCTIONAL IF NEEDS TO BE CALLED ////////////////////////////////////
+        
+        #region NEW GAME MENU
         public void NewGameMenuLogic(Game1 checkers, SpriteFont font)
         {
-            //create the load game menu
+            //////////////////////////////// THIS MENU IS CURRENTLY NOT IN SERVICE ////////////////////////////////////
+            //create the new game menu
 
             //define all of the necessary rectangles - variables inherited from MenuVariables
             //define rectangles boxes thingys
             MenuVariables.NewGameMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
-            MenuVariables.NewGameTitle = CreateTitleBox("New Game Menu", 600, 50, font, MenuVariables.NewGameMenuBox);  //give LoadGame a title
+            MenuVariables.NewGameTitle = CreateTitleBox("New Game Menu", 600, 50, font, MenuVariables.NewGameMenuBox);  //give NewGame a title
+            MenuVariables.NewGameTwoPlayer = CreateTitleBox("Start Two Player Game", 600, 100, font, MenuVariables.NewGameMenuBox);  //start a two player game!
+            MenuVariables.NewGameControllerConnected = CreateTitleBox("I don't quite remeber why I needed text for this", 600, 250, font, MenuVariables.NewGameMenuBox);  //start a two player game!
             MenuVariables.NewGameMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 400, font, MenuVariables.NewGameMenuBox);  //Return to main menu
             
 
 
-            //handles all the event based logic for the load game menu
+            //handles all the event based logic for the new game menu
             if (ThinkInsideTheBox(MenuVariables.NewGameMainMenuReturn) == true)
             {
                 MenuVariables.NewGameMainMenuReturnColor = MenuVariables.HoverColor;
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
-                    //pull up main menu, get rid of loadGame menu
+                    //pull up main menu, get rid of NewGame menu
                     MenuVariables.main = true;
                     MenuVariables.newGame = false;
                 }
@@ -379,7 +388,144 @@ namespace Arbiter
             {
                 MenuVariables.NewGameMainMenuReturnColor = MenuVariables.BoxColor;
             }
+
+
+            ///lets start a two player game!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! - code below 
+            if (ThinkInsideTheBox(MenuVariables.NewGameTwoPlayer) == true)
+            {
+                MenuVariables.NewGameTwoPlayerColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //won't start game if there is no controller connected
+                    if (MenuVariables.ControllerConnected == true)
+                    {
+                        //code to start a two player game goes here
+
+
+                    }
+                }
+
+            }
+            if (ThinkOutsideTheBox(MenuVariables.NewGameTwoPlayer) == true)
+            {
+                MenuVariables.NewGameTwoPlayerColor = MenuVariables.BoxColor;
+            }
+
         }
+        #endregion
+
+        /// ///////////////////////////////////////////////////////////////////////////////////////
+        
+        public void PauseMenuLogic(Game1 checkers, SpriteFont font)
+        {
+            //create the new game menu
+
+            //define all of the necessary rectangles - variables inherited from MenuVariables
+            //define rectangles boxes thingys
+            MenuVariables.PauseMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.PauseTitle = CreateTitleBox("GAME PAUSED", 600, 50, font, MenuVariables.PauseMenuBox);  //pause menu title
+            MenuVariables.PauseSaveGame = CreateTitleBox("Save Game", 600, 100, font, MenuVariables.PauseMenuBox);  //save your game
+            
+            MenuVariables.PauseReturnToGame = CreateTitleBox("Return to Game", 600, 200, font, MenuVariables.PauseMenuBox);  //Return to the active game
+            MenuVariables.PauseMainMenuReturn = CreateTitleBox("Main Menu", 600, 300, font, MenuVariables.PauseMenuBox);  //return to the main menu
+            //handles all the event based logic for the pause menu
+            if (ThinkInsideTheBox(MenuVariables.PauseSaveGame) == true)
+            {
+                MenuVariables.PauseSaveGameColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //open a menu to save the game, or just save the game somehow
+
+
+
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.PauseSaveGame) == true)
+            {
+                MenuVariables.PauseSaveGameColor = MenuVariables.BoxColor;
+            }
+           //return to main menu code
+            if (ThinkInsideTheBox(MenuVariables.PauseMainMenuReturn) == true)
+            {
+                MenuVariables.PauseMainMenuReturnColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //go to main menu, perhaps we want a message asking if they were sure?
+
+                    MenuVariables.main = true;
+                    MenuVariables.pause = false;
+
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.PauseMainMenuReturn) == true)
+            {
+                MenuVariables.PauseMainMenuReturnColor = MenuVariables.BoxColor;
+            }
+
+            //return to the game code
+            if (ThinkInsideTheBox(MenuVariables.PauseReturnToGame) == true)
+            {
+                MenuVariables.PauseReturnToGameColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    
+                    MenuVariables.pause = false; //leave pause menu
+                    //return to the game somehow
+
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.PauseReturnToGame) == true)
+            {
+                MenuVariables.PauseReturnToGameColor = MenuVariables.BoxColor;
+            }
+
+        }
+
+        public void WinMenuLogic(Game1 checkers, SpriteFont font)
+        {
+            //create the new game menu
+
+            //define all of the necessary rectangles - variables inherited from MenuVariables
+            //define rectangles boxes thingys
+            MenuVariables.WinMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.WinTitle = CreateTitleBox("Congratulations! Someone has won!", 600, 50, font, MenuVariables.WinMenuBox);  //win menu title
+            MenuVariables.WinExit = CreateTitleBox("Exit Game", 600, 150, font, MenuVariables.WinMenuBox);  //Return to the active game
+            MenuVariables.WinMainMenuReturn = CreateTitleBox("Return to Main Menu", 600, 300, font, MenuVariables.WinMenuBox);  //return to the main menu
+            //handles all the event based logic for the pause menu
+            if (ThinkInsideTheBox(MenuVariables.WinMainMenuReturn) == true)
+            {
+                MenuVariables.WinMainMenuReturnColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //go to main menu
+                    MenuVariables.main = true;
+                    MenuVariables.winScreen = false;
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.WinMainMenuReturn) == true)
+            {
+                MenuVariables.WinMainMenuReturnColor = MenuVariables.BoxColor;
+            }
+            ///exit the game form the victory screen
+            if (ThinkInsideTheBox(MenuVariables.WinExit) == true)
+            {
+                MenuVariables.WinExitColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //leave the game
+                    Environment.Exit(0);
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.WinExit) == true)
+            {
+                MenuVariables.WinExitColor = MenuVariables.BoxColor;
+            }
+
+        }
+
+
+
+
 
        /////////////////////////////////// ---PROPERTIES--- /////////////////////////////////////////////////////////////////
  

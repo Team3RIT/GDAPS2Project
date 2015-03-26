@@ -50,6 +50,7 @@ namespace Arbiter
         public static Color NewGameMenuBoxColor = BoxColor;
         public static Color NewGameTitleColor = BoxColor;
         public static Color NewGameMainMenuReturnColor = BoxColor;
+        public static Color NewGameTwoPlayerColor = BoxColor; 
 
         //LoadGame specific colors
         public static Color LoadMenuBoxColor = BoxColor;
@@ -61,6 +62,19 @@ namespace Arbiter
         public static Color OptionsMenuBoxColor = BoxColor;
         public static Color OptionsTitleColor = BoxColor;
         public static Color OptionsMainMenuReturnColor = BoxColor;
+
+        //pause menu specific colors
+        public static Color PauseMenuBoxColor = BoxColor;
+        public static Color PauseTitleColor = BoxColor;
+        public static Color PauseMainMenuReturnColor = BoxColor;
+        public static Color PauseSaveGameColor = BoxColor;
+        public static Color PauseReturnToGameColor = BoxColor;
+
+        //victory menu specific colors
+        public static Color WinMenuBoxColor = BoxColor;
+        public static Color WinTitleColor = BoxColor;
+        public static Color WinMainMenuReturnColor = BoxColor;
+        public static Color WinExitColor = BoxColor;
         
         /*UPDATES:
         1.0 Cornflowerblue
@@ -83,7 +97,8 @@ namespace Arbiter
         public static Rectangle NewGameMenuBox;
         public static Rectangle NewGameTitle;
         public static Rectangle NewGameMainMenuReturn;
-
+        public static Rectangle NewGameTwoPlayer;  //start a two player game
+        public static Rectangle NewGameControllerConnected; //display if there is no controller connected
 
         //LoadGame rectangle
         public static Rectangle LoadMenuBox;
@@ -96,8 +111,22 @@ namespace Arbiter
         public static Rectangle OptionsTitle;
         public static Rectangle OptionsMainMenuReturn;
 
+        //pause rectangles
+        public static Rectangle PauseMenuBox;
+        public static Rectangle PauseTitle;
+        public static Rectangle PauseMainMenuReturn;
+        public static Rectangle PauseSaveGame;
+        public static Rectangle PauseReturnToGame;
 
+        //victory rectangles
+        public static Rectangle WinMenuBox;
+        public static Rectangle WinTitle;
+        public static Rectangle WinMainMenuReturn;
+        public static Rectangle WinExit;
+        /////////////////////////////// EXTRANEOUS INTERFACE MENU VARIABLES ////////////////////////////////////////// 
 
+        public static bool ControllerConnected = false;  //defaulted to not having a gamepad connected
+        
 
         ///////////////////PROPERTIES//////////////////////////////////
         public static bool Main

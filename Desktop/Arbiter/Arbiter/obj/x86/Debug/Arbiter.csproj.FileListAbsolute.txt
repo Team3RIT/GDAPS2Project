@@ -29,3 +29,10 @@ C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\NormalTile
 C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Obstacle.png
 C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Standard.png
 C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Tower.png
+C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Heavy.png
+C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Jumper.png
+C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Light.png
+C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\NormalTile.png
+C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Obstacle.png
+C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Standard.png
+C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\Tower.png

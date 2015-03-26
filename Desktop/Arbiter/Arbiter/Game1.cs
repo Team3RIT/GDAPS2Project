@@ -143,6 +143,15 @@ namespace Arbiter
             {
                 LogicBox.LoadGameMenuLogic(this, font);
             }
+            if (MenuVariables.pause == true)
+            {
+                LogicBox.PauseMenuLogic(this, font);
+            }
+            if (MenuVariables.winScreen == true)
+            {
+                LogicBox.WinMenuLogic(this, font);
+            }
+
 
             //music.Play();
             
@@ -169,10 +178,14 @@ namespace Arbiter
             {
                 DisplayBox.DisplayMainMenu(spriteBatch, font, this);
             }
+
+            
             if(MenuVariables.newGame == true)
             {
+                //will only ever be true is there actually is a controller connected (MenuVariables.ControllerConnected == true)
+                //testing in menulogic for this is currently commented out
                 //DisplayBox.DisplayNewGameMenu(spriteBatch, font, this);
-                DrawBoard();
+                DrawBoard(); 
             }
             if (MenuVariables.options == true)
             {
@@ -182,6 +195,15 @@ namespace Arbiter
             {
                 DisplayBox.DisplayLoadGameMenu(spriteBatch, font, this);
             }
+            if (MenuVariables.pause == true)
+            {
+                DisplayBox.DisplayPauseMenu(spriteBatch, font, this);
+            }
+            if (MenuVariables.winScreen == true)
+            {
+                DisplayBox.DisplayWinMenu(spriteBatch, font, this);
+            }
+            
             
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
              // start of gamepad logic
@@ -193,6 +215,7 @@ namespace Arbiter
             //todo - add a range of values that will work for left and right. 
             if (gstate.IsConnected == false)
             {
+                MenuVariables.ControllerConnected = false; //won't start game if this is false
                 spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
             }
             else
