@@ -140,14 +140,7 @@ namespace MapTool
             }
             else
             {
-                for (int i = 0; i < dim; i++)
-                {
-                    for (int j = 0; j < dim; j++)
-                    {
-                        tiles[i, j].Image = null; //reset the board so they can make a new file
-                        nums[i, j] = 0;
-                    }
-                }
+                MapClear(); //clears board so they can make a new map
                 label.Text = "File Written Successfully. File can be found in Arbiter/bin/maps.";
             }
         }
@@ -209,6 +202,18 @@ namespace MapTool
         private void randomButton_Click(object sender, System.EventArgs e)
         {
             MapGenerator.GenerateMap(dim, this);
+        }
+
+        public void MapClear()
+        {
+            for (int i = 0; i < dim; i++)
+            {
+                for (int j = 0; j < dim; j++)
+                {
+                    tiles[i, j].Image = null; //reset the tiles to blank
+                    nums[i, j] = 0;           //reset the board array to default
+                }
+            }
         }
 
     }

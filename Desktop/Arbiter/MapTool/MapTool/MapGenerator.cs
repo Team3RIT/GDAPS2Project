@@ -25,6 +25,7 @@ namespace MapTool
         {
             
             owner = own;
+            owner.MapClear(); //clear the board
             if (dim < 20)
             {
                 towerCount = rng.Next(5, 8); //smaller space, less towers.
@@ -116,8 +117,9 @@ namespace MapTool
                 
             
 
-
+            
 
         }
+        
     }
 }
