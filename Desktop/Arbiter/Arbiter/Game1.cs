@@ -27,7 +27,7 @@ namespace Arbiter
         public static MouseState click; // the mouse state for the menus
         GamePadState gstate = new GamePadState();
 
-        //images for game peices/board states
+        //images for game pieces/board states
         Texture2D Heavy;
         Texture2D Light;
         Texture2D Jumper;
@@ -259,36 +259,12 @@ namespace Arbiter
                     spriteBatch.Draw(Normal, new Rectangle(i * GameVariables.spaceDim + GameVariables.screenbufferHorizontal, j * GameVariables.spaceDim + GameVariables.screenbufferVertical, GameVariables.spaceDim, GameVariables.spaceDim), Color.White);   //Not sure what this is??? - Nick
                     //we need a picture to represent a tile with nothing on it,
                     //it could theoretically just be a white square - Margaret
-                    if (GameVariables.board[i, j] == null)
+                    if (GameVariables.board[i, j] != null)
                     {
-                       //nothing
+                        spriteBatch.Draw(GameVariables.board[i,j].icon, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
 
                     }
-                    else if (GameVariables.board[i, j] is Tower)
-                    {
-                        spriteBatch.Draw(Tower, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
-
-                    }
-                    else if (GameVariables.board[i, j] is Structure)
-                    {
-                        spriteBatch.Draw(Obstacle, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
-                    }
-                    else if (GameVariables.board[i, j] is StandardUnit)
-                    {
-                        spriteBatch.Draw(Standard, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
-                    }
-                    else if (GameVariables.board[i, j] is LightUnit)
-                    {
-                        spriteBatch.Draw(Light, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
-                    }
-                    else if (GameVariables.board[i, j] is HeavyUnit)
-                    {
-                        spriteBatch.Draw(Heavy, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
-                    }
-                    else if (GameVariables.board[i, j] is JumperUnit)
-                    {
-                        spriteBatch.Draw(Jumper, GameVariables.board[i, j].Region, GameVariables.board[i, j].color);
-                    }
+                    
                 }
             }
         }

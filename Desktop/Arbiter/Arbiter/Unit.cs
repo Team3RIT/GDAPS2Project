@@ -18,6 +18,7 @@ namespace Arbiter
         
         
         protected List<Vector2> possibleMoves = new List<Vector2>(); //the legal moves that a player can make
+        public bool hasMoved;
         
         #endregion
 
@@ -25,6 +26,7 @@ namespace Arbiter
         public Unit(int x, int y, Player own):base(x,y)
         {
            owner = own;
+           hasMoved = false;
 
         }
         #endregion
@@ -71,7 +73,6 @@ namespace Arbiter
                 myTower.Abandon(this); //abandon it if you're on one
             else
                 GameVariables.board[(int)location.X, (int)location.Y] = null; //otherwise your space will be left empty
-            
             location = newLocation;
             if(newTower != null)
                 newTower.Claim(this);
@@ -80,7 +81,7 @@ namespace Arbiter
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
 
-            
+            hasMoved = true;
 
         }
         public List<Vector2> Select()

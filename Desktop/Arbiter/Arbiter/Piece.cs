@@ -19,7 +19,7 @@ namespace Arbiter
         protected Vector2 location;
         protected Rectangle region;
         public Player owner = new Player("Map",-1); //There will be essentially a map player that never has a turn that owns inanimate pieces, just to allow the use of a Piece array.
-                                                    //IMPORTANT: Do not use negative ID numbers for other players!
+        public Texture2D icon;                                           //IMPORTANT: Do not use negative ID numbers for other players!
         protected int rank;
         #endregion
 
