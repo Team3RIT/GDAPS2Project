@@ -11,6 +11,7 @@ namespace Arbiter
         #region attributes
         string name; //player name
         int playerNum; //should be 1 to 4, the "player" that owns the immobile pieces will be player 0.
+        int movedUnits; //number of units moved by the player during their turn. --Sorry for touching your code! -Travis
 
         #endregion
 
@@ -19,6 +20,7 @@ namespace Arbiter
         {
             name = nm;
             playerNum = playerNumber;
+            movedUnits = 0;
         }
         #endregion
 
@@ -34,6 +36,17 @@ namespace Arbiter
             get
             {
                 return name;
+            }
+        }
+        public int MovedUnits
+        {
+            get
+            {
+                return movedUnits;
+            }
+            set
+            {
+                movedUnits = value;
             }
         }
     }

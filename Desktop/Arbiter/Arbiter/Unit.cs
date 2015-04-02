@@ -18,7 +18,7 @@ namespace Arbiter
         
         
         protected List<Vector2> possibleMoves = new List<Vector2>(); //the legal moves that a player can make
-        public bool hasMoved;
+        //public bool hasMoved; //Don't need this anymore; thought of a better way of doing things than the way we discussed earlier -Travis
         
         #endregion
 
@@ -26,7 +26,7 @@ namespace Arbiter
         public Unit(int x, int y, Player own):base(x,y)
         {
            owner = own;
-           hasMoved = false;
+           //hasMoved = false;
 
         }
         #endregion
@@ -81,8 +81,8 @@ namespace Arbiter
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
 
-            hasMoved = true;
-
+            //hasMoved = true;
+            GameVariables.players[owner.ID].MovedUnits++;
         }
         public List<Vector2> Select()
         {

@@ -28,15 +28,18 @@ namespace Arbiter
         GamePadState gstate = new GamePadState();
 
         //images for game pieces/board states
-        Texture2D Heavy;
-        Texture2D Light;
-        Texture2D Jumper;
-        Texture2D Standard;
-        Texture2D Tower;
-        Texture2D Normal;
-        Texture2D Obstacle;
+        public static Texture2D Heavy;
+        public static Texture2D Light;
+        public static Texture2D Jumper;
+        public static Texture2D Standard;
+        public static Texture2D Tower;
+        public static Texture2D Normal;
+        public static Texture2D Obstacle;
 
+        public enum States { MENU, SETUP, GAME, ENDGAME } //Contains gamestates used in Update(). Update as needed!
+        States gameState; //Controls the state of the game using the above enum.
 
+        Match testMatch;
 
 
 
@@ -75,6 +78,8 @@ namespace Arbiter
             //make the mouse visible on screen
             this.IsMouseVisible = true;
            
+            //start off the FSM
+            gameState = States.MENU;
             
             base.Initialize();
         }
@@ -126,32 +131,51 @@ namespace Arbiter
 
             //update the mouse
             click = Mouse.GetState();
-            //menu control
-            if (MenuVariables.main == true)
-            {
-                LogicBox.MainMenuLogic(this, font);
-            }
-            if (MenuVariables.newGame == true)
-            {
-                LogicBox.NewGameMenuLogic(this, font);
-            }
-            if (MenuVariables.options == true)
-            {
-                LogicBox.OptionsMenuLogic(this, font);
-            }
-            if (MenuVariables.loadGame == true)
-            {
-                LogicBox.LoadGameMenuLogic(this, font);
-            }
-            if (MenuVariables.pause == true)
-            {
-                LogicBox.PauseMenuLogic(this, font);
-            }
-            if (MenuVariables.winScreen == true)
-            {
-                LogicBox.WinMenuLogic(this, font);
-            }
 
+            switch(gameState)
+            {
+                case States.MENU:
+                    //menu control
+                    if (MenuVariables.main == true)
+                    {
+                        LogicBox.MainMenuLogic(this, font);
+                    }
+                    if (MenuVariables.newGame == true)
+                    {
+                        LogicBox.NewGameMenuLogic(this, font);
+                        gameState = States.SETUP;
+                    }
+                    if (MenuVariables.options == true)
+                    {
+                        LogicBox.OptionsMenuLogic(this, font);
+                    }
+                    if (MenuVariables.loadGame == true)
+                    {
+                        LogicBox.LoadGameMenuLogic(this, font);
+                    }
+                    if (MenuVariables.pause == true)
+                    {
+                        LogicBox.PauseMenuLogic(this, font);
+                    }
+                    if (MenuVariables.winScreen == true)
+                    {
+                        LogicBox.WinMenuLogic(this, font);
+                    }
+                    break;
+                case States.SETUP:
+                    testMatch = new Match(2);
+                    testMatch.Draft();
+                    gameState = States.GAME;
+                    break;
+                case States.GAME:
+                    if(testMatch.TurnManager())
+                        gameState = States.ENDGAME;
+                    break;
+                case States.ENDGAME:
+                    MenuVariables.winScreen = true;
+                    gameState = States.MENU;
+                    break;
+            }
 
             //music.Play();
             

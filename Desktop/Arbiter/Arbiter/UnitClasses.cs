@@ -20,6 +20,7 @@ namespace Arbiter
             : base(x, y, own)
         {
             rank = 2;
+            icon = Game1.Standard;
         }
 
     }
@@ -30,6 +31,7 @@ namespace Arbiter
             : base(x, y, own)
         {
             rank = 1;
+            icon = Game1.Heavy;
         }
     }
 
@@ -39,6 +41,7 @@ namespace Arbiter
             : base(x, y, own)
         {
             rank = 3;
+            icon = Game1.Light;
         }
 
         new public List<Vector2> Select()
@@ -116,6 +119,7 @@ namespace Arbiter
             : base(x, y, own)
         {
             rank = 1;
+            icon = Game1.Jumper;
         }
 
         new public List<Vector2> Select()

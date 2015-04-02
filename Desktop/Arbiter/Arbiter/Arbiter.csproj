@@ -38,6 +38,7 @@
     <Compile Include="Animation.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameVariables.cs" />
+    <Compile Include="Match.cs" />
     <Compile Include="MenuDisplay.cs" />
     <Compile Include="MenuLogic.cs" />
     <Compile Include="MenuVariables.cs" />
