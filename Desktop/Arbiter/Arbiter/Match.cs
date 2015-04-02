@@ -60,46 +60,52 @@ namespace Arbiter
             pieces[1, 13] = new LightUnit(6, 1, GameVariables.players[2]);
         }
 
-        public bool TurnManager()
+         public bool TurnManager()
         {
             //First, check to see if the player's victory tally is 2 or greater. If it is, that player has won.
-            while (victoryTally[whoseTurn - 1] < 2)
-            {
+            //while (victoryTally[whoseTurn - 1] < 2)
+            
                 //Run a turn, then, when said turn is over, advance the turn to the next player. When this returns true, someone has won.
-                if (GameVariables.players[whoseTurn].MovedUnits >= 5) //Things that happen at the end of a turn go in here
+             //Things that happen at the end of a turn go in here
+            
+                //Check Win Condition
+                //First, check number of owned towers
+                int towersControlled = 0;
+                for (int i = 0; i < GameVariables.towers.Count; i++)
                 {
-                    //Check Win Condition
-                    //First, check number of owned towers
-                    int towersControlled = 0;
-                    for (int i = 0; i < GameVariables.towers.Count; i++)
-                    {
-                        for (int j = 0; j < 14; j++)
-                            if (GameVariables.towers[i].Location == pieces[whoseTurn, j].Location)
-                            {
-                                towersControlled++;
-                            }
-                    }
-                    //If the player owns the majority of the towers, increment their victory tally by 1.
-                    if (towersControlled > (float)(GameVariables.towers.Count / 2))
-                    {
-                        victoryTally[whoseTurn - 1]++;
-                    }
-                    else //If they don't own the majority of the towers at the end of their turn, their tally is reset to 0.
-                    {
-                        victoryTally[whoseTurn - 1] = 0;
-                    }
-
-
-                    //Advance the turn
-                    whoseTurn++;
-                    if (whoseTurn > GameVariables.players.Count - 1)
-                    {
-                        whoseTurn = 1;
-                    }
-                    GameVariables.players[whoseTurn].MovedUnits = 0;
+                    for (int j = 0; j < 14; j++)
+                        if (GameVariables.towers[i].Location == pieces[whoseTurn, j].Location)
+                        {
+                            towersControlled++;
+                        }
                 }
-            }
-            return true;
+                //If the player owns the majority of the towers, increment their victory tally by 1.
+                if (towersControlled > (float)(GameVariables.towers.Count / 2))
+                {
+                    //victoryTally[whoseTurn - 1]++;
+                    GameVariables.victoryTally = 2;
+                }
+                //else //If they don't own the majority of the towers at the end of their turn, their tally is reset to 0.
+                //{
+                  //  victoryTally[whoseTurn - 1] = 0;
+                //}
+            
+
+                //Advance the turn
+                whoseTurn++;
+                if (whoseTurn > GameVariables.players.Count - 1)
+                {
+                    whoseTurn = 1;
+                }
+                //GameVariables.players[whoseTurn].MovedUnits = 0;
+
+                if (GameVariables.victoryTally >= 2)
+                { 
+                    return true;
+                }
+                GameVariables.victoryTally = 0; //reset victory tally
+                return false;
+            
         }
     }
 }

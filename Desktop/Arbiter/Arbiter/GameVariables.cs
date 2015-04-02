@@ -29,6 +29,8 @@ namespace Arbiter
         public static int screenbufferHorizontal = (screenWidth - boardDim)/2;
         public static int screenbufferVertical = (screenHeight - boardDim)/2;
         
+        public static int victoryTally; //Nick did this one variable!
+        public const int NumPiecesPerTurn = 5;
         //location.X*spaceDim, location.Y*spaceDim will work for giving a top left screen location.
 
         static GameVariables() //static constructor

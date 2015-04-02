@@ -11,11 +11,16 @@ namespace Arbiter
         #region attributes
         string name; //player name
         int playerNum; //should be 1 to 4, the "player" that owns the immobile pieces will be player 0.
+<<<<<<< HEAD
+        //int movedUnits; //number of units moved by the player during their turn. --Sorry for touching your code! -Travis
+        //shouldn't be necessary, turns are states - Margaret
+=======
         public StandardUnit pi1;
         StandardUnit pi2;
         StandardUnit pi3;
         StandardUnit pi4;
         StandardUnit pi5;
+>>>>>>> b67b29b60c168566ba728aa4ac3d44aa67ddbcd1
         #endregion
 
         #region constructor
@@ -23,6 +28,9 @@ namespace Arbiter
         {
             name = nm;
             playerNum = playerNumber;
+<<<<<<< HEAD
+            
+=======
         }
         public Player(string nm, int playerNumber, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5)
         {
@@ -33,6 +41,7 @@ namespace Arbiter
             pi3 = new StandardUnit(x2,y2,this);
             pi4 = new StandardUnit(x2,y2,this);
             pi5 = new StandardUnit(x2,y2,this);
+>>>>>>> b67b29b60c168566ba728aa4ac3d44aa67ddbcd1
         }
         #endregion
 
@@ -50,5 +59,9 @@ namespace Arbiter
                 return name;
             }
         }
+<<<<<<< HEAD
+        
+=======
+>>>>>>> b67b29b60c168566ba728aa4ac3d44aa67ddbcd1
     }
 }

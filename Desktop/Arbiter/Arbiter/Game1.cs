@@ -36,7 +36,7 @@ namespace Arbiter
         public static Texture2D Normal;
         public static Texture2D Obstacle;
 
-        public enum States { MENU, SETUP, GAME, ENDGAME } //Contains gamestates used in Update(). Update as needed!
+        public enum States { MENU, SETUP, Player1Turn, Player2turn, ENDGAME } //Contains gamestates used in Update(). Update as needed!
         States gameState; //Controls the state of the game using the above enum.
 
         Match testMatch;
@@ -165,12 +165,23 @@ namespace Arbiter
                 case States.SETUP:
                     testMatch = new Match(2);
                     testMatch.Draft();
-                    gameState = States.GAME;
+                    gameState = States.Player1Turn;
                     break;
-                case States.GAME:
-                    if(testMatch.TurnManager())
+
+                case States.Player1Turn:
+                    if(testMatch.TurnManager()) //if returns true end game
                         gameState = States.ENDGAME;
+                    else
+                    { gameState = States.Player2turn; } //else other players turn
                     break;
+
+                case States.Player2turn:
+                    if(testMatch.TurnManager()) //if returns true end game
+                        gameState = States.ENDGAME;
+                    else
+                    { gameState = States.Player1Turn; } //else other players turn
+                    break;
+
                 case States.ENDGAME:
                     MenuVariables.winScreen = true;
                     gameState = States.MENU;
