@@ -169,6 +169,9 @@ namespace Arbiter
                     break;
 
                 case States.Player1Turn:
+                    //code here to handle turn
+
+                    //at end of turn
                     if(testMatch.TurnManager()) //if returns true end game
                         gameState = States.ENDGAME;
                     else
@@ -176,6 +179,10 @@ namespace Arbiter
                     break;
 
                 case States.Player2turn:
+
+                    //code here to handle turn
+
+                    //end of turn
                     if(testMatch.TurnManager()) //if returns true end game
                         gameState = States.ENDGAME;
                     else
