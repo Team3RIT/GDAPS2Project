@@ -131,7 +131,50 @@ namespace Arbiter
 
             //update the mouse
             click = Mouse.GetState();
+            //Josh - gamepad stuff
+            GamePadThumbSticks sticks = gstate.ThumbSticks;
 
+             Vector2 left = sticks.Left;
+            Vector2 right = sticks.Right;
+            int state = 0; // number 0 to three. different states will be different locations for rectangles to be drawn each corresponding to one of the menu buttons
+
+            //todo - add a range of values that will work for left and right. 
+            if (gstate.IsConnected == false)
+            {
+                MenuVariables.ControllerConnected = false; //won't start game if this is false
+                spriteBatch.Begin();
+                spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
+                spriteBatch.End();
+            }
+            else
+            {
+                if (left.X == 0 && left.Y == 32767)
+                {
+                    // move up calls
+                    if (state > 0)
+                    {
+                        state--;
+                    }
+                }
+                if (left.X == 32767 && left.Y == 0)
+                {
+                    // move right calls
+                }
+                if (left.X == 0 && left.Y == 32768)
+                {
+                    // move down calls
+                    if (state < 3)
+                    {
+                        state++;
+                    }
+                }
+                if (left.X == -32768 && left.Y == 0)
+                {
+                    // move left calls
+                }
+            }
+
+            
             switch(gameState)
             {
                 case States.MENU:
@@ -249,44 +292,9 @@ namespace Arbiter
             
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
              // start of gamepad logic
-            GamePadThumbSticks sticks = gstate.ThumbSticks;
-            Vector2 left = sticks.Left;
-            Vector2 right = sticks.Right;
-            int state = 0; // number 0 to three. different states will be different locations for rectangles to be drawn each corresponding to one of the menu buttons
-
-            //todo - add a range of values that will work for left and right. 
-            if (gstate.IsConnected == false)
-            {
-                MenuVariables.ControllerConnected = false; //won't start game if this is false
-                spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
-            }
-            else
-            {
-                if (left.X == 0 && left.Y == 32767)
-                {
-                    // move up calls
-                    if (state > 0)
-                    {
-                        state--;
-                    }
-                }
-                if (left.X == 32767 && left.Y == 0)
-                {
-                    // move right calls
-                }
-                if (left.X == 0 && left.Y == 32768)
-                {
-                    // move down calls
-                    if (state < 3)
-                    {
-                        state++;
-                    }
-                }
-                if (left.X == -32768 && left.Y == 0)
-                {
-                    // move left calls
-                }
-            }
+            
+           
+            
 
             spriteBatch.End();
             base.Draw(gameTime);

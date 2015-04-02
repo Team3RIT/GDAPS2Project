@@ -82,7 +82,7 @@ namespace Arbiter
             }
 
             //hasMoved = true;
-            GameVariables.players[owner.ID].MovedUnits++;
+            //GameVariables.players[owner.ID].MovedUnits++;
         }
         public List<Vector2> Select()
         {
