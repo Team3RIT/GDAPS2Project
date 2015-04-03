@@ -27,11 +27,11 @@ namespace Arbiter
         public static MouseState click; // the mouse state for the menus
 
         //player 1 controller attributes
-        GamePadState gamepad1;
-        GamePadThumbSticks thumbstick1;
-        GamePadTriggers triggers1;
-        GamePadButtons buttons1;
-        GamePadDPad dpad1;
+        GamePadState gamepad;
+        GamePadThumbSticks thumbstick;
+        GamePadTriggers triggers;
+        GamePadButtons buttons;
+        GamePadDPad dpad;
 
         //images for game pieces/board states
         public static Texture2D Heavy;
@@ -66,11 +66,11 @@ namespace Arbiter
             DisplayBox = new MenuDisplay();
 
             //instantiate controller
-            thumbstick1 = new GamePadThumbSticks();
-            triggers1 = new GamePadTriggers();
-            buttons1 = new GamePadButtons();
-            dpad1 = new GamePadDPad();
-            gamepad1 = new GamePadState(thumbstick1,triggers1,buttons1, dpad1);
+            thumbstick = new GamePadThumbSticks();
+            triggers = new GamePadTriggers();
+            buttons = new GamePadButtons();
+            dpad = new GamePadDPad();
+            gamepad = new GamePadState(thumbstick,triggers,buttons, dpad);
 
             
             
@@ -145,20 +145,20 @@ namespace Arbiter
             //update the mouse
             click = Mouse.GetState();
             //Josh - gamepad stuff
-            GamePadThumbSticks sticks = gamepad1.ThumbSticks;
-
-             Vector2 left = sticks.Left;
-            Vector2 right = sticks.Right;
-            int state = 0; // number 0 to three. different states will be different locations for rectangles to be drawn each corresponding to one of the menu buttons
-            gamepad1 = GamePad.GetState(PlayerIndex.One);
-            //todo - add a range of values that will work for left and right. 
-            if (gamepad1.IsConnected == false)
+            //GamePadThumbSticks sticks = gamepad.ThumbSticks;
+            gamepad = GamePad.GetState(PlayerIndex.One);
+            if (gamepad.IsConnected == false)
             {
                 MenuVariables.ControllerConnected = false; //won't start game if this is false
-                spriteBatch.Begin();
-                spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
-                spriteBatch.End();
+
             }
+
+            /*Vector2 left = sticks.Left;
+            Vector2 right = sticks.Right;
+            int state = 0; // number 0 to three. different states will be different locations for rectangles to be drawn each corresponding to one of the menu buttons
+            
+            //todo - add a range of values that will work for left and right. 
+            
             else
             {
                 if (left.X == 0 && left.Y == 32767)
@@ -186,7 +186,7 @@ namespace Arbiter
                     // move left calls
                 }
             }
-
+            */
             //finite state machine - Travis
             switch(gameState)
             {
@@ -269,6 +269,10 @@ namespace Arbiter
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
+            //if(MenuVariables.ControllerConnected == false)
+            {
+                spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
+            }
             ///////////////////////////////// DRAW MENUS //////////////////////////////////////////
 
             //pandora.DisplayTestPopup("Tower Control Game of No-Names", "this is some test text", "USUP", spriteBatch, font, this);

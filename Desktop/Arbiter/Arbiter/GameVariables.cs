@@ -15,7 +15,7 @@ namespace Arbiter
     static class GameVariables
     {
         static public Piece[,] board; //game board
-
+        static public Vector2 gamePadLocation;
         static public List<Tower> towers; //important lists that multiple classes will need
         static public List<Structure> structures;
         static public List<Player> players;

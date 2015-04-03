@@ -125,7 +125,7 @@ namespace Arbiter
         public static Rectangle WinExit;
         /////////////////////////////// EXTRANEOUS INTERFACE MENU VARIABLES ////////////////////////////////////////// 
 
-        public static bool ControllerConnected = false;  //defaulted to not having a gamepad connected
+        public static bool ControllerConnected;  //defaulted to not having a gamepad connected
         
 
         ///////////////////PROPERTIES//////////////////////////////////
