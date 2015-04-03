@@ -33,6 +33,8 @@ namespace Arbiter
         GamePadButtons buttons;
         GamePadDPad dpad;
 
+        KeyboardState keyboard;
+
         //images for game pieces/board states
         public static Texture2D Heavy;
         public static Texture2D Light;
@@ -70,7 +72,10 @@ namespace Arbiter
             triggers = new GamePadTriggers();
             buttons = new GamePadButtons();
             dpad = new GamePadDPad();
-            gamepad = new GamePadState(thumbstick,triggers,buttons, dpad);
+            gamepad = GamePad.GetState(PlayerIndex.One);
+
+            //keyboard
+            keyboard = Keyboard.GetState();
 
             
             
@@ -153,6 +158,34 @@ namespace Arbiter
 
             }
 
+            keyboard = Keyboard.GetState();
+
+            if (keyboard.IsKeyDown(Keys.Down))
+            {
+                GameVariables.gamePadLocation.Y++;
+                if (GameVariables.gamePadLocation.Y >= GameVariables.BoardSpaceDim)
+                    GameVariables.gamePadLocation.Y = GameVariables.BoardSpaceDim - 1;
+            }
+            if (keyboard.IsKeyDown(Keys.Up))
+            {
+                GameVariables.gamePadLocation.Y--;
+                if (GameVariables.gamePadLocation.Y < 0)
+                    GameVariables.gamePadLocation.Y = 0;
+            }
+            if (keyboard.IsKeyDown(Keys.Left))
+            {
+                GameVariables.gamePadLocation.X--;
+                if (GameVariables.gamePadLocation.X < 0)
+                    GameVariables.gamePadLocation.X = 0;
+            }
+            if (keyboard.IsKeyDown(Keys.Right))
+            {
+                GameVariables.gamePadLocation.X++;
+                if (GameVariables.gamePadLocation.X >= GameVariables.BoardSpaceDim)
+                    GameVariables.gamePadLocation.X = GameVariables.BoardSpaceDim - 1;
+            }
+
+            #region Josh's code - doesn't work
             /*Vector2 left = sticks.Left;
             Vector2 right = sticks.Right;
             int state = 0; // number 0 to three. different states will be different locations for rectangles to be drawn each corresponding to one of the menu buttons
@@ -187,6 +220,7 @@ namespace Arbiter
                 }
             }
             */
+            #endregion
             //finite state machine - Travis
             switch(gameState)
             {
@@ -269,10 +303,7 @@ namespace Arbiter
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            //if(MenuVariables.ControllerConnected == false)
-            {
-                spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
-            }
+            
             ///////////////////////////////// DRAW MENUS //////////////////////////////////////////
 
             //pandora.DisplayTestPopup("Tower Control Game of No-Names", "this is some test text", "USUP", spriteBatch, font, this);
@@ -305,8 +336,10 @@ namespace Arbiter
             {
                 DisplayBox.DisplayWinMenu(spriteBatch, font, this);
             }
-            
-            
+            if (gamepad.IsConnected != true)
+            {
+                spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
+            }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
              
             

@@ -42,6 +42,7 @@ namespace Arbiter
             towers = new List<Tower>();
             structures = new List<Structure>();
             players = new List<Player>();
+            gamePadLocation = new Vector2(0, 0);
 
         }
         public static int BoardSpaceDim //to avoid divide by zero exception
