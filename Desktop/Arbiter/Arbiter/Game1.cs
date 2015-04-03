@@ -260,11 +260,11 @@ namespace Arbiter
 
                 case States.Player1Turn:
                     //code here to handle turn
-                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && gamepad.IsButtonDown(Buttons.A))
+                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
                     {
                         if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
                         {
-                            //UnitMove(GameVariables.board[/*player's select position*/0, 0]);
+                            UnitMove((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]);
                         }
                     }
                     //at end of turn
@@ -277,11 +277,11 @@ namespace Arbiter
                 case States.Player2turn:
 
                     //code here to handle turn
-                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && gamepad.IsButtonDown(Buttons.A))
+                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
                     {
                         if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 2)
                         {
-                            //UnitMove(GameVariables.board[/*player's select position*/0, 0]);
+                            UnitMove((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]);
                         }
                     }
                     //end of turn
@@ -380,6 +380,20 @@ namespace Arbiter
                     
                 }
             }
+        }
+
+        public void UnitMove(Unit person)
+        {
+            foreach (Vector2 guy in person.Select())
+            {
+                //for every possible place you could move the unit 
+
+                Rectangle rect = new Rectangle((int)(guy.X * GameVariables.spaceDim + GameVariables.screenbufferHorizontal), (int)(guy.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical), GameVariables.spaceDim, GameVariables.spaceDim);
+                spriteBatch.Draw(Normal, rect, Color.LightSteelBlue * 0.5f); //highlight the area
+
+            }
+
+
         }
     
     }
