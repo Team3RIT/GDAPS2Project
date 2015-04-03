@@ -92,50 +92,77 @@ namespace Arbiter
             for (int i = 1; i <= rank; i++) //moving down 
             {
                 plannedMove = new Vector2(location.X, location.Y + i);
-                if (this.PathTracker(this.location, new Vector2(plannedMove.X, plannedMove.Y + i), "vertical"))
-                    possibleMoves.Add(plannedMove);
+                if (GameVariables.OnBoard(plannedMove))
+                {
+                    if (this.PathTracker(this.location, plannedMove, "vertical"))
+                        possibleMoves.Add(plannedMove);
+                }
             }
+
             for (int i = 1; i <= rank; i++) //moving up 
             {
+                
                 plannedMove = new Vector2(location.X, location.Y - i);
-                if (this.PathTracker(this.location, new Vector2(plannedMove.X, plannedMove.Y - i), "vertical"))
-                    possibleMoves.Add(plannedMove);
+                if (GameVariables.OnBoard(plannedMove))
+                {
+                    if (this.PathTracker(this.location, plannedMove, "vertical"))
+                        possibleMoves.Add(plannedMove);
+                }
             }
             for (int i = 1; i <= rank; i++) //moving right
             {
                 plannedMove = new Vector2(location.X+i, location.Y);
-                if (this.PathTracker(this.location, new Vector2(plannedMove.X+i, plannedMove.Y), "horizontal"))
-                    possibleMoves.Add(plannedMove);
+                if (GameVariables.OnBoard(plannedMove))
+                {
+                    if (this.PathTracker(this.location,plannedMove, "horizontal"))
+                        possibleMoves.Add(plannedMove);
+                }
             }
             for (int i = 1; i <= rank; i++) //moving left
             {
-                plannedMove = new Vector2(location.X-i, location.Y);
-                if (this.PathTracker(this.location, new Vector2(plannedMove.X-i, plannedMove.Y), "horizontal"))
-                    possibleMoves.Add(plannedMove);
+                plannedMove = new Vector2(location.X - i, location.Y);
+                if (GameVariables.OnBoard(plannedMove))
+                {
+                    if (this.PathTracker(this.location,plannedMove, "horizontal"))
+                        possibleMoves.Add(plannedMove);
+                }
             }
             for (int i = 1; i <= rank/2; i++) //diagonally up and left
             {
-                plannedMove = new Vector2(location.X-i, location.Y-i);
-                if (this.PathTracker(this.location, new Vector2(plannedMove.X - i, plannedMove.Y - i), "diagonal"))
-                    possibleMoves.Add(plannedMove);
+                
+                    plannedMove = new Vector2(location.X - i, location.Y - i);
+                if (GameVariables.OnBoard(plannedMove))
+                {
+                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                        possibleMoves.Add(plannedMove);
+                }
             }
             for (int i = 1; i <= rank / 2; i++) //diagonally up and right
             {
-                plannedMove = new Vector2(location.X - i, location.Y - i);
-                if (this.PathTracker(this.location, new Vector2(plannedMove.X + i, plannedMove.Y - i), "diagonal"))
-                    possibleMoves.Add(plannedMove);
+                plannedMove = new Vector2(location.X + i, location.Y - i);
+                if (GameVariables.OnBoard(plannedMove))
+                {
+                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                        possibleMoves.Add(plannedMove);
+                }
             }
             for (int i = 1; i <= rank / 2; i++) //diagonally down and left
             {
-                plannedMove = new Vector2(location.X - i, location.Y - i);
-                if (this.PathTracker(this.location, new Vector2(plannedMove.X - i, plannedMove.Y + i), "diagonal"))
-                    possibleMoves.Add(plannedMove);
+                plannedMove = new Vector2(location.X - i, location.Y + i);
+                if (GameVariables.OnBoard(plannedMove))
+                {
+                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                        possibleMoves.Add(plannedMove);
+                }
             }
             for (int i = 1; i <= rank / 2; i++) //diagonally down and right
             {
-                plannedMove = new Vector2(location.X - i, location.Y - i);
-                if (this.PathTracker(this.location, new Vector2(plannedMove.X + i, plannedMove.Y + i), "diagonal"))
-                    possibleMoves.Add(plannedMove);
+                plannedMove = new Vector2(location.X + i, location.Y + i);
+                if (GameVariables.OnBoard(plannedMove))
+                {
+                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                        possibleMoves.Add(plannedMove);
+                }
             }
             this.Trim(ref possibleMoves);
             return possibleMoves;

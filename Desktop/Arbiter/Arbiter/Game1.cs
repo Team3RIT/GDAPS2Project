@@ -159,30 +159,32 @@ namespace Arbiter
             }
 
             keyboard = Keyboard.GetState();
-
-            if (keyboard.IsKeyDown(Keys.Down))
+            if (gameState == States.Player1Turn || gameState == States.Player2turn)
             {
-                GameVariables.gamePadLocation.Y++;
-                if (GameVariables.gamePadLocation.Y >= GameVariables.BoardSpaceDim)
-                    GameVariables.gamePadLocation.Y = GameVariables.BoardSpaceDim - 1;
-            }
-            if (keyboard.IsKeyDown(Keys.Up))
-            {
-                GameVariables.gamePadLocation.Y--;
-                if (GameVariables.gamePadLocation.Y < 0)
-                    GameVariables.gamePadLocation.Y = 0;
-            }
-            if (keyboard.IsKeyDown(Keys.Left))
-            {
-                GameVariables.gamePadLocation.X--;
-                if (GameVariables.gamePadLocation.X < 0)
-                    GameVariables.gamePadLocation.X = 0;
-            }
-            if (keyboard.IsKeyDown(Keys.Right))
-            {
-                GameVariables.gamePadLocation.X++;
-                if (GameVariables.gamePadLocation.X >= GameVariables.BoardSpaceDim)
-                    GameVariables.gamePadLocation.X = GameVariables.BoardSpaceDim - 1;
+                if (keyboard.IsKeyDown(Keys.Down))
+                {
+                    GameVariables.gamePadLocation.Y++;
+                    if (GameVariables.gamePadLocation.Y >= GameVariables.BoardSpaceDim)
+                        GameVariables.gamePadLocation.Y = GameVariables.BoardSpaceDim - 1;
+                }
+                if (keyboard.IsKeyDown(Keys.Up))
+                {
+                    GameVariables.gamePadLocation.Y--;
+                    if (GameVariables.gamePadLocation.Y < 0)
+                        GameVariables.gamePadLocation.Y = 0;
+                }
+                if (keyboard.IsKeyDown(Keys.Left))
+                {
+                    GameVariables.gamePadLocation.X--;
+                    if (GameVariables.gamePadLocation.X < 0)
+                        GameVariables.gamePadLocation.X = 0;
+                }
+                if (keyboard.IsKeyDown(Keys.Right))
+                {
+                    GameVariables.gamePadLocation.X++;
+                    if (GameVariables.gamePadLocation.X >= GameVariables.BoardSpaceDim)
+                        GameVariables.gamePadLocation.X = GameVariables.BoardSpaceDim - 1;
+                }
             }
 
             #region Josh's code - doesn't work
@@ -260,6 +262,13 @@ namespace Arbiter
 
                 case States.Player1Turn:
                     //code here to handle turn
+                    GameVariables.gamePadLocation = new Vector2(0, 0);
+                    if(keyboard.IsKeyDown(Keys.P))
+                    {
+                        MenuVariables.pause = true;
+                        gameState = States.MENU;
+                    }
+
                     if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && gamepad.IsButtonDown(Buttons.A))
                     {
                         if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
