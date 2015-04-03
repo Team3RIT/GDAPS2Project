@@ -260,7 +260,13 @@ namespace Arbiter
 
                 case States.Player1Turn:
                     //code here to handle turn
-
+                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && gamepad.IsButtonDown(Buttons.A))
+                    {
+                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
+                        {
+                            //UnitMove(GameVariables.board[/*player's select position*/0, 0]);
+                        }
+                    }
                     //at end of turn
                     if(testMatch.TurnManager()) //if returns true end game
                         gameState = States.ENDGAME;
@@ -271,7 +277,13 @@ namespace Arbiter
                 case States.Player2turn:
 
                     //code here to handle turn
-
+                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && gamepad.IsButtonDown(Buttons.A))
+                    {
+                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 2)
+                        {
+                            //UnitMove(GameVariables.board[/*player's select position*/0, 0]);
+                        }
+                    }
                     //end of turn
                     if(testMatch.TurnManager()) //if returns true end game
                         gameState = States.ENDGAME;
