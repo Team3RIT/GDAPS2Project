@@ -262,7 +262,7 @@ namespace Arbiter
 
                 case States.Player1Turn:
                     //code here to handle turn
-<<<<<<< HEAD
+
                     GameVariables.gamePadLocation = new Vector2(0, 0);
                     if(keyboard.IsKeyDown(Keys.P))
                     {
@@ -271,9 +271,11 @@ namespace Arbiter
                     }
 
                     if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && gamepad.IsButtonDown(Buttons.A))
-=======
+
                     if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
->>>>>>> 6abfaefaaa149ecdd728794dc12c6f819e0f3aa2
+
+                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
+
                     {
                         if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
                         {
