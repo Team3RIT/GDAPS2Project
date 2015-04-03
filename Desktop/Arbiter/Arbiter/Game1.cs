@@ -25,7 +25,13 @@ namespace Arbiter
         MenuDisplay DisplayBox;
         MenuLogic LogicBox;
         public static MouseState click; // the mouse state for the menus
-        GamePadState gstate = new GamePadState();
+
+        //player 1 controller attributes
+        GamePadState gamepad1;
+        GamePadThumbSticks thumbstick1;
+        GamePadTriggers triggers1;
+        GamePadButtons buttons1;
+        GamePadDPad dpad1;
 
         //images for game pieces/board states
         public static Texture2D Heavy;
@@ -58,6 +64,13 @@ namespace Arbiter
             //define menu objects
             LogicBox = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret -NEVER!!!, alright, fine..... - Nick
             DisplayBox = new MenuDisplay();
+
+            //instantiate controller
+            thumbstick1 = new GamePadThumbSticks();
+            triggers1 = new GamePadTriggers();
+            buttons1 = new GamePadButtons();
+            dpad1 = new GamePadDPad();
+            gamepad1 = new GamePadState(thumbstick1,triggers1,buttons1, dpad1);
 
             
             
@@ -132,14 +145,14 @@ namespace Arbiter
             //update the mouse
             click = Mouse.GetState();
             //Josh - gamepad stuff
-            GamePadThumbSticks sticks = gstate.ThumbSticks;
+            GamePadThumbSticks sticks = gamepad1.ThumbSticks;
 
              Vector2 left = sticks.Left;
             Vector2 right = sticks.Right;
             int state = 0; // number 0 to three. different states will be different locations for rectangles to be drawn each corresponding to one of the menu buttons
-            gstate = GamePad.GetState(new PlayerIndex());
+            gamepad1 = GamePad.GetState(PlayerIndex.One);
             //todo - add a range of values that will work for left and right. 
-            if (gstate.IsConnected == false)
+            if (gamepad1.IsConnected == false)
             {
                 MenuVariables.ControllerConnected = false; //won't start game if this is false
                 spriteBatch.Begin();

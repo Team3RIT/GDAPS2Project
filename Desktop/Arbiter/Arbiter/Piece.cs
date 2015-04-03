@@ -105,6 +105,10 @@ namespace Arbiter
         #endregion
 
         #region methods
+        public List<Vector2> Select()
+        {
+            return null;
+        }
         public void Remove(Unit piece)
         {
             if (location.X == piece.location.X && location.Y == piece.location.Y)
