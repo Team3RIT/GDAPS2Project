@@ -17,7 +17,7 @@ namespace Arbiter
         {
             //initialize Player and Pieces arrays to the number of players specified in match creation.
             pieces = new Unit[playerCount+1, 14];
-            GameVariables.players.Add(new Player("Terrain", 0));
+            GameVariables.players.Add(new Player("Terrain", -1));
             for (int i = 1; i < playerCount + 1; i++ )
                 GameVariables.players.Add(new Player(("Player " + i), i));
             whoseTurn = 1;

@@ -34,6 +34,7 @@ namespace Arbiter
         GamePadDPad dpad;
 
         KeyboardState keyboard;
+        KeyboardState previouskeyboardState;
 
         //images for game pieces/board states
         public static Texture2D Heavy;
@@ -161,30 +162,31 @@ namespace Arbiter
             keyboard = Keyboard.GetState();
             if (gameState == States.Player1Turn || gameState == States.Player2turn)
             {
-                if (keyboard.IsKeyDown(Keys.Down))
+                if (keyboard.IsKeyDown(Keys.Down)&&(!previouskeyboardState.IsKeyDown(Keys.Down)))
                 {
                     GameVariables.gamePadLocation.Y++;
                     if (GameVariables.gamePadLocation.Y >= GameVariables.BoardSpaceDim)
                         GameVariables.gamePadLocation.Y = GameVariables.BoardSpaceDim - 1;
                 }
-                if (keyboard.IsKeyDown(Keys.Up))
+                if (keyboard.IsKeyDown(Keys.Up) && (!previouskeyboardState.IsKeyDown(Keys.Up)))
                 {
                     GameVariables.gamePadLocation.Y--;
                     if (GameVariables.gamePadLocation.Y < 0)
                         GameVariables.gamePadLocation.Y = 0;
                 }
-                if (keyboard.IsKeyDown(Keys.Left))
+                if (keyboard.IsKeyDown(Keys.Left) && (!previouskeyboardState.IsKeyDown(Keys.Left)))
                 {
                     GameVariables.gamePadLocation.X--;
                     if (GameVariables.gamePadLocation.X < 0)
                         GameVariables.gamePadLocation.X = 0;
                 }
-                if (keyboard.IsKeyDown(Keys.Right))
+                if (keyboard.IsKeyDown(Keys.Right) && (!previouskeyboardState.IsKeyDown(Keys.Right)))
                 {
                     GameVariables.gamePadLocation.X++;
                     if (GameVariables.gamePadLocation.X >= GameVariables.BoardSpaceDim)
                         GameVariables.gamePadLocation.X = GameVariables.BoardSpaceDim - 1;
                 }
+                previouskeyboardState = keyboard;
             }
 
             #region Josh's code - doesn't work
@@ -263,7 +265,7 @@ namespace Arbiter
                 case States.Player1Turn:
                     //code here to handle turn
 
-                    GameVariables.gamePadLocation = new Vector2(0, 0);
+                    
                     if(keyboard.IsKeyDown(Keys.P))
                     {
                         MenuVariables.pause = true;
@@ -272,8 +274,8 @@ namespace Arbiter
 
                     if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && gamepad.IsButtonDown(Buttons.A))
 
-                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
-
+                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
+                            UnitMove((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]);
                     if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
 
                     {
@@ -369,7 +371,10 @@ namespace Arbiter
             }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
              
-            
+            if(gameState == States.Player1Turn)
+            {
+                spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
+            }
            
             
 
@@ -402,10 +407,10 @@ namespace Arbiter
             foreach (Vector2 guy in person.Select())
             {
                 //for every possible place you could move the unit 
-
+                spriteBatch.Begin();
                 Rectangle rect = new Rectangle((int)(guy.X * GameVariables.spaceDim + GameVariables.screenbufferHorizontal), (int)(guy.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical), GameVariables.spaceDim, GameVariables.spaceDim);
                 spriteBatch.Draw(Normal, rect, Color.LightSteelBlue * 0.5f); //highlight the area
-
+                spriteBatch.End();
             }
 
 

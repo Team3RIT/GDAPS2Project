@@ -84,7 +84,7 @@ namespace Arbiter
             //hasMoved = true;
             //GameVariables.players[owner.ID].MovedUnits++;
         }
-        public List<Vector2> Select()
+        public new List<Vector2> Select()
         {
             possibleMoves.Clear(); //clears out the list so it's a new set
             Vector2 plannedMove;
