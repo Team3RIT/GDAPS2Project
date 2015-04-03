@@ -242,13 +242,13 @@ namespace Arbiter
                             locationinitial.X++;
                             while (locationinitial.X != locationfinal.X) //until you've reached the destination
                             {
-                                locationinitial.X++; //move one space in the correct direction
+                                 
                                 if (GameVariables.board[(int)locationinitial.X, (int)locationinitial.Y] != null) //check for collision
                                 {
                                     return false; //not clear to make this movement
 
                                 }
-                                locationinitial.X++;
+                                locationinitial.X++; //move one space in the correct direction
                             }
                         }
                         return true;
