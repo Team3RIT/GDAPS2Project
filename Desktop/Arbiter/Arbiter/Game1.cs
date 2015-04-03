@@ -137,7 +137,7 @@ namespace Arbiter
              Vector2 left = sticks.Left;
             Vector2 right = sticks.Right;
             int state = 0; // number 0 to three. different states will be different locations for rectangles to be drawn each corresponding to one of the menu buttons
-
+            gstate = GamePad.GetState(new PlayerIndex());
             //todo - add a range of values that will work for left and right. 
             if (gstate.IsConnected == false)
             {
@@ -174,7 +174,7 @@ namespace Arbiter
                 }
             }
 
-            
+            //finite state machine - Travis
             switch(gameState)
             {
                 case States.MENU:
@@ -291,7 +291,7 @@ namespace Arbiter
             
             
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
-             // start of gamepad logic
+             
             
            
             
