@@ -142,6 +142,7 @@ namespace Arbiter
             click = Mouse.GetState();
             //Josh - gamepad stuff
             //GamePadThumbSticks sticks = gamepad.ThumbSticks;
+            #region gamepad movement
             gamepad = GamePad.GetState(PlayerIndex.One);
             if (gamepad.IsConnected)
             {
@@ -174,8 +175,8 @@ namespace Arbiter
               }
 
             }
-
-            previousgamepadState = gamepad;
+            #endregion
+            #region keyboard movement
             keyboard = Keyboard.GetState();
             if (gameState == States.Player1Turn || gameState == States.Player2turn)
             {
@@ -203,9 +204,9 @@ namespace Arbiter
                     if (GameVariables.gamePadLocation.X >= GameVariables.BoardSpaceDim)
                         GameVariables.gamePadLocation.X = GameVariables.BoardSpaceDim - 1;
                 }
-                previouskeyboardState = keyboard;
-            }
 
+            }
+            #endregion
             #region Josh's code - doesn't work
             /*Vector2 left = sticks.Left;
             Vector2 right = sticks.Right;
@@ -281,17 +282,18 @@ namespace Arbiter
 
                 case States.Player1Turn:
                     //code here to handle turn
+                    #region turnlogic
                     int count = 0;
-           
+                    
                         if (keyboard.IsKeyDown(Keys.P))
                         {
                             MenuVariables.pause = true;
                             gameState = States.MENU;
                         }
 
-                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)&&!((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space)))))
+                        if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)&&!((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space)))))
                         {
-                            if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
+                            if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
                             {
                                 selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
                                 UnitMove(selectedunit);
@@ -307,6 +309,9 @@ namespace Arbiter
                                 }
                             }
                         }
+                        
+
+#endregion
                         if (count == GameVariables.NumPiecesPerTurn) //signals end of turn
                         {
                             //at end of turn
@@ -342,7 +347,8 @@ namespace Arbiter
             }
 
             //music.Play();
-            
+            previousgamepadState = gamepad; //save this gamepad state for the next loop
+            previouskeyboardState = keyboard;
             
             
             base.Update(gameTime);
