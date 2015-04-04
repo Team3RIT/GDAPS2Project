@@ -46,7 +46,7 @@ namespace Arbiter
         States gameState; //Controls the state of the game using the above enum.
 
         Match testMatch;
-
+        Unit selectedunit; //for turn logic
 
 
         public Game1()
@@ -83,7 +83,7 @@ namespace Arbiter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
-            
+            selectedunit = null;
             //make the mouse visible on screen
             this.IsMouseVisible = true;
            
@@ -281,32 +281,39 @@ namespace Arbiter
 
                 case States.Player1Turn:
                     //code here to handle turn
-
-                    
-                    if(keyboard.IsKeyDown(Keys.P))
-                    {
-                        MenuVariables.pause = true;
-                        gameState = States.MENU;
-                    }
-
-                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && gamepad.IsButtonDown(Buttons.A))
-
-                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
-                            UnitMove((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]);
-                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
-
-                    {
-                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
+                    int count = 0;
+           
+                        if (keyboard.IsKeyDown(Keys.P))
                         {
-                            UnitMove((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]);
+                            MenuVariables.pause = true;
+                            gameState = States.MENU;
                         }
-                    }
-                    //at end of turn
-                    if(testMatch.TurnManager()) //if returns true end game
-                        gameState = States.ENDGAME;
-                    else
-                    { gameState = States.Player2turn; } //else other players turn
+
+                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space))
+                            && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
+                        {
+                            selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
+                            UnitMove(selectedunit);
+                        }
+                        else if (selectedunit != null)
+                        {
+                            if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
+                            {
+                                selectedunit.Move(GameVariables.gamePadLocation);
+                                count++;
+                                selectedunit = null;
+                            }
+                        }
+                        if (count == GameVariables.NumPiecesPerTurn) //signals end of turn
+                        {
+                            //at end of turn
+                            if (testMatch.TurnManager()) //if returns true end game
+                                gameState = States.ENDGAME;
+                            else
+                            { gameState = States.Player2turn; } //else other players turn
+                        }
                     break;
+
 
                 case States.Player2turn:
 
