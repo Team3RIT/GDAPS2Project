@@ -394,13 +394,14 @@ namespace Arbiter
                 spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
             }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
-             
+            
             if(gameState == States.Player1Turn || gameState == States.Player1Turn)
             {
+                DrawBoard();
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
             }
+
            
-            
 
             spriteBatch.End();
             base.Draw(gameTime);
