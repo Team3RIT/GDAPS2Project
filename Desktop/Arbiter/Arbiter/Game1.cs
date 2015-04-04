@@ -48,6 +48,10 @@ namespace Arbiter
         Match testMatch;
         Unit selectedunit; //for turn logic
 
+        //varaiables for the UnitMove methods
+        public bool PotentialMoves; //if true run DisplayUnitMove, if false do not
+        public Unit PossibleMovesUnit; //used to store the unit that is put in Display UnitMove from UnitMove
+
 
         public Game1()
             : base()
@@ -65,7 +69,7 @@ namespace Arbiter
             LogicBox = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret -NEVER!!!, alright, fine..... - Nick
             DisplayBox = new MenuDisplay();
 
-           
+            
             
 
             
@@ -84,6 +88,8 @@ namespace Arbiter
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
             selectedunit = null;
+            PotentialMoves = false;  
+
             //make the mouse visible on screen
             this.IsMouseVisible = true;
            
@@ -293,13 +299,16 @@ namespace Arbiter
                             && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
                         {
                             selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
-                            UnitMove(selectedunit);
+
+                            PotentialMoves = true;
+                            //UnitMove(selectedunit); selected unit used in DisplayUnitMove in draw method
                         }
                         else if (selectedunit != null)
                         {
                             if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
                             {
                                 selectedunit.Move(GameVariables.gamePadLocation);
+                                PotentialMoves = false; //stop displaying spots where you can move
                                 count++;
                                 selectedunit = null;
                             }
@@ -401,7 +410,11 @@ namespace Arbiter
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
             }
 
-           
+           //show possible moves a unit can take
+            if (PotentialMoves == true)
+            {
+                DisplayUnitMove(selectedunit);
+            }
 
             spriteBatch.End();
             base.Draw(gameTime);
@@ -427,19 +440,28 @@ namespace Arbiter
             }
         }
 
+       //Nick
         public void UnitMove(Unit person)
         {
+            //no longer requires a Unit due to existence of selectedUnit variable
+            //if called makes sure DisplayUnitMove is Run untill a unit is actually selected
+            //set possible choices equal to true
+            PotentialMoves = true; //DisplayUnitMove will be run in draw as long as this is true
+            PossibleMovesUnit = person; //this variable should then be plugged into DisplayUnitMove when its in the draw method
+
+        }
+
+        public void DisplayUnitMove(Unit person)
+        {
+
             foreach (Vector2 guy in person.Select())
             {
                 //for every possible place you could move the unit 
-                spriteBatch.Begin();
+                //spriteBatch.Begin(); //no need for spritebatches, this is called within draw now
                 Rectangle rect = new Rectangle((int)(guy.X * GameVariables.spaceDim + GameVariables.screenbufferHorizontal), (int)(guy.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical), GameVariables.spaceDim, GameVariables.spaceDim);
                 spriteBatch.Draw(Normal, rect, Color.LightSteelBlue * 0.5f); //highlight the area
-                spriteBatch.End();
+                //spriteBatch.End();
             }
-
-
         }
-    
     }
 }
