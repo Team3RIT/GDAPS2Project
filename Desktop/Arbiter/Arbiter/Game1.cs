@@ -289,19 +289,22 @@ namespace Arbiter
                             gameState = States.MENU;
                         }
 
-                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space))
-                            && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
+                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)&&!((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space)))))
                         {
-                            selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
-                            UnitMove(selectedunit);
-                        }
-                        else if (selectedunit != null)
-                        {
-                            if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
+                            if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
                             {
-                                selectedunit.Move(GameVariables.gamePadLocation);
-                                count++;
-                                selectedunit = null;
+                                selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
+                                UnitMove(selectedunit);
+                            }
+
+                            else if (selectedunit != null)
+                            {
+                                if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
+                                {
+                                    selectedunit.Move(GameVariables.gamePadLocation);
+                                    count++;
+                                    selectedunit = null;
+                                }
                             }
                         }
                         if (count == GameVariables.NumPiecesPerTurn) //signals end of turn

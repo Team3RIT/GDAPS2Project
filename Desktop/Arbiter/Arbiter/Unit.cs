@@ -71,19 +71,18 @@ namespace Arbiter
             }
             if (myTower != null)
                 myTower.Abandon(this); //abandon it if you're on one
-            else
-                GameVariables.board[(int)location.X, (int)location.Y] = null; //otherwise your space will be left empty
+                
             location = newLocation;
-            
             if(newTower != null)
                 newTower.Claim(this);
             if(GameVariables.board[(int)location.X,(int)location.Y]!=null && GameVariables.board[(int)location.X,(int)location.Y].Rank < rank && GameVariables.board[(int)location.X,(int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
             {
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
+            else
             GameVariables.board[(int)location.X, (int)location.Y] = this;
-
-            //hasMoved = true;
+            GameVariables.board[(int)location.X, (int)location.Y] = null; //previous space will be left empty
+            
             //GameVariables.players[owner.ID].MovedUnits++;
         }
         public new List<Vector2> Select()
