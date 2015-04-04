@@ -28,10 +28,7 @@ namespace Arbiter
 
         //player 1 controller attributes
         GamePadState gamepad;
-        GamePadThumbSticks thumbstick;
-        GamePadTriggers triggers;
-        GamePadButtons buttons;
-        GamePadDPad dpad;
+        GamePadState previousgamepadState;
 
         KeyboardState keyboard;
         KeyboardState previouskeyboardState;
@@ -68,15 +65,8 @@ namespace Arbiter
             LogicBox = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret -NEVER!!!, alright, fine..... - Nick
             DisplayBox = new MenuDisplay();
 
-            //instantiate controller
-            thumbstick = new GamePadThumbSticks();
-            triggers = new GamePadTriggers();
-            buttons = new GamePadButtons();
-            dpad = new GamePadDPad();
-            gamepad = GamePad.GetState(PlayerIndex.One);
-
-            //keyboard
-            keyboard = Keyboard.GetState();
+           
+            
 
             
             
@@ -153,12 +143,39 @@ namespace Arbiter
             //Josh - gamepad stuff
             //GamePadThumbSticks sticks = gamepad.ThumbSticks;
             gamepad = GamePad.GetState(PlayerIndex.One);
-            if (gamepad.IsConnected == false)
+            if (gamepad.IsConnected)
             {
-                MenuVariables.ControllerConnected = false; //won't start game if this is false
+              if(gameState == States.Player1Turn || gameState == States.Player2turn)
+              {
+                  if(gamepad.IsButtonDown(Buttons.DPadDown)&&(!previousgamepadState.IsButtonDown(Buttons.DPadDown)))
+                  {
+                      GameVariables.gamePadLocation.Y++;
+                      if (GameVariables.gamePadLocation.Y >= GameVariables.BoardSpaceDim)
+                          GameVariables.gamePadLocation.Y = GameVariables.BoardSpaceDim - 1;
+                  }
+                  if (gamepad.IsButtonDown(Buttons.DPadUp) && (!previousgamepadState.IsButtonDown(Buttons.DPadUp)))
+                  {
+                      GameVariables.gamePadLocation.Y--;
+                      if (GameVariables.gamePadLocation.Y < 0 )
+                          GameVariables.gamePadLocation.Y = 0;
+                  }
+                  if (gamepad.IsButtonDown(Buttons.DPadRight) && (!previousgamepadState.IsButtonDown(Buttons.DPadRight)))
+                  {
+                      GameVariables.gamePadLocation.X++;
+                      if (GameVariables.gamePadLocation.X >= GameVariables.BoardSpaceDim)
+                          GameVariables.gamePadLocation.X = GameVariables.BoardSpaceDim - 1;
+                  }
+                  if (gamepad.IsButtonDown(Buttons.DPadLeft) && (!previousgamepadState.IsButtonDown(Buttons.DPadLeft)))
+                  {
+                      GameVariables.gamePadLocation.X--;
+                      if (GameVariables.gamePadLocation.X < 0)
+                          GameVariables.gamePadLocation.X = 0;
+                  }
+              }
 
             }
 
+            previousgamepadState = gamepad;
             keyboard = Keyboard.GetState();
             if (gameState == States.Player1Turn || gameState == States.Player2turn)
             {
@@ -371,7 +388,7 @@ namespace Arbiter
             }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
              
-            if(gameState == States.Player1Turn)
+            if(gameState == States.Player1Turn || gameState == States.Player1Turn)
             {
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
             }

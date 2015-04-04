@@ -92,7 +92,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
-    <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
