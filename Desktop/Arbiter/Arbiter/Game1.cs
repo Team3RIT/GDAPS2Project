@@ -430,7 +430,8 @@ namespace Arbiter
             {
                 for (int j = 0; j < GameVariables.BoardSpaceDim; j++)
                 {
-                    spriteBatch.Draw(Normal, new Rectangle(i * GameVariables.spaceDim + GameVariables.screenbufferHorizontal, j * GameVariables.spaceDim + GameVariables.screenbufferVertical, GameVariables.spaceDim, GameVariables.spaceDim), Color.White);   
+                    spriteBatch.Draw(Normal, new Rectangle(i * GameVariables.spaceDim + GameVariables.screenbufferHorizontal, j * GameVariables.spaceDim + GameVariables.screenbufferVertical,
+                        GameVariables.spaceDim, GameVariables.spaceDim), Color.White);   
                     //Not sure what this is??? - Nick
                     //we need a picture to represent a tile with nothing on it,
                     //it could theoretically just be a white square - Margaret
