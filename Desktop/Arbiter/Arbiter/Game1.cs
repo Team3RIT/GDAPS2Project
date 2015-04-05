@@ -26,7 +26,7 @@ namespace Arbiter
         MenuLogic LogicBox;
         public static MouseState click; // the mouse state for the menus
 
-        //player 1 controller attributes
+        //controller attributes
         GamePadState gamepad;
         GamePadState previousgamepadState;
 
@@ -43,14 +43,14 @@ namespace Arbiter
         public static Texture2D Obstacle;
 
         //Player Turn Attributes
-        int count; //number of pieces moved count
+        Match testMatch;
+        Unit selectedunit;
+        List<Unit> movedUnits;
         int currentPlayer; //ID num of current player
 
         public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
         States gameState; //Controls the state of the game using the above enum.
-
-        Match testMatch;
-        Unit selectedunit; //for turn logic
+        
 
         //varaiables for the UnitMove methods
         public bool PotentialMoves; //if true run DisplayUnitMove, if false do not
@@ -71,7 +71,10 @@ namespace Arbiter
             LogicBox = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret -NEVER!!!, alright, fine..... - Nick
             DisplayBox = new MenuDisplay();
 
-           
+            //turn logic initialization
+            selectedunit = null;
+            currentPlayer = 1;
+            movedUnits = new List<Unit>();
             
 
             
@@ -89,9 +92,8 @@ namespace Arbiter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
-            selectedunit = null;
-            currentPlayer = 1;
-            count = 0;
+
+            
             //make the mouse visible on screen
             this.IsMouseVisible = true;
            
@@ -151,7 +153,17 @@ namespace Arbiter
             //Josh - gamepad stuff
             //GamePadThumbSticks sticks = gamepad.ThumbSticks;
             #region gamepad movement
-            gamepad = GamePad.GetState(PlayerIndex.One);
+            switch(currentPlayer) //lets only the current player's gamepad control the cursor
+            { 
+                case 1: gamepad = GamePad.GetState(PlayerIndex.One);
+                       break;
+                case 2: gamepad = GamePad.GetState(PlayerIndex.Two);
+                       break;
+                case 3: gamepad = GamePad.GetState(PlayerIndex.Three);
+                       break;
+                case 4: gamepad = GamePad.GetState(PlayerIndex.Four);
+                       break;
+             }   
             if (gamepad.IsConnected)
             {
               if(gameState == States.PLAYERTURN)
@@ -301,7 +313,9 @@ namespace Arbiter
 
                         if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)&&!((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space)))))
                         {
-                            if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == currentPlayer)
+                            if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit
+                                && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == currentPlayer
+                                && !movedUnits.Contains((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]))
                             {
                                 selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
                                 PotentialMoves = true;
@@ -314,8 +328,8 @@ namespace Arbiter
                                 if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
                                 {
                                     selectedunit.Move(GameVariables.gamePadLocation);
+                                    movedUnits.Add(selectedunit);
                                     PotentialMoves = false; //stop displaying spots where you can move
-                                    count++;
                                     selectedunit = null;
                                 }
                             }
@@ -323,9 +337,11 @@ namespace Arbiter
                         
 
 #endregion
-                        if (count == GameVariables.NumPiecesPerTurn) //signals end of turn
+                        if (movedUnits.Count == GameVariables.NumPiecesPerTurn) //signals end of turn
                         {
-                            count = 0;
+                            //reset things
+                           
+                            movedUnits.Clear();
                             //at end of turn
                             if (testMatch.TurnManager()) //if returns true end game
                                 gameState = States.ENDGAME;

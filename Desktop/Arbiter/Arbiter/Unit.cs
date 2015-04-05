@@ -18,7 +18,7 @@ namespace Arbiter
         
         
         protected List<Vector2> possibleMoves = new List<Vector2>(); //the legal moves that a player can make
-        public bool hasMoved; //Don't need this anymore; thought of a better way of doing things than the way we discussed earlier -Travis
+        //public bool hasMoved; //Don't need this anymore; thought of a better way of doing things than the way we discussed earlier -Travis
         
         #endregion
 
@@ -364,9 +364,10 @@ namespace Arbiter
             }
             if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || 
                 (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].owner != this.owner
-                &&GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank > this.Rank)) //The piece is allowed in that spot
+                &&GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank >= this.Rank)) //The piece is allowed in that spot
             {
-                if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] != null && GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank == 0 && rank == 3) //heavy units cant go into towers
+                if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] != null && GameVariables.board[(int)locationfinal.X, 
+                    (int)locationfinal.Y].Rank == 5 && rank == 3) //heavy units cant go into towers
                     return false;
                 else
                     return true;
@@ -376,7 +377,8 @@ namespace Arbiter
         }
 
 
-        public void Trim(ref List<Vector2> list) //takes moves that would take you off the board out of possible moves //note: this is a pass by reference, we haven't covered it in class yet so if you aren't familiar, READ UP
+        public void Trim(ref List<Vector2> list) //takes moves that would take you off the board out of possible moves 
+            //note: this is a pass by reference, we haven't covered it in class yet so if you aren't familiar, READ UP
         {
             foreach(Vector2 space in list.ToList()) //program doesn't like changing the actual list while enumerating
             {
