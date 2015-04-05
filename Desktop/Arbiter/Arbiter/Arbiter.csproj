@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="Animation.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="GameLoop.cs" />
     <Compile Include="GameVariables.cs" />
     <Compile Include="Match.cs" />
     <Compile Include="MenuDisplay.cs" />

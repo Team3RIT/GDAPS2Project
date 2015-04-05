@@ -42,7 +42,11 @@ namespace Arbiter
         public static Texture2D Normal;
         public static Texture2D Obstacle;
 
-        public enum States { MENU, SETUP, Player1Turn, Player2turn, ENDGAME } //Contains gamestates used in Update(). Update as needed!
+        //Player Turn Attributes
+        int count; //number of pieces moved count
+        int currentPlayer; //ID num of current player
+
+        public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
         States gameState; //Controls the state of the game using the above enum.
 
         Match testMatch;
@@ -86,6 +90,8 @@ namespace Arbiter
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
             selectedunit = null;
+            currentPlayer = 1;
+            count = 0;
             //make the mouse visible on screen
             this.IsMouseVisible = true;
            
@@ -148,7 +154,7 @@ namespace Arbiter
             gamepad = GamePad.GetState(PlayerIndex.One);
             if (gamepad.IsConnected)
             {
-              if(gameState == States.Player1Turn || gameState == States.Player2turn)
+              if(gameState == States.PLAYERTURN)
               {
                   if(gamepad.IsButtonDown(Buttons.DPadDown)&&(!previousgamepadState.IsButtonDown(Buttons.DPadDown)))
                   {
@@ -180,7 +186,7 @@ namespace Arbiter
             #endregion
             #region keyboard movement
             keyboard = Keyboard.GetState();
-            if (gameState == States.Player1Turn || gameState == States.Player2turn)
+            if (gameState == States.PLAYERTURN)
             {
                 if (keyboard.IsKeyDown(Keys.Down)&&(!previouskeyboardState.IsKeyDown(Keys.Down)))
                 {
@@ -279,13 +285,13 @@ namespace Arbiter
                 case States.SETUP:
                     testMatch = new Match(2);
                     testMatch.Draft();
-                    gameState = States.Player1Turn;
+                    gameState = States.PLAYERTURN;
                     break;
 
-                case States.Player1Turn:
+                case States.PLAYERTURN:
                     //code here to handle turn
                     #region turnlogic
-                    int count = 0;
+                    
                     
                         if (keyboard.IsKeyDown(Keys.P))
                         {
@@ -295,10 +301,11 @@ namespace Arbiter
 
                         if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)&&!((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space)))))
                         {
-                            if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
+                            if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == currentPlayer)
                             {
                                 selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
                                 PotentialMoves = true;
+                                
                                 //UnitMove(selectedunit); selected unit used in DisplayUnitMove in draw method
                             }
 
@@ -318,31 +325,24 @@ namespace Arbiter
 #endregion
                         if (count == GameVariables.NumPiecesPerTurn) //signals end of turn
                         {
+                            count = 0;
                             //at end of turn
                             if (testMatch.TurnManager()) //if returns true end game
                                 gameState = States.ENDGAME;
                             else
-                            { gameState = States.Player2turn; } //else other players turn
+                            { 
+                                if(GameVariables.players.Count -1 < currentPlayer + 1) //account for the filler player taking up the first element of the list
+                                {
+                                    currentPlayer = 1; //reset to first player
+                                }
+                                else
+                                {
+                                    currentPlayer++; //go to next player
+                                }
+                            } //else other players turn
                         }
                     break;
-
-
-                case States.Player2turn:
-
-                    //code here to handle turn
-                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
-                    {
-                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 2)
-                        {
-                            UnitMove((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]);
-                        }
-                    }
-                    //end of turn
-                    if(testMatch.TurnManager()) //if returns true end game
-                        gameState = States.ENDGAME;
-                    else
-                    { gameState = States.Player1Turn; } //else other players turn
-                    break;
+                
 
                 case States.ENDGAME:
                     MenuVariables.winScreen = true;
@@ -408,7 +408,7 @@ namespace Arbiter
             }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
             
-            if(gameState == States.Player1Turn || gameState == States.Player1Turn)
+            if(gameState == States.PLAYERTURN)
             {
                 DrawBoard();
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
