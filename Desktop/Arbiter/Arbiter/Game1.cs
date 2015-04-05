@@ -33,6 +33,8 @@ namespace Arbiter
         KeyboardState keyboard;
         KeyboardState previouskeyboardState;
 
+        MouseState previousmouseState;
+
         //images for game pieces/board states
         public static Texture2D Heavy;
         public static Texture2D Light;
@@ -68,7 +70,7 @@ namespace Arbiter
             IsMouseVisible = true;
             
             //define menu objects
-            LogicBox = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret -NEVER!!!, alright, fine..... - Nick
+            LogicBox = new MenuLogic();  
             DisplayBox = new MenuDisplay();
 
             //turn logic initialization
@@ -152,8 +154,15 @@ namespace Arbiter
             click = Mouse.GetState();
             //Josh - gamepad stuff
             //GamePadThumbSticks sticks = gamepad.ThumbSticks;
+            #region mouse movement
+            if (GameVariables.OnBoard(new Vector2(((int)click.Position.X - GameVariables.screenbufferHorizontal) / GameVariables.spaceDim, 
+                (int)click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim))
+             GameVariables.gamePadLocation = new Vector2(((int)click.Position.X - GameVariables.screenbufferHorizontal) / GameVariables.spaceDim,
+                 ((int)click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim);
+           
+            #endregion
             #region gamepad movement
-            switch(currentPlayer) //lets only the current player's gamepad control the cursor
+            switch (currentPlayer) //lets only the current player's gamepad control the cursor
             { 
                 case 1: gamepad = GamePad.GetState(PlayerIndex.One);
                        break;
@@ -311,7 +320,8 @@ namespace Arbiter
                             gameState = States.MENU;
                         }
 
-                        if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)&&!((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space)))))
+                        if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)|| click.LeftButton == ButtonState.Pressed)
+                            &&!((previousgamepadState.IsButtonDown(Buttons.A)|| previouskeyboardState.IsKeyDown(Keys.Space) || previousmouseState.LeftButton != ButtonState.Pressed )))
                         {
                             if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit
                                 && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == currentPlayer
@@ -369,7 +379,7 @@ namespace Arbiter
             //music.Play();
             previousgamepadState = gamepad; //save this gamepad state for the next loop
             previouskeyboardState = keyboard;
-            
+            previousmouseState = click;
             
             base.Update(gameTime);
         }

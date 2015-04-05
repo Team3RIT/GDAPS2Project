@@ -63,6 +63,7 @@ namespace Arbiter
                 }
             }
         }
+        
         public static bool OnBoard(Vector2 vector)
         {
             if (vector.X >= 0 && vector.Y >= 0 && vector.X < boardSpaceDim && vector.Y < boardSpaceDim)
