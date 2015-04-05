@@ -163,7 +163,9 @@ namespace Arbiter
                     plannedMove = new Vector2(location.X - i, location.Y - i);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && this.PathTracker(this.location, new Vector2(plannedMove.X, location.Y), "vertical"))
+                        possibleMoves.Add(plannedMove);
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && this.PathTracker(this.location, new Vector2(location.X, plannedMove.Y), "horizontal"))
                         possibleMoves.Add(plannedMove);
                 }
             }
@@ -172,7 +174,9 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X + i, location.Y - i);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && this.PathTracker(this.location,new Vector2(plannedMove.X,location.Y), "vertical"))
+                        possibleMoves.Add(plannedMove);
+                    else if(this.PathTracker(this.location, plannedMove,"vertical")&&this.PathTracker(this.location, new Vector2(location.X, plannedMove.Y),"horizontal"))
                         possibleMoves.Add(plannedMove);
                 }
             }
@@ -181,7 +185,9 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X - i, location.Y + i);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && this.PathTracker(this.location, new Vector2(plannedMove.X, location.Y), "vertical"))
+                        possibleMoves.Add(plannedMove);
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && this.PathTracker(this.location, new Vector2(location.X, plannedMove.Y), "horizontal"))
                         possibleMoves.Add(plannedMove);
                 }
             }
@@ -190,7 +196,9 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X + i, location.Y + i);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && this.PathTracker(this.location, new Vector2(plannedMove.X, location.Y), "vertical"))
+                        possibleMoves.Add(plannedMove);
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && this.PathTracker(this.location, new Vector2(location.X, plannedMove.Y), "horizontal"))
                         possibleMoves.Add(plannedMove);
                 }
             }
@@ -201,7 +209,7 @@ namespace Arbiter
         
         new public void Remove(Unit piece) //removed piece double verifies being taken
         {
-            if(location.X == piece.location.X && location.Y == piece.location.Y)
+            if((location.X == piece.location.X && location.Y == piece.location.Y)&&piece.Rank < rank)
             {
                 
                 GameVariables.board[(int)location.X, (int)location.Y] = piece; //take it off the board
@@ -249,7 +257,7 @@ namespace Arbiter
                         }
 
                         //the not moving at all case should not happen due to the way movement is handled
-                        return true; 
+                        break;
                     }
                 case "horizontal":
                     {
@@ -281,7 +289,7 @@ namespace Arbiter
                                 locationinitial.X++; //move one space in the correct direction
                             }
                         }
-                        return true;
+                        break;
                     }
  
                 case "diagonal": 
@@ -350,14 +358,15 @@ namespace Arbiter
                                 locationinitial.Y++; 
                             }
                         }
-                        
-                        return true;
+
+                        break;
                     }
             }
-            if ((GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].owner != this.owner)
-                && rank < GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank) //The piece is allowed in that spot
+            if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || 
+                (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].owner != this.owner
+                &&GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank > this.Rank)) //The piece is allowed in that spot
             {
-                if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank == 0 && rank == 3) //heavy units cant go into towers
+                if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] != null && GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank == 0 && rank == 3) //heavy units cant go into towers
                     return false;
                 else
                     return true;
