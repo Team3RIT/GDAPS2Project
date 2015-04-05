@@ -27,6 +27,7 @@ namespace Arbiter
         public static MouseState click; // the mouse state for the menus
 
         //controller attributes
+        int preferredInput; //controls which input is used for the game
         GamePadState gamepad;
         GamePadState previousgamepadState;
 
@@ -154,7 +155,10 @@ namespace Arbiter
             click = Mouse.GetState();
             //Josh - gamepad stuff
             //GamePadThumbSticks sticks = gamepad.ThumbSticks;
-            #region mouse movement
+            switch(preferredInput)
+            { 
+                case 0:
+                #region mouse movement
             
             if (GameVariables.OnBoard(new Vector2((int)(click.Position.X - GameVariables.screenbufferHorizontal) / GameVariables.spaceDim, 
                 (int)(click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim)))
@@ -162,7 +166,9 @@ namespace Arbiter
                  ((int)click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim);
            
             #endregion
-            #region gamepad movement
+                break;
+                case 1:
+                #region gamepad movement
             switch (currentPlayer) //lets only the current player's gamepad control the cursor
             { 
                 case 1: gamepad = GamePad.GetState(PlayerIndex.One);
@@ -206,7 +212,9 @@ namespace Arbiter
 
             }
             #endregion
-            #region keyboard movement
+                break;
+                case 2:
+                #region keyboard movement
             keyboard = Keyboard.GetState();
             if (gameState == States.PLAYERTURN)
             {
@@ -237,6 +245,8 @@ namespace Arbiter
 
             }
             #endregion
+                break;
+            }
             #region Josh's code - doesn't work
             /*Vector2 left = sticks.Left;
             Vector2 right = sticks.Right;
@@ -273,6 +283,7 @@ namespace Arbiter
             }
             */
             #endregion
+        
             //finite state machine - Travis
             switch(gameState)
             {
