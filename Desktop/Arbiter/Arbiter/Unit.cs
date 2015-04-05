@@ -27,6 +27,32 @@ namespace Arbiter
         {
            owner = own;
            //hasMoved = false;
+           switch (owner.ID) //player 1, 2, 3, .. etc
+           {
+               
+               case 1:
+                   {
+                       color = Color.Red;
+                       break;
+                   }
+
+               case 2:
+                   {
+                       color = Color.Blue;
+                       break;
+                   }
+
+               case 3:
+                   {
+                       color = Color.Green;
+                       break;
+                   }
+               case 4:
+                   {
+                       color = Color.Orange;
+                       break;
+                   }
+           }
 
         }
         #endregion
