@@ -155,8 +155,9 @@ namespace Arbiter
             //Josh - gamepad stuff
             //GamePadThumbSticks sticks = gamepad.ThumbSticks;
             #region mouse movement
-            if (GameVariables.OnBoard(new Vector2(((int)click.Position.X - GameVariables.screenbufferHorizontal) / GameVariables.spaceDim, 
-                (int)click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim))
+            
+            if (GameVariables.OnBoard(new Vector2((int)(click.Position.X - GameVariables.screenbufferHorizontal) / GameVariables.spaceDim, 
+                (int)(click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim)))
              GameVariables.gamePadLocation = new Vector2(((int)click.Position.X - GameVariables.screenbufferHorizontal) / GameVariables.spaceDim,
                  ((int)click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim);
            
