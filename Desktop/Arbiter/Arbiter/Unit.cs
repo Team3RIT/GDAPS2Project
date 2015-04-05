@@ -114,7 +114,7 @@ namespace Arbiter
             }
 
         }
-        public new List<Vector2> Select()
+        public override List<Vector2> Select()
         {
             possibleMoves.Clear(); //clears out the list so it's a new set
             Vector2 plannedMove;

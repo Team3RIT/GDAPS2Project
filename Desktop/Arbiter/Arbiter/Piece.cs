@@ -77,7 +77,7 @@ namespace Arbiter
         #endregion
 
         #region methods
-        public List<Vector2> Select()
+        public virtual List<Vector2> Select()
         {
             return null;
         }
