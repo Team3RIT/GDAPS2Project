@@ -51,16 +51,11 @@ namespace Arbiter
         List<Unit> movedUnits;
         int currentPlayer; //ID num of current player
 
-<<<<<<< HEAD
-        //varaiables for the UnitMove methods
-        public bool PotentialMoves; //if true run DisplayUnitMove, if false do not
-        public Unit PossibleMovesUnit; //used to store the unit that is put in Display UnitMove from UnitMove
 
-=======
         public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
         States gameState; //Controls the state of the game using the above enum.
         
->>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
+
 
         //varaiables for the UnitMove methods
         public bool PotentialMoves; //if true run DisplayUnitMove, if false do not
@@ -81,14 +76,12 @@ namespace Arbiter
             LogicBox = new MenuLogic();  
             DisplayBox = new MenuDisplay();
 
-<<<<<<< HEAD
-            
-=======
+
             //turn logic initialization
             selectedunit = null;
             currentPlayer = 1;
             movedUnits = new List<Unit>();
->>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
+
             
 
             
@@ -106,14 +99,11 @@ namespace Arbiter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
-<<<<<<< HEAD
-            selectedunit = null;
-            PotentialMoves = false;  
 
-=======
+
 
             
->>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
+
             //make the mouse visible on screen
             this.IsMouseVisible = true;
            
@@ -352,21 +342,7 @@ namespace Arbiter
                         if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)|| click.LeftButton == ButtonState.Pressed)
                             &&!((previousgamepadState.IsButtonDown(Buttons.A)|| previouskeyboardState.IsKeyDown(Keys.Space) || previousmouseState.LeftButton != ButtonState.Pressed )))
                         {
-<<<<<<< HEAD
-                            selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
 
-                            PotentialMoves = true;
-                            //UnitMove(selectedunit); selected unit used in DisplayUnitMove in draw method
-                        }
-                        else if (selectedunit != null)
-                        {
-                            if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
-                            {
-                                selectedunit.Move(GameVariables.gamePadLocation);
-                                PotentialMoves = false; //stop displaying spots where you can move
-                                count++;
-                                selectedunit = null;
-=======
                             if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit
                                 && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == currentPlayer
                                 && !movedUnits.Contains((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]))
@@ -386,7 +362,7 @@ namespace Arbiter
                                     PotentialMoves = false; //stop displaying spots where you can move
                                     selectedunit = null;
                                 }
->>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
+
                             }
                         }
                         
@@ -485,11 +461,9 @@ namespace Arbiter
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
             }
 
-<<<<<<< HEAD
-           //show possible moves a unit can take
-=======
+
             //show possible moves a unit can take
->>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
+
             if (PotentialMoves == true)
             {
                 DisplayUnitMove(selectedunit);
@@ -539,7 +513,11 @@ namespace Arbiter
                 //for every possible place you could move the unit 
                 //spriteBatch.Begin(); //no need for spritebatches, this is called within draw now
                 Rectangle rect = new Rectangle((int)(guy.X * GameVariables.spaceDim + GameVariables.screenbufferHorizontal), (int)(guy.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical), GameVariables.spaceDim, GameVariables.spaceDim);
-                spriteBatch.Draw(Normal, rect, Color.LightSteelBlue * 0.5f); //highlight the area
+                if (currentPlayer == 1)
+                { spriteBatch.Draw(Normal, rect, Color.Maroon * 0.5f); } //highlight the area maroon for player 1
+
+                if (currentPlayer == 2)
+                {spriteBatch.Draw(Normal, rect, Color.MediumBlue * 0.5f);} //highlight the area blue for player 2
                 //spriteBatch.End();
             }
         }
