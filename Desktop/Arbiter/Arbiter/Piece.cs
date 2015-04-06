@@ -31,7 +31,20 @@ namespace Arbiter
                 return region;
             }
         }
-
+        public int RegionX
+        {
+            set
+            {
+                region.X = value;
+            }
+        }
+        public int RegionY
+        {
+            set
+            {
+                region.Y = value;
+            }
+        }
 
         public Player Owner
         {
@@ -47,6 +60,7 @@ namespace Arbiter
             {
                 return location;
             }
+            
         }
 
         public int Rank
@@ -55,8 +69,7 @@ namespace Arbiter
             {
                 return rank;
             }
-        }
-
+        }  
         #endregion
 
         #region constructor

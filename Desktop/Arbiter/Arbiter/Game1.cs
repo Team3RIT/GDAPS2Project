@@ -60,6 +60,12 @@ namespace Arbiter
         //varaiables for the UnitMove methods
         public bool PotentialMoves; //if true run DisplayUnitMove, if false do not
         public Unit PossibleMovesUnit; //used to store the unit that is put in Display UnitMove from UnitMove
+        
+        //aniamation variables
+        public static bool Anim;
+        
+        public List<Unit> Animations;
+        
         public Game1()
             : base()
         {
@@ -82,7 +88,10 @@ namespace Arbiter
             currentPlayer = 1;
             movedUnits = new List<Unit>();
 
+            //animation logic
+            Anim = false;
             
+            Animations = new List<Unit>();
 
             
             
@@ -348,15 +357,19 @@ namespace Arbiter
                                 && !movedUnits.Contains((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]))
                             {
                                 selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
-                                PotentialMoves = true;
+                                PotentialMoves = true; //runs unitmove with selected unti
                                 
-                                //UnitMove(selectedunit); selected unit used in DisplayUnitMove in draw method
+                                
                             }
 
                             else if (selectedunit != null)
                             {
                                 if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
                                 {
+                                    //Anim = true; //run animation
+                                    Animations.Add(selectedunit);
+                                    selectedunit.movingTowards = GameVariables.gamePadLocation;
+
                                     selectedunit.Move(GameVariables.gamePadLocation);
                                     movedUnits.Add(selectedunit);
                                     PotentialMoves = false; //stop displaying spots where you can move
@@ -365,7 +378,12 @@ namespace Arbiter
 
                             }
                         }
-                        
+                        //run the animation of unit that are moving
+                        if (Anim == true)
+                        {
+                            Animate(Animations);
+                        }
+
 
 #endregion
                         if (movedUnits.Count == GameVariables.NumPiecesPerTurn) //signals end of turn
@@ -468,6 +486,7 @@ namespace Arbiter
             {
                 DisplayUnitMove(selectedunit);
             }
+            
 
             spriteBatch.End();
             base.Draw(gameTime);
@@ -519,6 +538,69 @@ namespace Arbiter
                 if (currentPlayer == 2)
                 {spriteBatch.Draw(Normal, rect, Color.MediumBlue * 0.5f);} //highlight the area blue for player 2
                 //spriteBatch.End();
+            }
+        }
+
+        //Animate the methods as they move
+
+        public void Animate(List<Unit> people)
+        {
+            //CURRENTLY NOT FUNCTIONING
+            //move the unit's rectangle incrementally untill it reaches its final psition 
+            // increments repeatedly (should be called many times)
+            Unit removeMe = null;
+
+            foreach (Unit person in people)
+            {
+                if (person.Location.X == person.MovingTowards.X || person.Location.Y == person.MovingTowards.Y)
+                {
+                    //check each unit to make sure it needs to be moved
+                    removeMe = person;//if entry doesn't need to be moved, set ti up to be removed
+                }
+            }
+
+            if (removeMe != null)
+            {
+                people.Remove(removeMe);
+            }
+
+            // if there are no more units to be animated, set anim to false and end method
+            if (people.Count ==  0)
+            {
+                Anim = false;
+                return; 
+            }
+            
+            //if there still are people to be animated, change their location accordingly
+            foreach (Unit person in people)
+            {
+                if (person.Location.X != person.MovingTowards.X || person.Location.Y != person.MovingTowards.Y)
+                {
+
+                    float differenceX = person.MovingTowards.X - person.Region.X; //find the total differences between the current x position of the rectangle and its final pposition
+                    float differenceY = person.MovingTowards.Y - person.Region.Y; //find the total differences between the current y position of the rectangle and its final position
+
+                    if (differenceX > 0) //if the difference is positive increase its x value
+                        person.RegionX = (person.Region.X + 10);
+
+                    if (differenceX < 0) //if the difference is negative, decrease the x value
+                        person.RegionX = (person.Region.X - 10);
+
+                    if (differenceY > 0)  //if the difference is positive increase the y position
+                        person.RegionY = (person.Region.Y + 10);
+
+                    if (differenceY < 0)  //if the difference is negative decrease the y position
+                        person.RegionY = (person.Region.Y - 10);
+
+                    //draw the piece!
+                    //spriteBatch.Draw(person.icon, person.icon.Bounds, Color.White); //not anymore!
+                    //(int)location.X * GameVariables.spaceDim + GameVariables.screenbufferHorizontal;
+                    //(int)location.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical;
+                }
+                
+                
+
+                
             }
         }
     }
