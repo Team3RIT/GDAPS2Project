@@ -100,11 +100,14 @@ namespace Arbiter
                 //GameVariables.players[whoseTurn].MovedUnits = 0;
 
                 if (GameVariables.victoryTally >= 2)
-                { 
+                {
                     return true;
                 }
-                GameVariables.victoryTally = 0; //reset victory tally
-                return false;
+                else
+                {
+                    GameVariables.victoryTally = 0; //reset victory tally
+                    return false;
+                }
             
         }
     }

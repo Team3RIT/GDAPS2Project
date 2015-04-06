@@ -44,7 +44,7 @@ namespace Arbiter
             icon = Game1.Light;
         }
 
-        new public List<Vector2> Select()
+        public override List<Vector2> Select()
         {
             base.Select(); //do standard Select
             Vector2 plannedMove;
@@ -148,7 +148,7 @@ namespace Arbiter
             icon = Game1.Jumper;
         }
 
-        new public List<Vector2> Select()
+        public override List<Vector2> Select()
         {
             base.Select(); // get normal movement
 

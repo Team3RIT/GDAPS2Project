@@ -14,8 +14,8 @@ namespace Arbiter
 {
     static class GameVariables
     {
-        static public Piece[,] board; //game board
-        static public Vector2 gamePadLocation;
+        public static Piece[,] board; //game board
+        public static Vector2 gamePadLocation;
         static public List<Tower> towers; //important lists that multiple classes will need
         static public List<Structure> structures;
         static public List<Player> players;
@@ -28,10 +28,12 @@ namespace Arbiter
         private static int boardSpaceDim; 
         public static int screenbufferHorizontal = (screenWidth - boardDim)/2;
         public static int screenbufferVertical = (screenHeight - boardDim)/2;
-        
+        //location.X*spaceDim+screenbufferHorizontal, location.Y*spaceDim+screenbufferHorizontal will work for giving a board location.
+
+
         public static int victoryTally; //Nick did this one variable!
         public const int NumPiecesPerTurn = 5;
-        //location.X*spaceDim, location.Y*spaceDim will work for giving a top left screen location.
+        
 
         static GameVariables() //static constructor
         {
@@ -51,7 +53,7 @@ namespace Arbiter
             {
                 return boardSpaceDim;
             }
-            set //should only be used when loading a map/saved game
+            set //should only be used when loading a map/saved game, because it will clear everything.
             {
                 if (value > 0) //avoids divide by zero error
                 {
@@ -61,6 +63,7 @@ namespace Arbiter
                 }
             }
         }
+        
         public static bool OnBoard(Vector2 vector)
         {
             if (vector.X >= 0 && vector.Y >= 0 && vector.X < boardSpaceDim && vector.Y < boardSpaceDim)

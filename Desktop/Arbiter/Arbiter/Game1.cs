@@ -26,12 +26,15 @@ namespace Arbiter
         MenuLogic LogicBox;
         public static MouseState click; // the mouse state for the menus
 
-        //player 1 controller attributes
+        //controller attributes
+        int preferredInput; //controls which input is used for the game
         GamePadState gamepad;
         GamePadState previousgamepadState;
 
         KeyboardState keyboard;
         KeyboardState previouskeyboardState;
+
+        MouseState previousmouseState;
 
         //images for game pieces/board states
         public static Texture2D Heavy;
@@ -42,17 +45,26 @@ namespace Arbiter
         public static Texture2D Normal;
         public static Texture2D Obstacle;
 
-        public enum States { MENU, SETUP, Player1Turn, Player2turn, ENDGAME } //Contains gamestates used in Update(). Update as needed!
-        States gameState; //Controls the state of the game using the above enum.
-
+        //Player Turn Attributes
         Match testMatch;
-        Unit selectedunit; //for turn logic
+        Unit selectedunit;
+        List<Unit> movedUnits;
+        int currentPlayer; //ID num of current player
 
+<<<<<<< HEAD
         //varaiables for the UnitMove methods
         public bool PotentialMoves; //if true run DisplayUnitMove, if false do not
         public Unit PossibleMovesUnit; //used to store the unit that is put in Display UnitMove from UnitMove
 
+=======
+        public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
+        States gameState; //Controls the state of the game using the above enum.
+        
+>>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
 
+        //varaiables for the UnitMove methods
+        public bool PotentialMoves; //if true run DisplayUnitMove, if false do not
+        public Unit PossibleMovesUnit; //used to store the unit that is put in Display UnitMove from UnitMove
         public Game1()
             : base()
         {
@@ -66,10 +78,17 @@ namespace Arbiter
             IsMouseVisible = true;
             
             //define menu objects
-            LogicBox = new MenuLogic();  //in the future, please come up with self identifying variable names  - Margaret -NEVER!!!, alright, fine..... - Nick
+            LogicBox = new MenuLogic();  
             DisplayBox = new MenuDisplay();
 
+<<<<<<< HEAD
             
+=======
+            //turn logic initialization
+            selectedunit = null;
+            currentPlayer = 1;
+            movedUnits = new List<Unit>();
+>>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
             
 
             
@@ -87,9 +106,14 @@ namespace Arbiter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
+<<<<<<< HEAD
             selectedunit = null;
             PotentialMoves = false;  
 
+=======
+
+            
+>>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
             //make the mouse visible on screen
             this.IsMouseVisible = true;
            
@@ -148,10 +172,34 @@ namespace Arbiter
             click = Mouse.GetState();
             //Josh - gamepad stuff
             //GamePadThumbSticks sticks = gamepad.ThumbSticks;
-            gamepad = GamePad.GetState(PlayerIndex.One);
+            switch(preferredInput)
+            { 
+                case 0:
+                #region mouse movement
+            
+            if (GameVariables.OnBoard(new Vector2((int)(click.Position.X - GameVariables.screenbufferHorizontal) / GameVariables.spaceDim, 
+                (int)(click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim)))
+             GameVariables.gamePadLocation = new Vector2(((int)click.Position.X - GameVariables.screenbufferHorizontal) / GameVariables.spaceDim,
+                 ((int)click.Position.Y - GameVariables.screenbufferVertical) / GameVariables.spaceDim);
+           
+            #endregion
+                break;
+                case 1:
+                #region gamepad movement
+            switch (currentPlayer) //lets only the current player's gamepad control the cursor
+            { 
+                case 1: gamepad = GamePad.GetState(PlayerIndex.One);
+                       break;
+                case 2: gamepad = GamePad.GetState(PlayerIndex.Two);
+                       break;
+                case 3: gamepad = GamePad.GetState(PlayerIndex.Three);
+                       break;
+                case 4: gamepad = GamePad.GetState(PlayerIndex.Four);
+                       break;
+             }   
             if (gamepad.IsConnected)
             {
-              if(gameState == States.Player1Turn || gameState == States.Player2turn)
+              if(gameState == States.PLAYERTURN)
               {
                   if(gamepad.IsButtonDown(Buttons.DPadDown)&&(!previousgamepadState.IsButtonDown(Buttons.DPadDown)))
                   {
@@ -180,10 +228,12 @@ namespace Arbiter
               }
 
             }
-
-            previousgamepadState = gamepad;
+            #endregion
+                break;
+                case 2:
+                #region keyboard movement
             keyboard = Keyboard.GetState();
-            if (gameState == States.Player1Turn || gameState == States.Player2turn)
+            if (gameState == States.PLAYERTURN)
             {
                 if (keyboard.IsKeyDown(Keys.Down)&&(!previouskeyboardState.IsKeyDown(Keys.Down)))
                 {
@@ -209,9 +259,11 @@ namespace Arbiter
                     if (GameVariables.gamePadLocation.X >= GameVariables.BoardSpaceDim)
                         GameVariables.gamePadLocation.X = GameVariables.BoardSpaceDim - 1;
                 }
-                previouskeyboardState = keyboard;
-            }
 
+            }
+            #endregion
+                break;
+            }
             #region Josh's code - doesn't work
             /*Vector2 left = sticks.Left;
             Vector2 right = sticks.Right;
@@ -248,6 +300,7 @@ namespace Arbiter
             }
             */
             #endregion
+        
             //finite state machine - Travis
             switch(gameState)
             {
@@ -282,22 +335,24 @@ namespace Arbiter
                 case States.SETUP:
                     testMatch = new Match(2);
                     testMatch.Draft();
-                    gameState = States.Player1Turn;
+                    gameState = States.PLAYERTURN;
                     break;
 
-                case States.Player1Turn:
+                case States.PLAYERTURN:
                     //code here to handle turn
-                    int count = 0;
-           
+                    #region turnlogic
+                    
+                    
                         if (keyboard.IsKeyDown(Keys.P))
                         {
                             MenuVariables.pause = true;
                             gameState = States.MENU;
                         }
 
-                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space))
-                            && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 1)
+                        if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)|| click.LeftButton == ButtonState.Pressed)
+                            &&!((previousgamepadState.IsButtonDown(Buttons.A)|| previouskeyboardState.IsKeyDown(Keys.Space) || previousmouseState.LeftButton != ButtonState.Pressed )))
                         {
+<<<<<<< HEAD
                             selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
 
                             PotentialMoves = true;
@@ -311,35 +366,54 @@ namespace Arbiter
                                 PotentialMoves = false; //stop displaying spots where you can move
                                 count++;
                                 selectedunit = null;
+=======
+                            if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit
+                                && GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == currentPlayer
+                                && !movedUnits.Contains((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]))
+                            {
+                                selectedunit = (Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y];
+                                PotentialMoves = true;
+                                
+                                //UnitMove(selectedunit); selected unit used in DisplayUnitMove in draw method
+                            }
+
+                            else if (selectedunit != null)
+                            {
+                                if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
+                                {
+                                    selectedunit.Move(GameVariables.gamePadLocation);
+                                    movedUnits.Add(selectedunit);
+                                    PotentialMoves = false; //stop displaying spots where you can move
+                                    selectedunit = null;
+                                }
+>>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
                             }
                         }
-                        if (count == GameVariables.NumPiecesPerTurn) //signals end of turn
+                        
+
+#endregion
+                        if (movedUnits.Count == GameVariables.NumPiecesPerTurn) //signals end of turn
                         {
+                            //reset things
+                           
+                            movedUnits.Clear();
                             //at end of turn
                             if (testMatch.TurnManager()) //if returns true end game
                                 gameState = States.ENDGAME;
                             else
-                            { gameState = States.Player2turn; } //else other players turn
+                            { 
+                                if(GameVariables.players.Count -1 < currentPlayer + 1) //account for the filler player taking up the first element of the list
+                                {
+                                    currentPlayer = 1; //reset to first player
+                                }
+                                else
+                                {
+                                    currentPlayer++; //go to next player
+                                }
+                            } //else other players turn
                         }
                     break;
-
-
-                case States.Player2turn:
-
-                    //code here to handle turn
-                    if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit && (gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)))
-                    {
-                        if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y].owner.ID == 2)
-                        {
-                            UnitMove((Unit)GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y]);
-                        }
-                    }
-                    //end of turn
-                    if(testMatch.TurnManager()) //if returns true end game
-                        gameState = States.ENDGAME;
-                    else
-                    { gameState = States.Player1Turn; } //else other players turn
-                    break;
+                
 
                 case States.ENDGAME:
                     MenuVariables.winScreen = true;
@@ -348,8 +422,9 @@ namespace Arbiter
             }
 
             //music.Play();
-            
-            
+            previousgamepadState = gamepad; //save this gamepad state for the next loop
+            previouskeyboardState = keyboard;
+            previousmouseState = click;
             
             base.Update(gameTime);
         }
@@ -404,13 +479,17 @@ namespace Arbiter
             }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
             
-            if(gameState == States.Player1Turn || gameState == States.Player1Turn)
+            if(gameState == States.PLAYERTURN)
             {
                 DrawBoard();
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
             }
 
+<<<<<<< HEAD
            //show possible moves a unit can take
+=======
+            //show possible moves a unit can take
+>>>>>>> f67e7273857e2d2bdeb80f2084753622e17c8d5c
             if (PotentialMoves == true)
             {
                 DisplayUnitMove(selectedunit);
@@ -426,7 +505,8 @@ namespace Arbiter
             {
                 for (int j = 0; j < GameVariables.BoardSpaceDim; j++)
                 {
-                    spriteBatch.Draw(Normal, new Rectangle(i * GameVariables.spaceDim + GameVariables.screenbufferHorizontal, j * GameVariables.spaceDim + GameVariables.screenbufferVertical, GameVariables.spaceDim, GameVariables.spaceDim), Color.White);   
+                    spriteBatch.Draw(Normal, new Rectangle(i * GameVariables.spaceDim + GameVariables.screenbufferHorizontal, j * GameVariables.spaceDim + GameVariables.screenbufferVertical,
+                        GameVariables.spaceDim, GameVariables.spaceDim), Color.White);   
                     //Not sure what this is??? - Nick
                     //we need a picture to represent a tile with nothing on it,
                     //it could theoretically just be a white square - Margaret

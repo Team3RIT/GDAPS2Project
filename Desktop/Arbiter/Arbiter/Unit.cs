@@ -27,6 +27,32 @@ namespace Arbiter
         {
            owner = own;
            //hasMoved = false;
+           switch (owner.ID) //player 1, 2, 3, .. etc
+           {
+               
+               case 1:
+                   {
+                       color = Color.Red;
+                       break;
+                   }
+
+               case 2:
+                   {
+                       color = Color.Blue;
+                       break;
+                   }
+
+               case 3:
+                   {
+                       color = Color.Green;
+                       break;
+                   }
+               case 4:
+                   {
+                       color = Color.Orange;
+                       break;
+                   }
+           }
 
         }
         #endregion
@@ -71,22 +97,24 @@ namespace Arbiter
             }
             if (myTower != null)
                 myTower.Abandon(this); //abandon it if you're on one
-            else
-                GameVariables.board[(int)location.X, (int)location.Y] = null; //otherwise your space will be left empty
-            location = newLocation;
             
             if(newTower != null)
                 newTower.Claim(this);
-            if(GameVariables.board[(int)location.X,(int)location.Y]!=null && GameVariables.board[(int)location.X,(int)location.Y].Rank < rank && GameVariables.board[(int)location.X,(int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
+            if (GameVariables.board[(int)location.X, (int)location.Y] != null && GameVariables.board[(int)location.X, (int)location.Y].Rank < rank && GameVariables.board[(int)location.X, (int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
             {
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
-            GameVariables.board[(int)location.X, (int)location.Y] = this;
+            else
+            {
+                GameVariables.board[(int)newLocation.X, (int)newLocation.Y] = this;
+                GameVariables.board[(int)location.X, (int)location.Y] = null; //previous space will be left empty    
+                location = newLocation;
+                region.X = (int)location.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal;
+                region.Y = (int)location.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical;
+            }
 
-            //hasMoved = true;
-            //GameVariables.players[owner.ID].MovedUnits++;
         }
-        public new List<Vector2> Select()
+        public override List<Vector2> Select()
         {
             possibleMoves.Clear(); //clears out the list so it's a new set
             Vector2 plannedMove;
@@ -135,7 +163,9 @@ namespace Arbiter
                     plannedMove = new Vector2(location.X - i, location.Y - i);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && this.PathTracker(this.location, new Vector2(plannedMove.X, location.Y), "vertical"))
+                        possibleMoves.Add(plannedMove);
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && this.PathTracker(this.location, new Vector2(location.X, plannedMove.Y), "horizontal"))
                         possibleMoves.Add(plannedMove);
                 }
             }
@@ -144,7 +174,9 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X + i, location.Y - i);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && this.PathTracker(this.location,new Vector2(plannedMove.X,location.Y), "vertical"))
+                        possibleMoves.Add(plannedMove);
+                    else if(this.PathTracker(this.location, plannedMove,"vertical")&&this.PathTracker(this.location, new Vector2(location.X, plannedMove.Y),"horizontal"))
                         possibleMoves.Add(plannedMove);
                 }
             }
@@ -153,7 +185,9 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X - i, location.Y + i);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && this.PathTracker(this.location, new Vector2(plannedMove.X, location.Y), "vertical"))
+                        possibleMoves.Add(plannedMove);
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && this.PathTracker(this.location, new Vector2(location.X, plannedMove.Y), "horizontal"))
                         possibleMoves.Add(plannedMove);
                 }
             }
@@ -162,7 +196,9 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X + i, location.Y + i);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "diagonal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && this.PathTracker(this.location, new Vector2(plannedMove.X, location.Y), "vertical"))
+                        possibleMoves.Add(plannedMove);
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && this.PathTracker(this.location, new Vector2(location.X, plannedMove.Y), "horizontal"))
                         possibleMoves.Add(plannedMove);
                 }
             }
@@ -173,7 +209,7 @@ namespace Arbiter
         
         new public void Remove(Unit piece) //removed piece double verifies being taken
         {
-            if(location.X == piece.location.X && location.Y == piece.location.Y)
+            if((location.X == piece.location.X && location.Y == piece.location.Y)&&piece.Rank < rank)
             {
                 
                 GameVariables.board[(int)location.X, (int)location.Y] = piece; //take it off the board
@@ -221,7 +257,7 @@ namespace Arbiter
                         }
 
                         //the not moving at all case should not happen due to the way movement is handled
-                        return true; 
+                        break;
                     }
                 case "horizontal":
                     {
@@ -253,7 +289,7 @@ namespace Arbiter
                                 locationinitial.X++; //move one space in the correct direction
                             }
                         }
-                        return true;
+                        break;
                     }
  
                 case "diagonal": 
@@ -322,14 +358,16 @@ namespace Arbiter
                                 locationinitial.Y++; 
                             }
                         }
-                        
-                        return true;
+
+                        break;
                     }
             }
-            if ((GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].owner != this.owner)
-                && rank < GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank) //The piece is allowed in that spot
+            if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] == null || 
+                (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].owner != this.owner
+                &&GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank >= this.Rank)) //The piece is allowed in that spot
             {
-                if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank == 0 && rank == 3) //heavy units cant go into towers
+                if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] != null && GameVariables.board[(int)locationfinal.X, 
+                    (int)locationfinal.Y].Rank == 5 && rank == 3) //heavy units cant go into towers
                     return false;
                 else
                     return true;
@@ -339,7 +377,8 @@ namespace Arbiter
         }
 
 
-        public void Trim(ref List<Vector2> list) //takes moves that would take you off the board out of possible moves //note: this is a pass by reference, we haven't covered it in class yet so if you aren't familiar, READ UP
+        public void Trim(ref List<Vector2> list) //takes moves that would take you off the board out of possible moves 
+            //note: this is a pass by reference, we haven't covered it in class yet so if you aren't familiar, READ UP
         {
             foreach(Vector2 space in list.ToList()) //program doesn't like changing the actual list while enumerating
             {
