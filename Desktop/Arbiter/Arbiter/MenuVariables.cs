@@ -27,6 +27,7 @@ namespace Arbiter
         public static bool loadGame = false;
         public static bool saveGame = false;
         public static bool options = false;
+        public static bool input = false;
         public static bool newGame = false;
         public static bool loadingScreen = false;
         public static bool winScreen = false;
@@ -36,7 +37,7 @@ namespace Arbiter
         public static Color BoxColor = Color.Black; //thecolor for generic title menu boxes - either equal to normal color, or to hovercolor
         
         public static Color HoverColor = Color.MediumBlue; //color for when mouse is hovering over a rectangle (not main rectangle)
-        public static Color BackgroundColor = Color.Lime; //Color for the mainmenuboxes - used in the background - changes with each update version
+        public static Color BackgroundColor = Color.Teal; //Color for the mainmenuboxes - used in the background - changes with each update version
 
         // main menu box colors
         public static Color MainMenuBoxColor = BoxColor;
@@ -62,6 +63,7 @@ namespace Arbiter
         public static Color OptionsMenuBoxColor = BoxColor;
         public static Color OptionsTitleColor = BoxColor;
         public static Color OptionsMainMenuReturnColor = BoxColor;
+        public static Color OptionsInputColor = BoxColor;
 
         //pause menu specific colors
         public static Color PauseMenuBoxColor = BoxColor;
@@ -75,7 +77,17 @@ namespace Arbiter
         public static Color WinTitleColor = BoxColor;
         public static Color WinMainMenuReturnColor = BoxColor;
         public static Color WinExitColor = BoxColor;
-        
+
+        //input menu colors
+        public static Color InputMenuBoxColor = BoxColor;
+        public static Color InputTitleColor = BoxColor;
+        public static Color InputMouseColor = BoxColor;
+        public static Color InputGamePadColor = BoxColor;
+        public static Color InputKeyBoardColor = BoxColor;
+        public static Color InputOptionsReturnColor = BoxColor;
+        public static Color InputMessageColor = BoxColor;
+
+
         /*UPDATES:
         1.0 Cornflowerblue
         1.1 MediumSpringGreen
@@ -110,6 +122,7 @@ namespace Arbiter
         public static Rectangle OptionsMenuBox;
         public static Rectangle OptionsTitle;
         public static Rectangle OptionsMainMenuReturn;
+        public static Rectangle OptionsInput;
 
         //pause rectangles
         public static Rectangle PauseMenuBox;
@@ -123,6 +136,18 @@ namespace Arbiter
         public static Rectangle WinTitle;
         public static Rectangle WinMainMenuReturn;
         public static Rectangle WinExit;
+
+        //input menu variables
+        public static Rectangle InputMenuBox;
+        public static Rectangle InputTitle;
+        public static Rectangle InputMouse;
+        public static Rectangle InputGamePad;
+        public static Rectangle InputKeyBoard;
+        public static Rectangle InputOptionsReturn;
+        public static Rectangle InputMessage;
+
+
+
         /////////////////////////////// EXTRANEOUS INTERFACE MENU VARIABLES ////////////////////////////////////////// 
 
         public static bool ControllerConnected;  //defaulted to not having a gamepad connected
@@ -170,7 +195,11 @@ namespace Arbiter
             set { winScreen = value; }
         }
 
-
+        public static bool Input
+        {
+            get { return input; }
+            set { input = value; }
+        }
 
 
 

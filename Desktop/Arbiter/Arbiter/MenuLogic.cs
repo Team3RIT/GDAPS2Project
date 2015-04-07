@@ -25,16 +25,6 @@ namespace Arbiter
     {
         //contains the code for all of the logic behind the menu interfaces
 
-        //////////////////////////////// VARIABLES ///////////////////////////////////////
-
-         
-
-
-
-
-
-
-
         ///////////////////////////////---- HELPER METHODS ----/////////////////////////////////////////////////////
         #region HELPER METHODS
 
@@ -203,7 +193,7 @@ namespace Arbiter
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////// ---- MENU LOGIC METHODS ---- ////////////////////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-       
+        #region MainMenuLogic
         public void MainMenuLogic(Game1 checkers,SpriteFont font)
         {
             //create the main menu
@@ -289,19 +279,19 @@ namespace Arbiter
             {
                 MenuVariables.MainExitColor = MenuVariables.BoxColor;
             }
-            
-        
-            
+
+
+        #endregion
         }////////////////////////// end of main menu logic //////////////////////////
 
-
+        #region OptionsMenuLogic
         //      ---- OPTIONS MENU ---
         public void OptionsMenuLogic(Game1 checkers, SpriteFont font)
         {
             //create the options menu
             MenuVariables.OptionsMenuBox = CreateMainBox(checkers, 800, 680);
             MenuVariables.OptionsTitle = CreateTitleBox("Options Menu", 600, 50, font, MenuVariables.OptionsMenuBox);  //give options a title
-
+            MenuVariables.OptionsInput = CreateTitleBox("Select Preferred Input", 500, 100, font, MenuVariables.OptionsMenuBox);  //return to main menu
             MenuVariables.OptionsMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 400, font, MenuVariables.OptionsMenuBox);  //return to main menu
 
 
@@ -311,7 +301,7 @@ namespace Arbiter
                 MenuVariables.OptionsMainMenuReturnColor = MenuVariables.HoverColor;
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
-                    //pull up new game menu, get rid of main menu
+                    //pull up main menu, get rid of options menu
                     MenuVariables.main = true;
                     MenuVariables.options = false;
                 }
@@ -322,8 +312,89 @@ namespace Arbiter
                 MenuVariables.OptionsMainMenuReturnColor = MenuVariables.BoxColor;
             }
 
+            //input
+            if (ThinkInsideTheBox(MenuVariables.OptionsInput) == true)
+            {
+                MenuVariables.OptionsInputColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //pull up input menu, get rid of options
+                    MenuVariables.input = true;
+                    MenuVariables.options = false;
+                }
+
+            }
+            if (ThinkOutsideTheBox(MenuVariables.OptionsInput) == true)
+            {
+                MenuVariables.OptionsInputColor = MenuVariables.BoxColor;
+            }
 
         }
+        #endregion
+
+        public void InputMenuLogic(Game1 checkers, SpriteFont font)
+        {
+
+            //create all of the boxes
+            MenuVariables.InputMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.InputTitle = CreateTitleBox("Select Your Input Method", 600, 50, font, MenuVariables.InputMenuBox);
+            MenuVariables.InputMouse = CreateTitleBox("Mouse", 500, 100, font, MenuVariables.InputMenuBox);
+            MenuVariables.InputGamePad = CreateTitleBox("GamePad", 500, 150, font, MenuVariables.InputMenuBox);
+            MenuVariables.InputKeyBoard = CreateTitleBox("KeyBoard", 500, 200, font, MenuVariables.InputMenuBox);
+            MenuVariables.InputOptionsReturn = CreateTitleBox("Return to OptionsMenu", 600, 250, font, MenuVariables.InputMenuBox);
+            MenuVariables.InputMessage = CreateTitleBox("This Will Change Depending on the Input", 500, 300, font, MenuVariables.InputMenuBox); //changes in MenuDisplay
+
+            if (ThinkInsideTheBox(MenuVariables.InputMouse) == true)
+            {MenuVariables.InputMouseColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                   Game1.preferredInput = 0; //change input to the mouse
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.InputMouse) == true)
+            { MenuVariables.InputMouseColor= MenuVariables.BoxColor;}
+
+            ///////
+            if (ThinkInsideTheBox(MenuVariables.InputGamePad) == true)
+            {MenuVariables.InputGamePadColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                   Game1.preferredInput = 1; //change input to the gamepad
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.InputGamePad) == true)
+            { MenuVariables.InputGamePadColor = MenuVariables.BoxColor;}
+
+            ///////
+            if (ThinkInsideTheBox(MenuVariables.InputKeyBoard) == true)
+            {MenuVariables.InputKeyBoardColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                   Game1.preferredInput = 2; //change input to the keyboard
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.InputKeyBoard) == true)
+            { MenuVariables.InputKeyBoardColor = MenuVariables.BoxColor;}
+
+            /////return to options
+            if (ThinkInsideTheBox(MenuVariables.InputOptionsReturn) == true)
+            {
+                MenuVariables.InputOptionsReturnColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //leave input menu and go to the options menu
+                    MenuVariables.input = false;
+                    MenuVariables.options = true;
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.InputOptionsReturn) == true)
+            { MenuVariables.InputOptionsReturnColor = MenuVariables.BoxColor; }
+
+        }
+
+
+
+        #region LoadGameMenuLogic
         public void LoadGameMenuLogic(Game1 checkers, SpriteFont font)
         {
             //create the load game menu
@@ -353,7 +424,7 @@ namespace Arbiter
                 MenuVariables.LoadMainMenuReturnColor = MenuVariables.BoxColor;
             }
         }
-       
+        #endregion
         /// /////////////// NEW GAME MENU CURRENTLY NOT IN SERVICE - STILL FUNCTIONAL IF NEEDS TO BE CALLED ////////////////////////////////////
         
         #region NEW GAME MENU
@@ -415,7 +486,7 @@ namespace Arbiter
         #endregion
 
         /// ///////////////////////////////////////////////////////////////////////////////////////
-        
+        #region PauseMenu
         public void PauseMenuLogic(Game1 checkers, SpriteFont font)
         {
             //create the new game menu
@@ -481,6 +552,9 @@ namespace Arbiter
 
         }
 
+        #endregion
+
+        #region WinMenuLogic
         public void WinMenuLogic(Game1 checkers, SpriteFont font)
         {
             //create the new game menu
@@ -523,11 +597,11 @@ namespace Arbiter
 
         }
 
+        #endregion
 
 
 
-
-       /////////////////////////////////// ---PROPERTIES--- /////////////////////////////////////////////////////////////////
+        /////////////////////////////////// ---PROPERTIES--- /////////////////////////////////////////////////////////////////
  
   
 
