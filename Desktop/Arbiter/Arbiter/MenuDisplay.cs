@@ -20,6 +20,8 @@ namespace Arbiter
     //1.0 CornFlowerblue
     //1.1 MediumSpringGreen
     //2.0 Cadetblue
+    //3.0 lime
+    //4.0 teal
     public class MenuDisplay
     {
  
@@ -108,6 +110,10 @@ namespace Arbiter
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.OptionsTitle, MenuVariables.OptionsTitleColor); // draws the box
             batch.DrawString(font, "Options", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Options").X / 2, MenuVariables.OptionsTitle.Y), Color.Crimson); //draws the text within the box
+
+            batch.Draw(FillText, MenuVariables.OptionsInput, MenuVariables.OptionsInputColor); // draws the box
+            batch.DrawString(font, "Select Preferred Input", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Select Preferred Input").X / 2, MenuVariables.OptionsInput.Y), Color.Crimson); //draws the text within the box
+            
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.OptionsMainMenuReturn, MenuVariables.OptionsMainMenuReturnColor); // draws the box
             batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.OptionsMainMenuReturn.Y), Color.Crimson); //draws the text within the box
@@ -200,7 +206,52 @@ namespace Arbiter
         }
 
 
+        public void DisplayInputMenu(SpriteBatch batch, SpriteFont font, Game1 checkers)
+        {//draw out the menu
 
+            //define all of the rectangles
+            Texture2D FillText = new Texture2D(checkers.GraphicsDevice, 1, 1);
+            FillText.SetData(new Color[] { Color.White });
+
+            //define rectangles boxes thingys
+            //draw MainBox
+            batch.Draw(FillText, MenuVariables.InputMenuBox, MenuVariables.BackgroundColor); // draws the menu box
+            ///main title
+            batch.Draw(FillText, MenuVariables.InputTitle, MenuVariables.InputTitleColor);
+            batch.DrawString(font, "Select Your Input Mehod", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Select Your Input Method").X / 2, MenuVariables.InputTitle.Y), Color.Crimson); //draws the text within the box
+            //mouse
+            batch.Draw(FillText, MenuVariables.InputMouse, MenuVariables.InputMouseColor); 
+            batch.DrawString(font, "Mouse", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Mouse").X / 2, MenuVariables.InputMouse.Y), Color.Crimson); 
+            //gamepad
+            batch.Draw(FillText, MenuVariables.InputGamePad, MenuVariables.InputGamePadColor); 
+            batch.DrawString(font, "GamePad", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("GamePad").X / 2, MenuVariables.InputGamePad.Y), Color.Crimson); 
+            //keyboard
+            batch.Draw(FillText, MenuVariables.InputKeyBoard, MenuVariables.InputKeyBoardColor);
+            batch.DrawString(font, "KeyBoard", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("KeyBoard").X / 2, MenuVariables.InputKeyBoard.Y), Color.Crimson); 
+            //return to options menu
+            batch.Draw(FillText, MenuVariables.InputOptionsReturn, MenuVariables.InputOptionsReturnColor);
+            batch.DrawString(font, "Return to Options Menu", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Return to Option Menu").X / 2, MenuVariables.InputOptionsReturn.Y), Color.Crimson); 
+            
+            //display a different message for the input depending on what input method is selected
+           switch(Game1.preferredInput)
+            {
+                case 0:
+                        batch.Draw(FillText, MenuVariables.InputMessage, MenuVariables.InputMessageColor);
+                        batch.DrawString(font, "Your Current Input Method is the Mouse", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the Mouse").X / 2, MenuVariables.InputMessage.Y), Color.Gold); 
+            
+                        break;
+                case 1:
+                        batch.Draw(FillText, MenuVariables.InputMessage, MenuVariables.InputMessageColor);
+                        batch.DrawString(font, "Your Current Input Method is the GamePad", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the GamePad").X / 2, MenuVariables.InputMessage.Y), Color.DarkOrange); 
+                        break;
+                case 2:
+                        batch.Draw(FillText, MenuVariables.InputMessage, MenuVariables.InputMessageColor);
+                        batch.DrawString(font, "Your Current Input Method is the KeyBoard", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the KeyBoard").X / 2, MenuVariables.InputMessage.Y), Color.Yellow); 
+                        break;
+            }
+
+
+        }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         #region PopUpBox TestCase

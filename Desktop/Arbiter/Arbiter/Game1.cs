@@ -27,7 +27,7 @@ namespace Arbiter
         public static MouseState click; // the mouse state for the menus
 
         //controller attributes
-        int preferredInput; //controls which input is used for the game
+        public static int preferredInput; //controls which input is used for the game
         GamePadState gamepad;
         GamePadState previousgamepadState;
 
@@ -318,6 +318,10 @@ namespace Arbiter
                     {
                         LogicBox.OptionsMenuLogic(this, font);
                     }
+                    if (MenuVariables.input == true)
+                    {
+                        LogicBox.InputMenuLogic(this, font); //menu to choose mouse, keyboard or gamepad input
+                    }
                     if (MenuVariables.loadGame == true)
                     {
                         LogicBox.LoadGameMenuLogic(this, font);
@@ -467,9 +471,15 @@ namespace Arbiter
             {
                 DisplayBox.DisplayWinMenu(spriteBatch, font, this);
             }
-            if (gamepad.IsConnected != true)
+            if (MenuVariables.input == true)
             {
-                spriteBatch.DrawString(font, "No gamepad connected", new Vector2(200, 500), Color.Black);
+                DisplayBox.DisplayInputMenu(spriteBatch, font, this);
+            }
+
+            if (gameState == States.MENU)
+            {
+                
+                spriteBatch.DrawString(font, "Remember the Menus Only Take Mouse Input Right Now!", new Vector2(150, 500), Color.Black);
             }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
             
