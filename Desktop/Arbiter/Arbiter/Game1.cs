@@ -519,6 +519,11 @@ namespace Arbiter
                     
                 }
             }
+
+            foreach(Unit unit in movedUnits) //makes sure that the units moving stay on top
+            {
+                spriteBatch.Draw(unit.icon, unit.Region, unit.color);
+            }
         }
 
        //Nick
