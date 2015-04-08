@@ -18,9 +18,7 @@ namespace Arbiter
         
         
         protected List<Vector2> possibleMoves = new List<Vector2>(); //the legal moves that a player can make
-        //public bool hasMoved; //Don't need this anymore; thought of a better way of doing things than the way we discussed earlier -Travis
-
-        public Vector2 movingTowards; //necessary for animation right now - Nick
+        
         #endregion
 
         #region constructor
@@ -70,19 +68,7 @@ namespace Arbiter
             }
         }
 
-        public Vector2 MovingTowards
-        {
-            get
-            {
-                return movingTowards;
-            }
-            set
-            {
-                movingTowards = value;
-            }
-            
-        }
-    
+        
 
     
 
@@ -122,9 +108,9 @@ namespace Arbiter
                 GameVariables.board[(int)newLocation.X, (int)newLocation.Y] = this;
                 GameVariables.board[(int)location.X, (int)location.Y] = null; //previous space will be left empty    
                 location = newLocation;
-                region.X = (int)location.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal;
-                region.Y = (int)location.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical;
-                //Game1.Anim = true;
+                //region.X = (int)location.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal;
+                //region.Y = (int)location.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical;
+                
             }
 
         }

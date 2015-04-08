@@ -370,12 +370,10 @@ namespace Arbiter
                             {
                                 if (selectedunit.PossibleMoves.Contains(GameVariables.gamePadLocation))
                                 {
-                                    //Anim = true; //run animation
-                                    Animations.Add(selectedunit);
-                                    selectedunit.movingTowards = GameVariables.gamePadLocation;
-
+                                    
                                     selectedunit.Move(GameVariables.gamePadLocation);
                                     movedUnits.Add(selectedunit);
+                                    Anim = true; //run animation
                                     PotentialMoves = false; //stop displaying spots where you can move
                                     selectedunit = null;
                                 }
@@ -385,15 +383,15 @@ namespace Arbiter
                         //run the animation of unit that are moving
                         if (Anim == true)
                         {
-                            Animate(Animations);
+                            Animate();
                         }
 
 
 #endregion
-                        if (movedUnits.Count == GameVariables.NumPiecesPerTurn) //signals end of turn
+                        if (movedUnits.Count == GameVariables.NumPiecesPerTurn && Anim == false) //signals end of turn
                         {
                             //reset things
-                           
+                            
                             movedUnits.Clear();
                             //at end of turn
                             if (testMatch.TurnManager()) //if returns true end game
@@ -553,54 +551,41 @@ namespace Arbiter
 
         //Animate the methods as they move
 
-        public void Animate(List<Unit> people)
+        public void Animate()
         {
             //CURRENTLY NOT FUNCTIONING
-            //move the unit's rectangle incrementally untill it reaches its final psition 
+            //move the unit's rectangle incrementally untill it reaches its final position 
             // increments repeatedly (should be called many times)
-            Unit removeMe = null;
-
-            foreach (Unit person in people)
-            {
-                if (person.Location.X == person.MovingTowards.X || person.Location.Y == person.MovingTowards.Y)
-                {
-                    //check each unit to make sure it needs to be moved
-                    removeMe = person;//if entry doesn't need to be moved, set ti up to be removed
-                }
-            }
-
-            if (removeMe != null)
-            {
-                people.Remove(removeMe);
-            }
-
+            
             // if there are no more units to be animated, set anim to false and end method
-            if (people.Count ==  0)
+            if (movedUnits.Count ==  0)
             {
                 Anim = false;
                 return; 
             }
             
             //if there still are people to be animated, change their location accordingly
-            foreach (Unit person in people)
+            foreach (Unit person in movedUnits)
             {
-                if (person.Location.X != person.MovingTowards.X || person.Location.Y != person.MovingTowards.Y)
+                float x = person.Location.X * GameVariables.spaceDim + GameVariables.screenbufferHorizontal;
+                float y = person.Location.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical;
+                if (x != person.Region.X || y!= person.Region.Y)
                 {
 
-                    float differenceX = person.MovingTowards.X - person.Region.X; //find the total differences between the current x position of the rectangle and its final pposition
-                    float differenceY = person.MovingTowards.Y - person.Region.Y; //find the total differences between the current y position of the rectangle and its final position
+                    float differenceX = x - person.Region.X; //find the total differences between the current x position of the rectangle and its final pposition
+                    float differenceY = y - person.Region.Y; //find the total differences between the current y position of the rectangle and its final position
 
                     if (differenceX > 0) //if the difference is positive increase its x value
-                        person.RegionX = (person.Region.X + 10);
+                        person.RegionX = (person.Region.X + 1);
 
                     if (differenceX < 0) //if the difference is negative, decrease the x value
-                        person.RegionX = (person.Region.X - 10);
+                        person.RegionX = (person.Region.X - 1);
 
                     if (differenceY > 0)  //if the difference is positive increase the y position
-                        person.RegionY = (person.Region.Y + 10);
+                        person.RegionY = (person.Region.Y + 1);
 
                     if (differenceY < 0)  //if the difference is negative decrease the y position
-                        person.RegionY = (person.Region.Y - 10);
+                        person.RegionY = (person.Region.Y - 1);
 
                     //draw the piece!
                     //spriteBatch.Draw(person.icon, person.icon.Bounds, Color.White); //not anymore!
