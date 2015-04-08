@@ -353,7 +353,8 @@ namespace Arbiter
                         }
 
                         if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space)|| click.LeftButton == ButtonState.Pressed)
-                            &&!((previousgamepadState.IsButtonDown(Buttons.A)|| previouskeyboardState.IsKeyDown(Keys.Space) || previousmouseState.LeftButton != ButtonState.Pressed )))
+                            &&!((previousgamepadState.IsButtonDown(Buttons.A)|| previouskeyboardState.IsKeyDown(Keys.Space) || previousmouseState.LeftButton != ButtonState.Pressed ))
+                            && movedUnits.Count != GameVariables.NumPiecesPerTurn)
                         {
 
                             if (GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit
@@ -380,7 +381,7 @@ namespace Arbiter
 
                             }
                         }
-                        //run the animation of unit that are moving
+                        //run the animation of units that are moving
                         if (Anim == true)
                         {
                             Animate();
@@ -563,11 +564,7 @@ namespace Arbiter
             // increments repeatedly (should be called many times)
             
             // if there are no more units to be animated, set anim to false and end method
-            if (movedUnits.Count ==  0)
-            {
-                Anim = false;
-                return; 
-            }
+            bool finished = true;
             
             //if there still are people to be animated, change their location accordingly
             foreach (Unit person in movedUnits)
@@ -576,7 +573,7 @@ namespace Arbiter
                 float y = person.Location.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical;
                 if (x != person.Region.X || y!= person.Region.Y)
                 {
-
+                    finished = false;
                     float differenceX = x - person.Region.X; //find the total differences between the current x position of the rectangle and its final pposition
                     float differenceY = y - person.Region.Y; //find the total differences between the current y position of the rectangle and its final position
 
@@ -597,10 +594,16 @@ namespace Arbiter
                     //(int)location.X * GameVariables.spaceDim + GameVariables.screenbufferHorizontal;
                     //(int)location.Y * GameVariables.spaceDim + GameVariables.screenbufferVertical;
                 }
-                
-                
+
+
 
                 
+            }
+
+            if (finished && movedUnits.Count == GameVariables.NumPiecesPerTurn) //loop is finished
+            {
+                Anim = false;
+                return;
             }
         }
     }
