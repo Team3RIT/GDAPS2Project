@@ -27,7 +27,7 @@ namespace MapTool
         {
             bool success;
             success = Int32.TryParse(this.textBoxX.Text,out x);
-            if (!success || x < 10 || x > 30) //checks the dimension value
+            if (!success || x < 15 || x > 30) //checks the dimension value, min 15 max 30
             {
                 textBoxX.Clear();
                 return;

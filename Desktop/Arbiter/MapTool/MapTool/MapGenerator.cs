@@ -9,7 +9,7 @@ namespace MapTool
 {
     //Margaret
 
-    //STILL NEEDS A SHIT TON OF WORK
+    //Need weighting algorithm
     //
     public static class MapGenerator
     {
@@ -28,13 +28,13 @@ namespace MapTool
             owner.MapClear(); //clear the board
             if (dim < 20)
             {
-                towerCount = rng.Next(5, 8); //smaller space, less towers.
+                towerCount = (dim-6)/3; //smaller space, less towers.
                 if (towerCount % 2 == 0)//keep it odd
                     towerCount++;
             }
             else
             {
-                towerCount = rng.Next(5, 12);
+                towerCount = rng.Next(5, 10);
                 if (towerCount % 2 == 0)
                     towerCount++;
             }
@@ -65,7 +65,8 @@ namespace MapTool
                     {
                         case 0: //upper left quadrant (Q2)
                             {
-                                if (owner.nums[midpoint2 + randomx, midpoint2 + randomy] == 0)
+                                if (owner.nums[midpoint2 + randomx, midpoint2 + randomy] == 0 
+                                    && checkSides(new Point(midpoint2 + randomx, midpoint2 + randomy)))
                                 {
                                     owner.nums[midpoint2 + randomx, midpoint2 + randomy] = 2;
                                     owner.tiles[midpoint2 + randomx, midpoint2 + randomy].Image = Image.FromFile("../Images/tower.png");
@@ -75,7 +76,8 @@ namespace MapTool
                             }
                         case 1: //upper right quadrant (Q1)
                             {
-                                if (owner.nums[midpoint1 + midpoint2 + randomx, midpoint2 + randomy] == 0)
+                                if (owner.nums[midpoint1 + midpoint2 + randomx, midpoint2 + randomy] == 0
+                                    && checkSides(new Point(midpoint1 + midpoint2 + randomx, midpoint2 + randomy)))
                                 {
                                     owner.nums[midpoint1 + midpoint2 + randomx, midpoint2 + randomy] = 2;
                                     owner.tiles[midpoint1 + midpoint2 + randomx, midpoint2 + randomy].Image = Image.FromFile("../Images/tower.png");
@@ -85,7 +87,8 @@ namespace MapTool
                             }
                         case 2: //lower right quadrant (Q4)
                             {
-                                if (owner.nums[midpoint1 + midpoint2 + randomx, midpoint1 + midpoint2 + randomy] == 0)
+                                if (owner.nums[midpoint1 + midpoint2 + randomx, midpoint1 + midpoint2 + randomy] == 0
+                                    && checkSides(new Point(midpoint1 + midpoint2 + randomx, midpoint1 + midpoint2 + randomy)))
                                 {
                                     owner.nums[midpoint1 + midpoint2 + randomx, midpoint1 + midpoint2 + randomy] = 2;
                                     owner.tiles[midpoint1 + midpoint2 + randomx, midpoint1 + midpoint2 + randomy].Image = Image.FromFile("../Images/tower.png");
@@ -95,7 +98,8 @@ namespace MapTool
                             }
                         case 3: //lower left quadrant (Q3)
                             {
-                                if (owner.nums[midpoint2 + randomx, midpoint1 + midpoint2 + randomy] == 0)
+                                if (owner.nums[midpoint2 + randomx, midpoint1 + midpoint2 + randomy] == 0
+                                    && checkSides(new Point(midpoint2 + randomx, midpoint1 + midpoint2 + randomy)))
                                 {
                                     owner.nums[midpoint2 + randomx, midpoint1 + midpoint2 + randomy] = 2;
                                     owner.tiles[midpoint2 + randomx, midpoint1 + midpoint2 + randomy].Image = Image.FromFile("../Images/tower.png");
@@ -104,13 +108,15 @@ namespace MapTool
                                 break;
                             }
                     }
-                    if(success)
-                    towerCount--; //a tower has been placed, so one less exists
+                    if (success)
+                    {
+                        towerCount--; //a tower has been placed, so one less exists
 
-                    if(quadrantCount == 3) //keep quadrant looping
-                        quadrantCount = 0;
-                    else
-                        quadrantCount++;
+                        if (quadrantCount == 3) //keep quadrant looping
+                            quadrantCount = 0;
+                        else
+                            quadrantCount++;
+                    }
 
                     success = false;
                 }
@@ -120,6 +126,25 @@ namespace MapTool
             
 
         }
-        
+
+        public static bool checkSides(Point location)
+        {
+            if (location.X > 2 && //check these first so no out of range exceptions
+                location.Y > 2 &&
+                location.X < owner.nums.GetLength(0) - 3 &&
+                location.Y < owner.nums.GetLength(0) - 3 &&
+                owner.nums[location.X + 1, location.Y + 1] == 0 && //checks alllllll the tiles around, makes sure it's not surrounded by anything
+                owner.nums[location.X + 1, location.Y] == 0 &&
+                owner.nums[location.X - 1, location.Y] == 0 &&
+                owner.nums[location.X, location.Y + 1] == 0 &&
+                owner.nums[location.X, location.Y - 1] == 0 &&
+                owner.nums[location.X - 1, location.Y + 1] == 0 &&
+                owner.nums[location.X - 1, location.Y - 1] == 0 &&
+                owner.nums[location.X + 1, location.Y - 1] == 0 
+               )
+                return true;
+            else
+                return false;
+        }
     }
 }
