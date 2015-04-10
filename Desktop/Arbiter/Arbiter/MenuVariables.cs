@@ -22,7 +22,11 @@ namespace Arbiter
         /// /////////////////////////////////////// BOOLEAN VARIABLES - ONE FOR EVERY MENU SCREEN ///////////////////////////////////////////
         //USE TO SET WHETHER MENU SCREENS ARE DRAWN IN THE DRAW MWETHOD, CHANGE THEIR VALUES IN THE METHODS CORRESPONDING WITH EACH MENU
 
-        public static bool main = true;
+        public enum MENUS { MAIN, PAUSE, LOADGAME, SAVEGAME, OPTIONS, INPUT, NEWGAME, LOADINGSCREEN, WINSCREEN } //Contains all of the different menus
+        public static MENUS MenuStates = MENUS.MAIN; //Controls the state of the menus using the above enum.
+        
+
+        /*public static bool main = true;
         public static bool pause = false;
         public static bool loadGame = false;
         public static bool saveGame = false;
@@ -30,7 +34,7 @@ namespace Arbiter
         public static bool input = false;
         public static bool newGame = false;
         public static bool loadingScreen = false;
-        public static bool winScreen = false;
+        public static bool winScreen = false;*/
 
         ////////////////////////////////////////////////COLOR VARIABLES///////////////////////////////////////////////////////
         //change the color of different boxes for different menus?
@@ -154,7 +158,7 @@ namespace Arbiter
         
 
         ///////////////////PROPERTIES//////////////////////////////////
-        public static bool Main
+        /*public static bool Main
         {
             get { return main; }
             set { main = value; }
@@ -200,7 +204,7 @@ namespace Arbiter
             get { return input; }
             set { input = value; }
         }
-
+        */
 
 
 

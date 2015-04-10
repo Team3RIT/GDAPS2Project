@@ -216,8 +216,7 @@ namespace Arbiter
                     //if (MenuVariables.ControllerConnected == true) //only works if there is a controller connected
                     {
                         //pull up new game, get rid of main menu
-                        MenuVariables.newGame = true;
-                        MenuVariables.main = false;
+                        MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
                     }
                 }
                 
@@ -234,8 +233,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up new game menu, get rid of main menu
-                    MenuVariables.loadGame = true;
-                    MenuVariables.main = false;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.LOADGAME;
                 }
 
             }
@@ -252,8 +250,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up options menu, get rid of main menu
-                    MenuVariables.options = true;
-                    MenuVariables.main = false;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.OPTIONS;
                 }
             }
             
@@ -269,8 +266,7 @@ namespace Arbiter
                 {
                     //pull up new game menu, get rid of main menu
                     
-                    ////////////////END THE GAME SOMEHOW!!!!!!!!!! ///////////////////////////////
-                    MenuVariables.main = false;
+                    ////////////////END THE GAME!!!!!!!!!! ///////////////////////////////
                     Environment.Exit(0);
                 }
 
@@ -302,8 +298,8 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up main menu, get rid of options menu
-                    MenuVariables.main = true;
-                    MenuVariables.options = false;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
+                    
                 }
 
             }
@@ -319,8 +315,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up input menu, get rid of options
-                    MenuVariables.input = true;
-                    MenuVariables.options = false;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.INPUT;
                 }
 
             }
@@ -383,8 +378,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //leave input menu and go to the options menu
-                    MenuVariables.input = false;
-                    MenuVariables.options = true;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.OPTIONS;
                 }
             }
             if (ThinkOutsideTheBox(MenuVariables.InputOptionsReturn) == true)
@@ -414,8 +408,8 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up main menu, get rid of loadGame menu
-                    MenuVariables.main = true;
-                    MenuVariables.loadGame = false;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
+
                 }
 
             }
@@ -450,8 +444,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up main menu, get rid of NewGame menu
-                    MenuVariables.main = true;
-                    MenuVariables.newGame = false;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
                 }
 
             }
@@ -523,8 +516,7 @@ namespace Arbiter
                 {
                     //go to main menu, perhaps we want a message asking if they were sure?
 
-                    MenuVariables.main = true;
-                    MenuVariables.pause = false;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
 
                 }
             }
@@ -540,7 +532,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     
-                    MenuVariables.pause = false; //leave pause menu
+                    Game1.gameState = Game1.States.PLAYERTURN;
                     //return to the game somehow
 
                 }
@@ -572,8 +564,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //go to main menu
-                    MenuVariables.main = true;
-                    MenuVariables.winScreen = false;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
                 }
             }
             if (ThinkOutsideTheBox(MenuVariables.WinMainMenuReturn) == true)

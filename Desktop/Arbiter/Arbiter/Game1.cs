@@ -53,7 +53,7 @@ namespace Arbiter
 
 
         public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
-        States gameState; //Controls the state of the game using the above enum.
+        public static States gameState; //Controls the state of the game using the above enum.
         
 
 
@@ -305,32 +305,32 @@ namespace Arbiter
             {
                 case States.MENU:
                     //menu control
-                    if (MenuVariables.main == true)
+                    if (MenuVariables.MenuStates == MenuVariables.MENUS.MAIN)
                     {
                         LogicBox.MainMenuLogic(this, font);
                     }
-                    if (MenuVariables.newGame == true)
+                    if (MenuVariables.MenuStates == MenuVariables.MENUS.NEWGAME)
                     {
                         LogicBox.NewGameMenuLogic(this, font);
                         gameState = States.SETUP;
                     }
-                    if (MenuVariables.options == true)
+                    if (MenuVariables.MenuStates == MenuVariables.MENUS.OPTIONS)
                     {
                         LogicBox.OptionsMenuLogic(this, font);
                     }
-                    if (MenuVariables.input == true)
+                    if (MenuVariables.MenuStates == MenuVariables.MENUS.INPUT)
                     {
                         LogicBox.InputMenuLogic(this, font); //menu to choose mouse, keyboard or gamepad input
                     }
-                    if (MenuVariables.loadGame == true)
+                    if (MenuVariables.MenuStates == MenuVariables.MENUS.LOADGAME)
                     {
                         LogicBox.LoadGameMenuLogic(this, font);
                     }
-                    if (MenuVariables.pause == true)
+                    if (MenuVariables.MenuStates == MenuVariables.MENUS.PAUSE)
                     {
                         LogicBox.PauseMenuLogic(this, font);
                     }
-                    if (MenuVariables.winScreen == true)
+                    if (MenuVariables.MenuStates == MenuVariables.MENUS.WINSCREEN)
                     {
                         LogicBox.WinMenuLogic(this, font);
                     }
@@ -348,7 +348,7 @@ namespace Arbiter
                     
                         if (keyboard.IsKeyDown(Keys.P))
                         {
-                            MenuVariables.pause = true;
+                            MenuVariables.MenuStates = MenuVariables.MENUS.PAUSE;
                             gameState = States.MENU;
                         }
 
@@ -413,7 +413,7 @@ namespace Arbiter
                 
 
                 case States.ENDGAME:
-                    MenuVariables.winScreen = true;
+                    MenuVariables.MenuStates = MenuVariables.MENUS.WINSCREEN;
                     gameState = States.MENU;
                     break;
             }
@@ -441,36 +441,34 @@ namespace Arbiter
             ///////////////////////////////// DRAW MENUS //////////////////////////////////////////
 
             //pandora.DisplayTestPopup("Tower Control Game of No-Names", "this is some test text", "USUP", spriteBatch, font, this);
-            if (MenuVariables.main == true)
+            if (MenuVariables.MenuStates == MenuVariables.MENUS.MAIN)
             {
                 DisplayBox.DisplayMainMenu(spriteBatch, font, this);
             }
-
-            
-            if(MenuVariables.newGame == true)
+            if (MenuVariables.MenuStates == MenuVariables.MENUS.NEWGAME)
             {
                 //will only ever be true is there actually is a controller connected (MenuVariables.ControllerConnected == true)
                 //testing in menulogic for this is currently commented out
                 //DisplayBox.DisplayNewGameMenu(spriteBatch, font, this);
                 DrawBoard(); 
             }
-            if (MenuVariables.options == true)
+            if (MenuVariables.MenuStates == MenuVariables.MENUS.OPTIONS)
             {
                 DisplayBox.DisplayOptionsMenu(spriteBatch, font, this);
             }
-            if (MenuVariables.loadGame == true)
+            if (MenuVariables.MenuStates == MenuVariables.MENUS.LOADGAME)
             {
                 DisplayBox.DisplayLoadGameMenu(spriteBatch, font, this);
             }
-            if (MenuVariables.pause == true)
+            if (MenuVariables.MenuStates == MenuVariables.MENUS.PAUSE)
             {
                 DisplayBox.DisplayPauseMenu(spriteBatch, font, this);
             }
-            if (MenuVariables.winScreen == true)
+            if (MenuVariables.MenuStates == MenuVariables.MENUS.WINSCREEN)
             {
                 DisplayBox.DisplayWinMenu(spriteBatch, font, this);
             }
-            if (MenuVariables.input == true)
+            if (MenuVariables.MenuStates == MenuVariables.MENUS.INPUT)
             {
                 DisplayBox.DisplayInputMenu(spriteBatch, font, this);
             }
