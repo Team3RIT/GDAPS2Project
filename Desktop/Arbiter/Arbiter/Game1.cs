@@ -346,7 +346,7 @@ namespace Arbiter
                     #region turnlogic
                     
                     
-                        if (keyboard.IsKeyDown(Keys.P))
+                        if (keyboard.IsKeyDown(Keys.P) || click.RightButton == ButtonState.Pressed || gamepad.IsButtonDown(Buttons.Start))
                         {
                             MenuVariables.MenuStates = MenuVariables.MENUS.PAUSE;
                             gameState = States.MENU;

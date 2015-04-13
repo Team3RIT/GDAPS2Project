@@ -20,11 +20,16 @@ namespace Arbiter
     //1.1 MediumSpringGreen
     //2.0 Cadetblue
     //3.0 Lime - boxes change to MediumBlue
+    //4.0 Teal
     class MenuLogic
         
     {
         //contains the code for all of the logic behind the menu interfaces
+        ////////////variables////////////////
 
+        KeyboardState keyboard;
+        string previouslyPressed;
+        
         ///////////////////////////////---- HELPER METHODS ----/////////////////////////////////////////////////////
         #region HELPER METHODS
 
@@ -392,31 +397,86 @@ namespace Arbiter
         public void LoadGameMenuLogic(Game1 checkers, SpriteFont font)
         {
             //create the load game menu
+            
 
             //define all of the necessary rectangles - variables inherited from MenuVariables
             //define rectangles boxes thingys
             MenuVariables.LoadMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
             MenuVariables.LoadTitle = CreateTitleBox("Load Game Menu", 600, 50, font, MenuVariables.LoadMenuBox);  //give LoadGame a title
+            MenuVariables.LoadTextTitle = CreateTitleBox("Click the Box Below and Type the Name of the File to Open:", 600, 150, font, MenuVariables.LoadMenuBox);
+            MenuVariables.LoadTextBox = CreateTitleBox("random extraneous text", 500, 200, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
             MenuVariables.LoadMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 400, font, MenuVariables.LoadMenuBox);  //Return to main menu
-            MenuVariables.LoadTextBox = CreateTitleBox("this functionality currently doesn't exist!", 500, 100, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
+            MenuVariables.LoadSubmit = CreateTitleBox("Submit", 200, 250, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
+            MenuVariables.LoadClear = CreateTitleBox("Clear", 200, 300, font, MenuVariables.LoadMenuBox);  //Return to main menu
 
 
-            //handles all the event based logic for the load game menu
-            if (ThinkInsideTheBox(MenuVariables.LoadMainMenuReturn) == true)
+            /////////////////////type in your file name
+             Keys[] pressed;
+             
+             keyboard = Keyboard.GetState();
+             
+            if (ThinkInsideTheBox(MenuVariables.LoadTextBox) == true)
             {
-                MenuVariables.LoadMainMenuReturnColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    MenuVariables.CanType = true;
+                }
+            }
+            if (MenuVariables.CanType == true)
+            {
+                
+                MenuVariables.LoadTextBoxColor = MenuVariables.TypeColor; //change color once its clicked on
+                pressed = keyboard.GetPressedKeys(); //get all of the keys currently being pressed
+                if (pressed.Length != 0 && pressed[0].ToString() != previouslyPressed)
+                {
+                    MenuVariables.filename = MenuVariables.filename + pressed[0].ToString();
+                    previouslyPressed = pressed[0].ToString();
+                }
+                
+            }
+
+            //stop adding text and reset the filename
+            if (ThinkInsideTheBox(MenuVariables.LoadClear) == true && MenuVariables.CanType == true)
+            {
+                MenuVariables.LoadClearColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    MenuVariables.filename = "";
+                    MenuVariables.CanType = false;
+                    MenuVariables.LoadTextBoxColor = MenuVariables.BoxColor; //change color back
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.LoadClear) == true)
+            { MenuVariables.LoadClearColor = MenuVariables.BoxColor; }
+            /////submit file name
+
+            if (ThinkInsideTheBox(MenuVariables.LoadSubmit) == true && MenuVariables.CanType == true)
+            {
+                MenuVariables.LoadSubmitColor = MenuVariables.TypeColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //LOAD THE GAME HERE!!!!!!!!!!!!!
+                    FileIO.LoadGame(MenuVariables.filename);
+
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.LoadSubmit) == true)
+            { MenuVariables.LoadSubmitColor = MenuVariables.BoxColor; }
+            /////
+
+
+  
+            
+            if (ThinkInsideTheBox(MenuVariables.LoadMainMenuReturn) == true)
+            {   MenuVariables.LoadMainMenuReturnColor = MenuVariables.HoverColor;
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //pull up main menu, get rid of loadGame menu
                     MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
-
                 }
-
             }
-            if (ThinkOutsideTheBox(MenuVariables.OptionsMainMenuReturn) == true)
-            {
-                MenuVariables.LoadMainMenuReturnColor = MenuVariables.BoxColor;
-            }
+            if (ThinkOutsideTheBox(MenuVariables.LoadMainMenuReturn) == true)
+            {MenuVariables.LoadMainMenuReturnColor = MenuVariables.BoxColor;}
         }
         #endregion
         /// /////////////// NEW GAME MENU CURRENTLY NOT IN SERVICE - STILL FUNCTIONAL IF NEEDS TO BE CALLED ////////////////////////////////////

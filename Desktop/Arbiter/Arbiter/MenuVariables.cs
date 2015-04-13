@@ -25,21 +25,10 @@ namespace Arbiter
         public enum MENUS { MAIN, PAUSE, LOADGAME, SAVEGAME, OPTIONS, INPUT, NEWGAME, LOADINGSCREEN, WINSCREEN } //Contains all of the different menus
         public static MENUS MenuStates = MENUS.MAIN; //Controls the state of the menus using the above enum.
         
-
-        /*public static bool main = true;
-        public static bool pause = false;
-        public static bool loadGame = false;
-        public static bool saveGame = false;
-        public static bool options = false;
-        public static bool input = false;
-        public static bool newGame = false;
-        public static bool loadingScreen = false;
-        public static bool winScreen = false;*/
-
         ////////////////////////////////////////////////COLOR VARIABLES///////////////////////////////////////////////////////
         //change the color of different boxes for different menus?
         public static Color BoxColor = Color.Black; //thecolor for generic title menu boxes - either equal to normal color, or to hovercolor
-        
+        public static Color TypeColor = Color.Maroon;//color for a box that has text you typed into
         public static Color HoverColor = Color.MediumBlue; //color for when mouse is hovering over a rectangle (not main rectangle)
         public static Color BackgroundColor = Color.Teal; //Color for the mainmenuboxes - used in the background - changes with each update version
 
@@ -61,7 +50,10 @@ namespace Arbiter
         public static Color LoadMenuBoxColor = BoxColor;
         public static Color LoadTitleColor = BoxColor;
         public static Color LoadMainMenuReturnColor = BoxColor;
-        public static Color LoadTextBoxColor = BoxColor; //this functionality currently doesn't exist!
+        public static Color LoadTextTitleColor = BoxColor;
+        public static Color LoadTextBoxColor = BoxColor;
+        public static Color LoadSubmitColor = BoxColor;
+        public static Color LoadClearColor = BoxColor;
 
         //options specific colors
         public static Color OptionsMenuBoxColor = BoxColor;
@@ -120,7 +112,10 @@ namespace Arbiter
         public static Rectangle LoadMenuBox;
         public static Rectangle LoadTitle;
         public static Rectangle LoadMainMenuReturn;
-        public static Rectangle LoadTextBox; //this functionality currently doesn't exist!
+        public static Rectangle LoadTextTitle; //doesn't change color
+        public static Rectangle LoadTextBox; //changes to a different color
+        public static Rectangle LoadSubmit;
+        public static Rectangle LoadClear;
         
         //options rectangles
         public static Rectangle OptionsMenuBox;
@@ -155,7 +150,8 @@ namespace Arbiter
         /////////////////////////////// EXTRANEOUS INTERFACE MENU VARIABLES ////////////////////////////////////////// 
 
         public static bool ControllerConnected;  //defaulted to not having a gamepad connected
-        
+        public static bool CanType = false;
+        public static string filename = "";
 
         ///////////////////PROPERTIES//////////////////////////////////
         /*public static bool Main

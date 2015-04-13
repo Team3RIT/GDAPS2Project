@@ -138,8 +138,17 @@ namespace Arbiter
             batch.DrawString(font, "Return to Main menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.LoadMainMenuReturn.Y), Color.Crimson); //draws the text within the box
 
             //draw the textbox
+            batch.Draw(FillText, MenuVariables.LoadTextTitle, MenuVariables.LoadTextTitleColor); // draws the box
+            batch.DrawString(font, "Click the Box Below and Type the Name of the File to Open:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), Color.Crimson); //draws the text within the textbox
+
             batch.Draw(FillText, MenuVariables.LoadTextBox, MenuVariables.LoadTextBoxColor); // draws the box
-            batch.DrawString(font, "This Functionality Currently Doesn't Exist!", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("This functionality currently Doesn't Exist").X / 2, MenuVariables.LoadTextBox.Y), Color.Crimson); //draws the text within the textbox
+            batch.DrawString(font, MenuVariables.filename, new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString(MenuVariables.filename).X / 2, MenuVariables.LoadTextBox.Y), Color.Crimson);
+            ///////
+            batch.Draw(FillText, MenuVariables.LoadClear, MenuVariables.LoadClearColor); // draws the box
+            batch.DrawString(font, "Clear", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Clear").X/2, MenuVariables.LoadClear.Y), Color.Crimson); //draws the text within the textbox
+
+            batch.Draw(FillText, MenuVariables.LoadSubmit, MenuVariables.LoadSubmitColor); // draws the box
+            batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X/2, MenuVariables.LoadSubmit.Y), Color.Crimson);
         }
 
         /////////////////in game menus ////////////////////////////////////////////////////////////
