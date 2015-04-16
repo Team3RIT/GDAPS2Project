@@ -74,9 +74,10 @@ namespace Arbiter
                 for (int i = 0; i < GameVariables.towers.Count; i++)
                 {
                     for (int j = 0; j < 14; j++)
-                        if (GameVariables.towers[i].Location == pieces[whoseTurn, j].Location)
+                        if (GameVariables.towers[i].isClaimed)
                         {
-                            towersControlled++;
+                            if(GameVariables.towers[i].claimedBy.owner.ID == whoseTurn)
+                                towersControlled++;
                         }
                 }
                 //If the player owns the majority of the towers, increment their victory tally by 1.

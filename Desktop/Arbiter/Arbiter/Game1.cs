@@ -534,7 +534,13 @@ namespace Arbiter
                     
                 }
             }
-
+            foreach(Tower tower in GameVariables.towers)
+            {
+                if(tower.isClaimed)
+                {
+                    spriteBatch.Draw(tower.icon, tower.Region, Color.White);
+                }
+            }
             foreach(Unit unit in movedUnits) //makes sure that the units moving stay on top
             {
                 spriteBatch.Draw(unit.icon, unit.Region, unit.color);

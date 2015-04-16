@@ -87,31 +87,32 @@ namespace Arbiter
                 {
                    
                     myTower = tower;
-                    break;
+                    
                 }
                 if(tower.Location == newLocation)
                 {
                     newTower = tower;
                 }
             }
+            location = newLocation;
             if (myTower != null)
                 myTower.Abandon(this); //abandon it if you're on one
-            
             if(newTower != null)
                 newTower.Claim(this);
-            if (GameVariables.board[(int)location.X, (int)location.Y] != null && GameVariables.board[(int)location.X, (int)location.Y].Rank < rank && GameVariables.board[(int)location.X, (int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
+            else if (GameVariables.board[(int)location.X, (int)location.Y] != null && GameVariables.board[(int)location.X, (int)location.Y].Rank < rank && GameVariables.board[(int)location.X, (int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
             {
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
             else
             {
                 GameVariables.board[(int)newLocation.X, (int)newLocation.Y] = this;
+            }
                 GameVariables.board[(int)location.X, (int)location.Y] = null; //previous space will be left empty    
-                location = newLocation;
+                
                 //region.X = (int)location.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal;
                 //region.Y = (int)location.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical;
                 
-            }
+            
 
         }
         public override List<Vector2> Select()
@@ -367,7 +368,7 @@ namespace Arbiter
                 &&GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y].Rank >= this.Rank)) //The piece is allowed in that spot
             {
                 if (GameVariables.board[(int)locationfinal.X, (int)locationfinal.Y] != null && GameVariables.board[(int)locationfinal.X, 
-                    (int)locationfinal.Y].Rank == 5 && rank == 3) //heavy units cant go into towers
+                    (int)locationfinal.Y].Rank == 5 && rank == 1) //heavy units cant go into towers
                     return false;
                 else
                     return true;

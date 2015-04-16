@@ -13,8 +13,8 @@ namespace Arbiter
 {
     class Tower:Piece
     {
-        private bool isClaimed = false;
-        private Unit claimedBy;
+        public bool isClaimed = false;
+        public Unit claimedBy;
 
         public Tower(int x, int y):base(x,y)
         {
@@ -26,7 +26,7 @@ namespace Arbiter
 
         public void Claim(Unit unit)
         {
-            if(unit.Location == this.Location && unit.Rank != 3) //lets the unit occupy the gameboard space
+            if(unit.Location == this.Location && unit.Rank != 1) //lets the unit occupy the gameboard space
             {
                 isClaimed = true;
                 claimedBy = unit;
