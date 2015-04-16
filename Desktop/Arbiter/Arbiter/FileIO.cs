@@ -99,17 +99,20 @@ namespace Arbiter
             int i;
             int x = 0;
             int y = 0;
-            Player player;
+            Player player = null;
             int ownerID;
             string ownerName;
             while (reader.BaseStream.Position != reader.BaseStream.Length)
             {
                 i = reader.ReadInt32();
-                ownerID = reader.ReadInt32();
-                ownerName = reader.ReadString(); //data will come in sets of 3, so these ones should not be null.
-                player = new Player(ownerName, ownerID);
-                if (!GameVariables.players.Contains(player)) //don't want duplicates in the list
-                    GameVariables.players.Add(player);
+                if (i != -1) //not a blank space
+                {
+                    ownerID = reader.ReadInt32();
+                    ownerName = reader.ReadString(); //data will come in sets of 3, so these ones should not be null.
+                    player = new Player(ownerName, ownerID);
+                    if (!GameVariables.players.Contains(player)) //don't want duplicates in the list
+                        GameVariables.players.Add(player);
+                }
                 switch(i)
                 {
                     case -1: //empty space
