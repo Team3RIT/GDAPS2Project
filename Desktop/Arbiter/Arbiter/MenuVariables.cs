@@ -22,7 +22,7 @@ namespace Arbiter
         /// /////////////////////////////////////// BOOLEAN VARIABLES - ONE FOR EVERY MENU SCREEN ///////////////////////////////////////////
         //USE TO SET WHETHER MENU SCREENS ARE DRAWN IN THE DRAW MWETHOD, CHANGE THEIR VALUES IN THE METHODS CORRESPONDING WITH EACH MENU
 
-        public enum MENUS { MAIN, PAUSE, LOADGAME, SAVEGAME, OPTIONS, INPUT, NEWGAME, LOADINGSCREEN, WINSCREEN } //Contains all of the different menus
+        public enum MENUS { MAIN, PAUSE, LOADGAME, SAVEGAME, OPTIONS, INPUT, NEWGAME, LOADINGSCREEN, WINSCREEN, MAPMENU } //Contains all of the different menus
         public static MENUS MenuStates = MENUS.MAIN; //Controls the state of the menus using the above enum.
         
         ////////////////////////////////////////////////COLOR VARIABLES///////////////////////////////////////////////////////
@@ -203,9 +203,51 @@ namespace Arbiter
         */
 
 
+        public static void GetKey(KeyboardState keyState, ref KeyboardState oldKeyboardState)
+        {
+            Keys[] keys = keyState.GetPressedKeys();
+            string previousString = "";
+            //MenuVariables.filename
+            foreach(Keys key in keys)
+            {
+                
+                if (oldKeyboardState.IsKeyUp(key))
+                {
+                    if (key == Keys.Back && MenuVariables.filename.Length > 0)
+                    {
+                        MenuVariables.filename = MenuVariables.filename.Remove(MenuVariables.filename.Length - 1, 1);
+                    }
+                    else if (key == Keys.Space)
+                    {
+                        MenuVariables.filename = MenuVariables.filename.Insert(MenuVariables.filename.Length, " ");
+                    }
+                    else if (key == Keys.Enter)
+                    {
+                        //nothing happens
+                    }
+                    else
+                    {
+                        string keyString = key.ToString();
+                        bool isUpperCase = (keyState.IsKeyDown(Keys.RightShift) || keyState.IsKeyDown(Keys.LeftShift));
 
+
+
+                        if (keyString.Length == 1 && previousString != keyString)
+                        {
+                            MenuVariables.filename += isUpperCase ? keyString.ToUpper() : keyString.ToLower();
+                        }
+                        previousString = keyString;
+                        
+                    }
+                }
+
+            }
+            oldKeyboardState = keyState;
+        }
+            
+        }
 
 
 
     }
-}
+

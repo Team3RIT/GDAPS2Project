@@ -19,10 +19,10 @@ namespace Arbiter
         private static BinaryWriter writer;
 
         #region map methods
-        public static void ReadMapFile(string filepath) //will read file and make changes to board. 
+        public static bool ReadMapFile(string filepath) //will read file and make changes to board. 
         {
             if (!File.Exists("..\\maps\\"+filepath))
-                return; //method just dies if it's a bad path
+                return false; //method just dies if it's a bad path
 
             reader = new BinaryReader(File.Open("..\\maps\\" + filepath, FileMode.Open)); //initialize the reader
 
@@ -47,6 +47,7 @@ namespace Arbiter
 
             }
             reader.Close();
+            return true;
         }
         #endregion
 

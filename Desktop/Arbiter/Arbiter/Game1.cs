@@ -334,6 +334,10 @@ namespace Arbiter
                     {
                         LogicBox.WinMenuLogic(this, font);
                     }
+                    if(MenuVariables.MenuStates == MenuVariables.MENUS.MAPMENU)
+                    {
+                        LogicBox.LoadMapMenuLogic(this, font);
+                    }
                     break;
                 case States.SETUP:
                     testMatch = new Match(2);
@@ -471,6 +475,10 @@ namespace Arbiter
             if (MenuVariables.MenuStates == MenuVariables.MENUS.INPUT)
             {
                 DisplayBox.DisplayInputMenu(spriteBatch, font, this);
+            }
+            if(MenuVariables.MenuStates == MenuVariables.MENUS.MAPMENU)
+            {
+                DisplayBox.DisplayMapMenu(spriteBatch, font, this);
             }
 
             if (gameState == States.MENU)
