@@ -563,6 +563,88 @@ namespace Arbiter
         }
 #endregion
 
+        #region Save Game Menu
+        public void SaveGameMenuLogic(Game1 checkers, SpriteFont font)
+        {
+            //create the load game menu
+
+
+            //define all of the necessary rectangles - variables inherited from MenuVariables
+            //define rectangles boxes thingys
+            MenuVariables.LoadMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.LoadTitle = CreateTitleBox("Map Menu", 600, 50, font, MenuVariables.LoadMenuBox);  //give LoadGame a title
+            MenuVariables.LoadTextTitle = CreateTitleBox("Click the Box Below and Type the Name of the File to Open:", 600, 150, font, MenuVariables.LoadMenuBox);
+            MenuVariables.LoadTextBox = CreateTitleBox("random extraneous text", 500, 200, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
+            MenuVariables.LoadMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 400, font, MenuVariables.LoadMenuBox);  //Return to main menu
+            MenuVariables.LoadSubmit = CreateTitleBox("Submit", 200, 250, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
+            MenuVariables.LoadClear = CreateTitleBox("Clear", 200, 300, font, MenuVariables.LoadMenuBox);  //Return to main menu
+
+
+            /////////////////////type in your file name
+
+            keyboard = Keyboard.GetState();
+
+            if (ThinkInsideTheBox(MenuVariables.LoadTextBox) == true)
+            {
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    MenuVariables.CanType = true;
+                }
+            }
+            if (MenuVariables.CanType == true)
+            {
+
+                MenuVariables.LoadTextBoxColor = MenuVariables.TypeColor; //change color once its clicked on
+                MenuVariables.GetKey(keyboard, ref previousKeyboard);
+
+            }
+
+            //stop adding text and reset the filename
+            if (ThinkInsideTheBox(MenuVariables.LoadClear) == true && MenuVariables.CanType == true)
+            {
+                MenuVariables.LoadClearColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    MenuVariables.filename = "";
+                    MenuVariables.CanType = false;
+                    MenuVariables.LoadTextBoxColor = MenuVariables.BoxColor; //change color back
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.LoadClear) == true)
+            { MenuVariables.LoadClearColor = MenuVariables.BoxColor; }
+            /////submit file name
+
+            if (ThinkInsideTheBox(MenuVariables.LoadSubmit) == true && MenuVariables.CanType == true)
+            {
+                MenuVariables.LoadSubmitColor = MenuVariables.TypeColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //SAVE THE GAME HERE!!!!!!!!!!!!!
+                    FileIO.SaveGame(MenuVariables.filename);
+                    
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.LoadSubmit) == true)
+            { MenuVariables.LoadSubmitColor = MenuVariables.BoxColor; }
+            /////
+
+
+
+
+            if (ThinkInsideTheBox(MenuVariables.LoadMainMenuReturn) == true)
+            {
+                MenuVariables.LoadMainMenuReturnColor = MenuVariables.HoverColor;
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //pull up main menu, get rid of loadGame menu
+                    MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.LoadMainMenuReturn) == true)
+            { MenuVariables.LoadMainMenuReturnColor = MenuVariables.BoxColor; }
+        }
+
+        #endregion
         /// /////////////// NEW GAME MENU CURRENTLY NOT IN SERVICE - STILL FUNCTIONAL IF NEEDS TO BE CALLED ////////////////////////////////////
         
         #region NEW GAME MENU
@@ -642,8 +724,7 @@ namespace Arbiter
                 MenuVariables.PauseSaveGameColor = MenuVariables.HoverColor;
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
-                    //open a menu to save the game, or just save the game somehow
-
+                    MenuVariables.MenuStates = MenuVariables.MENUS.SAVEGAME;
 
 
                 }

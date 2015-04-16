@@ -21,6 +21,7 @@ namespace Arbiter
             rank = 5; //anything should be able to get in unless the if statement below catches it
             GameVariables.towers.Add(this);
             GameVariables.board[x, y] = this;
+            icon = Game1.Tower;
         }
 
         public void Claim(Unit unit)

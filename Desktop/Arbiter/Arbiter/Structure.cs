@@ -20,6 +20,7 @@ namespace Arbiter
             rank = 0; // will not be captured by any player piece, which only goes up to 1
             GameVariables.structures.Add(this);
             GameVariables.board[x, y] = this;
+            icon = Game1.Obstacle;
         }
         
     }

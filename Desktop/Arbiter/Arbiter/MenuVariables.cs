@@ -22,7 +22,7 @@ namespace Arbiter
         /// /////////////////////////////////////// BOOLEAN VARIABLES - ONE FOR EVERY MENU SCREEN ///////////////////////////////////////////
         //USE TO SET WHETHER MENU SCREENS ARE DRAWN IN THE DRAW MWETHOD, CHANGE THEIR VALUES IN THE METHODS CORRESPONDING WITH EACH MENU
 
-        public enum MENUS { MAIN, PAUSE, LOADGAME, SAVEGAME, OPTIONS, INPUT, NEWGAME, LOADINGSCREEN, WINSCREEN, MAPMENU } //Contains all of the different menus
+        public enum MENUS { MAIN, PAUSE, LOADGAME, SAVEGAME, OPTIONS, INPUT, NEWGAME, LOADINGSCREEN, WINSCREEN, MAPMENU,} //Contains all of the different menus
         public static MENUS MenuStates = MENUS.MAIN; //Controls the state of the menus using the above enum.
         
         ////////////////////////////////////////////////COLOR VARIABLES///////////////////////////////////////////////////////

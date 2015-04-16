@@ -21,10 +21,10 @@ namespace Arbiter
         #region map methods
         public static bool ReadMapFile(string filepath) //will read file and make changes to board. 
         {
-            if (!File.Exists("..\\maps\\"+filepath))
+            if (!File.Exists("..\\..\\maps\\"+filepath))
                 return false; //method just dies if it's a bad path
 
-            reader = new BinaryReader(File.Open("..\\maps\\" + filepath, FileMode.Open)); //initialize the reader
+            reader = new BinaryReader(File.Open("..\\..\\maps\\" + filepath, FileMode.Open)); //initialize the reader
 
             Piece[,] board = new Piece[GameVariables.BoardSpaceDim, GameVariables.BoardSpaceDim];
             int x; 
@@ -54,7 +54,7 @@ namespace Arbiter
         #region save file handling
         public static void SaveGame(string filepath) //saves game data
         {
-            writer = new BinaryWriter(File.Open(filepath, FileMode.Create)); //initialize the reader, it will overwrite or create the file
+            writer = new BinaryWriter(File.Open("..\\..\\savedGames\\"+filepath, FileMode.Create)); //initialize the reader, it will overwrite or create the file
             for (int y = 0; y < GameVariables.BoardSpaceDim; y++) //cycle through all the array values
             {
                 for (int x = 0; x < GameVariables.BoardSpaceDim; x++) 
@@ -92,10 +92,10 @@ namespace Arbiter
 
         public static void LoadGame(string filepath) //loads game data
         {
-            if (!File.Exists(filepath))
+            if (!File.Exists("..\\..\\savedGames\\" + filepath))
                 return; //method just dies if it's a bad path
 
-            reader = new BinaryReader(File.Open(filepath, FileMode.Open)); //initialize the reader
+            reader = new BinaryReader(File.Open("..\\..\\savedGames\\" + filepath, FileMode.Open)); //initialize the reader
             int i;
             int x = 0;
             int y = 0;
