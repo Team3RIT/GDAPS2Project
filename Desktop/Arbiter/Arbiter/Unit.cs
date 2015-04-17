@@ -94,7 +94,7 @@ namespace Arbiter
                     newTower = tower;
                 }
             }
-            location = newLocation;
+            
             if (myTower != null)
                 myTower.Abandon(this); //abandon it if you're on one
             if(newTower != null)
@@ -108,7 +108,7 @@ namespace Arbiter
                 GameVariables.board[(int)newLocation.X, (int)newLocation.Y] = this;
             }
                 GameVariables.board[(int)location.X, (int)location.Y] = null; //previous space will be left empty    
-                
+                location = newLocation;
                 //region.X = (int)location.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal;
                 //region.Y = (int)location.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical;
                 

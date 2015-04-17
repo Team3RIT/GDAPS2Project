@@ -26,7 +26,7 @@ namespace Arbiter
 
         public void Claim(Unit unit)
         {
-            if(unit.Location == this.Location && unit.Rank != 1) //lets the unit occupy the gameboard space
+            if(unit.Rank != 1) //lets the unit occupy the gameboard space
             {
                 isClaimed = true;
                 claimedBy = unit;
