@@ -83,13 +83,13 @@ namespace Arbiter
                 //If the player owns the majority of the towers, increment their victory tally by 1.
                 if (towersControlled > (float)(GameVariables.towers.Count / 2))
                 {
-                    //victoryTally[whoseTurn - 1]++;
-                    GameVariables.victoryTally = 2;
+                    victoryTally[whoseTurn - 1]++;
+                   
                 }
-                //else //If they don't own the majority of the towers at the end of their turn, their tally is reset to 0.
-                //{
-                  //  victoryTally[whoseTurn - 1] = 0;
-                //}
+                else //If they don't own the majority of the towers at the end of their turn, their tally is reset to 0.
+                {
+                    victoryTally[whoseTurn - 1] = 0;
+                }
             
 
                 //Advance the turn

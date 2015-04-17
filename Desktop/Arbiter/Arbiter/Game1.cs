@@ -539,6 +539,7 @@ namespace Arbiter
                 if(tower.isClaimed)
                 {
                     spriteBatch.Draw(tower.icon, tower.Region, Color.White);
+                    spriteBatch.Draw(tower.claimedBy.icon, tower.claimedBy.Region, tower.claimedBy.color);
                 }
             }
             foreach(Unit unit in movedUnits) //makes sure that the units moving stay on top
