@@ -214,7 +214,13 @@ namespace Arbiter
             {
                 
                 GameVariables.board[(int)location.X, (int)location.Y] = piece; //take it off the board
-
+                foreach(Tower tower in GameVariables.towers)
+                {
+                    if(tower.claimedBy == piece)
+                    {
+                        tower.Claim(this);
+                    }
+                }
             }
 
           

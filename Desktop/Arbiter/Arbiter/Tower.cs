@@ -30,6 +30,7 @@ namespace Arbiter
             {
                 isClaimed = true;
                 claimedBy = unit;
+                GameVariables.board[(int)location.X, (int)location.Y] = unit;
             }
         }
 
