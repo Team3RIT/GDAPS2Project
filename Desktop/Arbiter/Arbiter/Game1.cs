@@ -109,9 +109,9 @@ namespace Arbiter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // TODO: Add your initialization logic here
-
-
-
+            //MenuVariables.playerIndicatorContainer = new Texture2D(GraphicsDevice, (int)GameVariables.screenbufferHorizontal - 50, 300,false,SurfaceFormat.Color);
+            MenuVariables.playerIndicatorColorBox = new Texture2D(GraphicsDevice, (int)GameVariables.screenbufferHorizontal - 100, 200,false,SurfaceFormat.Color);
+            
             
 
             //make the mouse visible on screen
@@ -507,6 +507,7 @@ namespace Arbiter
             if(gameState == States.PLAYERTURN)
             {
                 DrawBoard();
+                
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
             }
 
@@ -523,8 +524,11 @@ namespace Arbiter
             base.Draw(gameTime);
         }
         
+       
         public void DrawBoard() //should be between spritebatch Begin and End
         {
+           
+            //board code
             for (int i = 0; i < GameVariables.BoardSpaceDim; i++)
             {
                 for (int j = 0; j < GameVariables.BoardSpaceDim; j++)
@@ -554,6 +558,42 @@ namespace Arbiter
             {
                 spriteBatch.Draw(unit.icon, unit.Region, unit.color);
             }
+
+            //UI code
+
+            Color color = Color.White;
+            #region switch statement for color
+            switch (currentPlayer) //player 1, 2, 3, .. etc
+            {
+
+                case 1:
+                    {
+                        color = Color.Red;
+                        break;
+                    }
+
+                case 2:
+                    {
+                        color = Color.Blue;
+                        break;
+                    }
+
+                case 3:
+                    {
+                        color = Color.Green;
+                        break;
+                    }
+                case 4:
+                    {
+                        color = Color.Orange;
+                        break;
+                    }
+            }
+            #endregion
+            MenuVariables.playerIndicatorColorBox.SetData<Color>(new Color[] { color });
+            //spriteBatch.Draw(MenuVariables.playerIndicatorContainer, new Rectangle(10, 10, GameVariables.screenbufferHorizontal - 50, 300), Color.White);
+            spriteBatch.Draw(MenuVariables.playerIndicatorColorBox, new Rectangle(35, 60, GameVariables.screenbufferHorizontal - 50, 300), color);
+            
         }
 
        //Nick

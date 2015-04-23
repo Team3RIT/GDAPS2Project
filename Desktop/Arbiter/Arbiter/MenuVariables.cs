@@ -146,6 +146,10 @@ namespace Arbiter
         public static Rectangle InputOptionsReturn;
         public static Rectangle InputMessage;
 
+        //game screen variables - Margaret
+        public static Texture2D playerIndicatorContainer;
+        public static Texture2D playerIndicatorColorBox;
+
 
 
         /////////////////////////////// EXTRANEOUS INTERFACE MENU VARIABLES ////////////////////////////////////////// 
@@ -224,22 +228,86 @@ namespace Arbiter
                     }
                     else if (key == Keys.Enter)
                     {
-                        //nothing happens
+                        //nothing happens, we can add code here to have it hit submit if we want
                     }
-                    else
-                    {
-                        string keyString = key.ToString();
-                        bool isUpperCase = (keyState.IsKeyDown(Keys.RightShift) || keyState.IsKeyDown(Keys.LeftShift));
-
-
-
-                        if (keyString.Length == 1 && previousString != keyString)
+                    else 
+                        switch(key)
                         {
-                            MenuVariables.filename += isUpperCase ? keyString.ToUpper() : keyString.ToLower();
-                        }
-                        previousString = keyString;
-                        
-                    }
+                            case Keys.D0:
+                            case Keys.NumPad0:
+                                {
+                                    MenuVariables.filename += '0';
+                                    break;
+                                }
+                            case Keys.D1:
+                            case Keys.NumPad1:
+                                {
+                                    MenuVariables.filename += '1';
+                                    break;
+                                }
+                            case Keys.D2:
+                            case Keys.NumPad2:
+                                {
+                                    MenuVariables.filename += '2';
+                                    break;
+                                }
+                            case Keys.D3:
+                            case Keys.NumPad3:
+                                {
+                                    MenuVariables.filename += '3';
+                                    break;
+                                }
+                            case Keys.D4:
+                            case Keys.NumPad4:
+                                {
+                                    MenuVariables.filename += '4';
+                                    break;
+                                }
+                            case Keys.D5:
+                            case Keys.NumPad5:
+                                {
+                                    MenuVariables.filename += '5';
+                                    break;
+                                }
+                            case Keys.D6:
+                            case Keys.NumPad6:
+                                {
+                                    MenuVariables.filename += '6';
+                                    break;
+                                }
+                            case Keys.D7:
+                            case Keys.NumPad7:
+                                {
+                                    MenuVariables.filename += '7';
+                                    break;
+                                }
+                            case Keys.D8:
+                            case Keys.NumPad8:
+                                {
+                                    MenuVariables.filename += '8';
+                                    break;
+                                }
+                            case Keys.D9:
+                            case Keys.NumPad9:
+                                {
+                                    MenuVariables.filename += '9';
+                                    break;
+                                }
+                            default:
+                            {
+                                string keyString = key.ToString();
+                                bool isUpperCase = (keyState.IsKeyDown(Keys.RightShift) || keyState.IsKeyDown(Keys.LeftShift));
+
+
+
+                                if (keyString.Length == 1 && previousString != keyString)
+                                {
+                                 MenuVariables.filename += isUpperCase ? keyString.ToUpper() : keyString.ToLower();
+                                }
+                                previousString = keyString;
+                                break;
+                            }
+                }
                 }
 
             }
