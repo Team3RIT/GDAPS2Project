@@ -44,6 +44,7 @@ namespace Arbiter
         public static Texture2D Tower;
         public static Texture2D Normal;
         public static Texture2D Obstacle;
+        public static Texture2D MenuBorder;
 
         //Player Turn Attributes
         Match testMatch;
@@ -141,7 +142,7 @@ namespace Arbiter
             Tower = Content.Load<Texture2D>("Tower");
             Normal = Content.Load<Texture2D>("NormalTile");
             Obstacle = Content.Load<Texture2D>("Obstacle");
-
+            MenuBorder = Content.Load<Texture2D>("menu border4");
 
 
         }
@@ -446,6 +447,7 @@ namespace Arbiter
             spriteBatch.Begin();
 
             
+            
             ///////////////////////////////// DRAW MENUS //////////////////////////////////////////
 
             //pandora.DisplayTestPopup("Tower Control Game of No-Names", "this is some test text", "USUP", spriteBatch, font, this);
@@ -463,14 +465,20 @@ namespace Arbiter
             if (MenuVariables.MenuStates == MenuVariables.MENUS.OPTIONS)
             {
                 DisplayBox.DisplayOptionsMenu(spriteBatch, font, this);
+                
+
             }
             if (MenuVariables.MenuStates == MenuVariables.MENUS.LOADGAME)
             {
                 DisplayBox.DisplayLoadGameMenu(spriteBatch, font, this);
+
+
             }
             if (MenuVariables.MenuStates == MenuVariables.MENUS.PAUSE)
             {
                 DisplayBox.DisplayPauseMenu(spriteBatch, font, this);
+
+
             }
             if (MenuVariables.MenuStates == MenuVariables.MENUS.WINSCREEN)
             {
