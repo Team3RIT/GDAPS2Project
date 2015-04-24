@@ -70,15 +70,17 @@ namespace Arbiter
             
                 //Check Win Condition
                 //First, check number of owned towers
+                whoseTurn = Game1.currentPlayer;
+
                 int towersControlled = 0;
                 for (int i = 0; i < GameVariables.towers.Count; i++)
                 {
-                    for (int j = 0; j < 14; j++)
-                        if (GameVariables.towers[i].isClaimed)
-                        {
-                            if(GameVariables.towers[i].claimedBy.owner.ID == whoseTurn)
-                                towersControlled++;
-                        }
+                    //for (int j = 0; j < 14; j++)
+                    if (GameVariables.towers[i].isClaimed)
+                    {
+                        if(GameVariables.towers[i].claimedBy.owner.ID == whoseTurn)
+                            towersControlled++;
+                    }
                 }
                 //If the player owns the majority of the towers, increment their victory tally by 1.
                 if (towersControlled > (float)(GameVariables.towers.Count / 2))
@@ -92,21 +94,16 @@ namespace Arbiter
                 }
             
 
-                //Advance the turn
-                whoseTurn++;
-                if (whoseTurn > GameVariables.players.Count - 1)
-                {
-                    whoseTurn = 1;
-                }
+                
                 //GameVariables.players[whoseTurn].MovedUnits = 0;
 
-                if (GameVariables.victoryTally >= 2)
+                if (victoryTally[whoseTurn-1] >= 2)
                 {
                     return true;
                 }
                 else
                 {
-                    GameVariables.victoryTally = 0; //reset victory tally
+                    //victoryTally[whoseTurn-1] = 0; //reset victory tally
                     return false;
                 }
             

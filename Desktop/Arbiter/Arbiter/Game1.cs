@@ -50,7 +50,7 @@ namespace Arbiter
         Match testMatch;
         Unit selectedunit;
         List<Unit> movedUnits;
-        int currentPlayer; //ID num of current player
+        public static int currentPlayer; //ID num of current player
 
 
         public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
@@ -400,14 +400,14 @@ namespace Arbiter
 #endregion
                         if (movedUnits.Count == GameVariables.NumPiecesPerTurn && Anim == false) //signals end of turn
                         {
-                            //reset things
                             
-                            movedUnits.Clear();
                             //at end of turn
                             if (testMatch.TurnManager()) //if returns true end game
                                 gameState = States.ENDGAME;
                             else
-                            { 
+                            {
+                                //reset things
+                                movedUnits.Clear();
                                 if(GameVariables.players.Count -1 < currentPlayer + 1) //account for the filler player taking up the first element of the list
                                 {
                                     currentPlayer = 1; //reset to first player
@@ -417,6 +417,7 @@ namespace Arbiter
                                     currentPlayer++; //go to next player
                                 }
                             } //else other players turn
+                            
                         }
                     break;
                 
@@ -590,9 +591,9 @@ namespace Arbiter
                     }
             }
             #endregion
-            MenuVariables.playerIndicatorColorBox.SetData<Color>(new Color[] { color });
+            //MenuVariables.playerIndicatorColorBox.SetData<Color>(new Color[] { color });
             //spriteBatch.Draw(MenuVariables.playerIndicatorContainer, new Rectangle(10, 10, GameVariables.screenbufferHorizontal - 50, 300), Color.White);
-            spriteBatch.Draw(MenuVariables.playerIndicatorColorBox, new Rectangle(35, 60, GameVariables.screenbufferHorizontal - 50, 300), color);
+            //spriteBatch.Draw(MenuVariables.playerIndicatorColorBox, new Rectangle(35, 60, GameVariables.screenbufferHorizontal - 50, 300), color);
             
         }
 
