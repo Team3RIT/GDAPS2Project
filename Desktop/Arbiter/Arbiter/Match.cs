@@ -25,7 +25,7 @@ namespace Arbiter
             for (int i = 0; i < victoryTally.Length; i++)
                 victoryTally[i] = 0;
         }
-        public void Draft()
+        /*public void Draft()
         {
             //Will eventually contain algorithm for a fair draft system for multiple players.
             //For now, just places pieces on the board for the two-player game created in Game1.
@@ -74,7 +74,7 @@ namespace Arbiter
             pieces[1, 11] = new JumperUnit((BoardWidth / 2) + 2, 1, GameVariables.players[2]);
             pieces[1, 12] = new LightUnit((BoardWidth / 2) - 2, 1, GameVariables.players[2]);
             pieces[1, 13] = new LightUnit((BoardWidth / 2) + 1, 1, GameVariables.players[2]);
-        }
+        }*/
 
          public bool TurnManager()
         {

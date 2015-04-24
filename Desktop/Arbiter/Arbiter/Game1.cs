@@ -56,9 +56,10 @@ namespace Arbiter
         //Draft variables
         int cycle = 0;
         int count = 14;
-        int parity;
+        //int parity;
         int player = 1;
-        int cycleIterator;
+        int cycleIterator = 0;
+        int[] playerPieces = new int[3]{0,0,0};
 
 
         public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
@@ -355,17 +356,37 @@ namespace Arbiter
                 case States.SETUP:
                     testMatch = new Match(2);
                     //testMatch.Draft();
-                    parity = count % 2;
+                    
                     if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space) || click.LeftButton == ButtonState.Pressed)
                         && !((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space) || previousmouseState.LeftButton == ButtonState.Pressed))
                         && !(GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit))
                     {
-                        new StandardUnit((int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y, GameVariables.players[player]);
-                        Draft(ref cycle, ref player, parity, count);
-                        System.Threading.Thread.Sleep(100);
+                        if ((player == 1 && (int)GameVariables.gamePadLocation.Y >= (GameVariables.BoardSpaceDim - 3))
+                            || ((player == 2 && (int)GameVariables.gamePadLocation.Y <= 2)))
+                        {
+                            if (playerPieces[player] >= count - 2)
+                            {
+                                new JumperUnit((int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y, GameVariables.players[player]);
+                            }
+                            if (playerPieces[player] >= count - 4)
+                            {
+                                new HeavyUnit((int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y, GameVariables.players[player]);
+                            }
+                            if (playerPieces[player] >= count - 6)
+                            {
+                                new LightUnit((int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y, GameVariables.players[player]);
+                            }
+                            else
+                            {
+                                new StandardUnit((int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y, GameVariables.players[player]);
+                            }
+                            playerPieces[player]++;
+                            Draft(ref cycle, ref player, count);
+                            System.Threading.Thread.Sleep(100);
+                        }
                     }
 
-                    if (cycle >= count + parity)
+                    if (cycle >= count + count % 2)
                         gameState = States.PLAYERTURN;
                     break;
 
@@ -698,7 +719,7 @@ namespace Arbiter
             }
         }
 
-        public void Draft(ref int cycle, ref int player, int parity, int count)
+        public void Draft(ref int cycle, ref int player, int count)
         {
 
             int playerCount = 2;
@@ -713,7 +734,7 @@ namespace Arbiter
                 player++;
                 cycle++;
             }
-            else if (parity == 0 && (cycle == 1 || cycle == 2))
+            else if (count % 2 == 0 && (cycle == 1 || cycle == 2))
             {
                 /*PlaceUnit(GameVariables.players[player]);
                 PlaceUnit(GameVariables.players[player]);
@@ -727,7 +748,7 @@ namespace Arbiter
                     cycleIterator = 0;
                 }
             }
-            else if (count + parity - cycle == 1)
+            else if (count + count % 2 - cycle == 1)
             {
                 //PlaceUnit(GameVariables.players[player]);
                 player++;
