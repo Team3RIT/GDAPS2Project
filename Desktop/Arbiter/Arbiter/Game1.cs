@@ -50,7 +50,7 @@ namespace Arbiter
         //Player Turn Attributes
         Match testMatch;
         Unit selectedunit;
-        List<Unit> movedUnits;
+        public static List<Unit> movedUnits;
         public static int currentPlayer; //ID num of current player
 
         //Draft variables

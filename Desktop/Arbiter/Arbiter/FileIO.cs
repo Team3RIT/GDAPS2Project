@@ -24,7 +24,7 @@ namespace Arbiter
             if (!File.Exists("..\\..\\maps\\"+filepath))
                 return false; //method just dies if it's a bad path
 
-            reader = new BinaryReader(File.Open("..\\..\\maps\\" + filepath, FileMode.Open)); //initialize the reader
+            reader = new BinaryReader(File.Open("..\\..\\maps\\" + filepath+".dat", FileMode.Open)); //initialize the reader
 
             Piece[,] board = new Piece[GameVariables.BoardSpaceDim, GameVariables.BoardSpaceDim];
             int x; 
@@ -85,7 +85,21 @@ namespace Arbiter
                     }
                     else
                         writer.Write(-1); //for blank spaces
+
+                    //board location
+                    writer.Write(x);
+                    writer.Write(y);
                 }
+            }
+
+            writer.Write(-40); //loop's over
+            //gameplay data 
+            writer.Write(Game1.currentPlayer);
+            foreach(Unit movedUnit in Game1.movedUnits)
+            {
+                writer.Write((int)movedUnit.Location.X);
+                writer.Write((int)movedUnit.Location.Y);
+                
             }
             writer.Close();
         }
@@ -102,13 +116,15 @@ namespace Arbiter
             Player player = null;
             int ownerID;
             string ownerName;
-            while (reader.BaseStream.Position != reader.BaseStream.Length)
+            while ((i = reader.ReadInt32())!= -40) //flag is -40
             {
-                i = reader.ReadInt32();
+                
                 if (i != -1) //not a blank space
                 {
                     ownerID = reader.ReadInt32();
                     ownerName = reader.ReadString(); //data will come in sets of 3, so these ones should not be null.
+                    x = reader.ReadInt32();
+                    y = reader.ReadInt32();
                     player = new Player(ownerName, ownerID);
                     if (!GameVariables.players.Contains(player)) //don't want duplicates in the list
                         GameVariables.players.Add(player);
@@ -152,6 +168,14 @@ namespace Arbiter
                             break;
                         }
                 }
+            }
+            Game1.currentPlayer = reader.ReadInt32();
+            Game1.movedUnits.Clear();
+            while(reader.BaseStream.Position != reader.BaseStream.Length)
+            {
+                x = reader.ReadInt32();
+                y = reader.ReadInt32();
+                Game1.movedUnits.Add((Unit)GameVariables.board[x,y]);
             }
             reader.Close();
         }

@@ -39,14 +39,14 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(29, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(210, 13);
+            this.label1.Size = new System.Drawing.Size(281, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Enter the dimension of the map (in spaces):";
+            this.label1.Text = "Enter the dimension of the map (in spaces,min 15 max 30):";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 80);
+            this.label2.Location = new System.Drawing.Point(104, 70);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 13);
             this.label2.TabIndex = 1;
@@ -54,14 +54,14 @@
             // 
             // textBoxX
             // 
-            this.textBoxX.Location = new System.Drawing.Point(52, 76);
+            this.textBoxX.Location = new System.Drawing.Point(124, 70);
             this.textBoxX.Name = "textBoxX";
             this.textBoxX.Size = new System.Drawing.Size(68, 20);
             this.textBoxX.TabIndex = 3;
             // 
             // submitButton
             // 
-            this.submitButton.Location = new System.Drawing.Point(149, 70);
+            this.submitButton.Location = new System.Drawing.Point(217, 70);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(75, 23);
             this.submitButton.TabIndex = 5;
@@ -73,7 +73,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(259, 117);
+            this.ClientSize = new System.Drawing.Size(321, 117);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.textBoxX);
             this.Controls.Add(this.label2);

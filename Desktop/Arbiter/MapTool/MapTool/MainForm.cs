@@ -140,7 +140,7 @@ namespace MapTool
             if(!success) //towers were not good
             {
                 
-                label.Text = "Must include between 5 and 11 towers. There must be an odd number of towers.";
+                label.Text = "Must include between 3 and 11 towers.";
                 
             }
             else
@@ -179,12 +179,12 @@ namespace MapTool
                 }
             }
 
-            if (towers.Count < 5 || towers.Count > 11 || towers.Count % 2 == 0) //good number of towers, odd number of towers
+            if (towers.Count < 3 || towers.Count > 11) //good number of towers
             {
                 return false;
             }
 
-            writer = new BinaryWriter(File.Open("..\\..\\..\\..\\Arbiter\\bin\\maps\\"+path,FileMode.Create));
+            writer = new BinaryWriter(File.Open("..\\..\\..\\..\\Arbiter\\bin\\maps\\"+path+".dat",FileMode.Create));
 
             writer.Write(dim); //first thing in the map file is dimension of board in spaces
 
