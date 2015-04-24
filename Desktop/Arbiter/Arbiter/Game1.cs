@@ -52,6 +52,13 @@ namespace Arbiter
         List<Unit> movedUnits;
         public static int currentPlayer; //ID num of current player
 
+        //Draft variables
+        int cycle = 0;
+        int count = 14;
+        int parity;
+        int player = 1;
+        int cycleIterator;
+
 
         public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
         public static States gameState; //Controls the state of the game using the above enum.
@@ -346,8 +353,19 @@ namespace Arbiter
                     break;
                 case States.SETUP:
                     testMatch = new Match(2);
-                    testMatch.Draft();
-                    gameState = States.PLAYERTURN;
+                    //testMatch.Draft();
+                    parity = count % 2;
+                    if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space) || click.LeftButton == ButtonState.Pressed)
+                        && !((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space) || previousmouseState.LeftButton == ButtonState.Pressed))
+                        && !(GameVariables.board[(int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y] is Unit))
+                    {
+                        new StandardUnit((int)GameVariables.gamePadLocation.X, (int)GameVariables.gamePadLocation.Y, GameVariables.players[player]);
+                        Draft(ref cycle, ref player, parity, count);
+                        System.Threading.Thread.Sleep(100);
+                    }
+
+                    if (cycle >= count + parity)
+                        gameState = States.PLAYERTURN;
                     break;
 
                 case States.PLAYERTURN:
@@ -408,14 +426,16 @@ namespace Arbiter
                             {
                                 //reset things
                                 movedUnits.Clear();
-                                if(GameVariables.players.Count -1 < currentPlayer + 1) //account for the filler player taking up the first element of the list
+                                currentPlayer++;
+                                //if(GameVariables.players.Count -1 < currentPlayer + 1) //account for the filler player taking up the first element of the list
+                                if(currentPlayer > 2)
                                 {
                                     currentPlayer = 1; //reset to first player
                                 }
-                                else
+                                /*else
                                 {
                                     currentPlayer++; //go to next player
-                                }
+                                }*/
                             } //else other players turn
                             
                         }
@@ -674,6 +694,61 @@ namespace Arbiter
             {
                 Anim = false;
                 return;
+            }
+        }
+
+        public void Draft(ref int cycle, ref int player, int parity, int count)
+        {
+
+            int playerCount = 2;
+            //int cycle = 0;
+            //int parity = count % 2;
+            //int player = 1;
+            //int cycleIterator = 0;
+            if (cycle == 0)
+            {
+                //PlaceUnit(GameVariables.players[player]);
+                //Thread.Sleep(500);
+                player++;
+                cycle++;
+            }
+            else if (parity == 0 && (cycle == 1 || cycle == 2))
+            {
+                /*PlaceUnit(GameVariables.players[player]);
+                PlaceUnit(GameVariables.players[player]);
+                PlaceUnit(GameVariables.players[player]);*/
+
+                cycleIterator++;
+                if (cycleIterator >= 3)
+                {
+                    player++;
+                    cycle++;
+                    cycleIterator = 0;
+                }
+            }
+            else if (count + parity - cycle == 1)
+            {
+                //PlaceUnit(GameVariables.players[player]);
+                player++;
+                cycle++;
+            }
+            else
+            {
+                //PlaceUnit(GameVariables.players[player]);
+                //PlaceUnit(GameVariables.players[player]);
+
+                cycleIterator++;
+                if (cycleIterator >= 2)
+                {
+                    player++;
+                    cycle++;
+                    cycleIterator = 0;
+                }
+            }
+
+            if (player > playerCount)
+            {
+                player = 1;
             }
         }
     }
