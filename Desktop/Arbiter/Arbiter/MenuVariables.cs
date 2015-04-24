@@ -206,30 +206,34 @@ namespace Arbiter
         }
         */
 
-
+        //Reads keyboard input, puts appends it to MenuVariables.filename within the method, yay. -Margaret
         public static void GetKey(KeyboardState keyState, ref KeyboardState oldKeyboardState)
         {
             Keys[] keys = keyState.GetPressedKeys();
             string previousString = "";
-            //MenuVariables.filename
+            
             foreach(Keys key in keys)
             {
                 
                 if (oldKeyboardState.IsKeyUp(key))
                 {
+                    //backspace
                     if (key == Keys.Back && MenuVariables.filename.Length > 0)
                     {
                         MenuVariables.filename = MenuVariables.filename.Remove(MenuVariables.filename.Length - 1, 1);
                     }
+                    //space
                     else if (key == Keys.Space)
                     {
                         MenuVariables.filename = MenuVariables.filename.Insert(MenuVariables.filename.Length, " ");
                     }
+                    //enter
                     else if (key == Keys.Enter)
                     {
                         //nothing happens, we can add code here to have it hit submit if we want
                     }
                     else 
+                        //number keys
                         switch(key)
                         {
                             case Keys.D0:
@@ -292,6 +296,7 @@ namespace Arbiter
                                     MenuVariables.filename += '9';
                                     break;
                                 }
+                            //all other keys
                             default:
                             {
                                 string keyString = key.ToString();

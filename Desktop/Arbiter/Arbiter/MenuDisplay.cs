@@ -199,7 +199,7 @@ namespace Arbiter
 
             //draw the textbox
             batch.Draw(FillText, MenuVariables.LoadTextTitle, MenuVariables.LoadTextTitleColor); // draws the box
-            batch.DrawString(font, "Click the Box Below and Type the Name of the Map File to Open:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), Color.Crimson); //draws the text within the textbox
+            batch.DrawString(font, "Click the Box Below and enter your the name of your save file:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), Color.Crimson); //draws the text within the textbox
 
             batch.Draw(FillText, MenuVariables.LoadTextBox, MenuVariables.LoadTextBoxColor); // draws the box
             batch.DrawString(font, MenuVariables.filename, new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString(MenuVariables.filename).X / 2, MenuVariables.LoadTextBox.Y), Color.Crimson);

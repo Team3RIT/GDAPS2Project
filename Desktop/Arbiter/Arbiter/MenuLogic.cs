@@ -412,7 +412,7 @@ namespace Arbiter
 
 
             /////////////////////type in your file name
-             Keys[] pressed;
+             //Keys[] pressed;
              
              keyboard = Keyboard.GetState();
              
@@ -427,12 +427,7 @@ namespace Arbiter
             {
                 
                 MenuVariables.LoadTextBoxColor = MenuVariables.TypeColor; //change color once its clicked on
-                pressed = keyboard.GetPressedKeys(); //get all of the keys currently being pressed
-                if (pressed.Length != 0 && pressed[0].ToString() != previouslyPressed)
-                {
-                    MenuVariables.filename = MenuVariables.filename + pressed[0].ToString();
-                    previouslyPressed = pressed[0].ToString();
-                }
+                MenuVariables.GetKey(keyboard, ref previousKeyboard);
                 
             }
 

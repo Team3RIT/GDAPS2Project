@@ -582,9 +582,9 @@ namespace Arbiter
                     }
             }
             #endregion
-            MenuVariables.playerIndicatorColorBox.SetData<Color>(new Color[] { color });
+            //MenuVariables.playerIndicatorColorBox.SetData<Color>(new Color[] { color });
             //spriteBatch.Draw(MenuVariables.playerIndicatorContainer, new Rectangle(10, 10, GameVariables.screenbufferHorizontal - 50, 300), Color.White);
-            spriteBatch.Draw(MenuVariables.playerIndicatorColorBox, new Rectangle(35, 60, GameVariables.screenbufferHorizontal - 50, 300), color);
+            //spriteBatch.Draw(MenuVariables.playerIndicatorColorBox, new Rectangle(35, 60, GameVariables.screenbufferHorizontal - 50, 300), color);
             
         }
 
