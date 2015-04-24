@@ -51,3 +51,5 @@ C:\Users\Travis\Desktop\GDAPS2Project\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debu
 C:\Users\Travis\Desktop\GDAPS2Project\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.csprojResolveAssemblyReference.cache
 C:\Users\Travis\Desktop\GDAPS2Project\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.exe
 C:\Users\Travis\Desktop\GDAPS2Project\Desktop\Arbiter\Arbiter\obj\x86\Debug\Arbiter.pdb
+C:\Users\serra_000\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\menu border4.png
+C:\Users\Margaret\Desktop\Arbiter\Arbiter\bin\WindowsGL\Debug\Content\menu border4.png

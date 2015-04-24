@@ -44,12 +44,13 @@ namespace Arbiter
         public static Texture2D Tower;
         public static Texture2D Normal;
         public static Texture2D Obstacle;
+        public static Texture2D MenuBorder;
 
         //Player Turn Attributes
         Match testMatch;
         Unit selectedunit;
         List<Unit> movedUnits;
-        int currentPlayer; //ID num of current player
+        public static int currentPlayer; //ID num of current player
 
 
         public enum States { MENU, SETUP, PLAYERTURN, ENDGAME } //Contains gamestates used in Update(). Update as needed!
@@ -141,7 +142,7 @@ namespace Arbiter
             Tower = Content.Load<Texture2D>("Tower");
             Normal = Content.Load<Texture2D>("NormalTile");
             Obstacle = Content.Load<Texture2D>("Obstacle");
-
+            MenuBorder = Content.Load<Texture2D>("menu border4");
 
 
         }
@@ -399,14 +400,14 @@ namespace Arbiter
 #endregion
                         if (movedUnits.Count == GameVariables.NumPiecesPerTurn && Anim == false) //signals end of turn
                         {
-                            //reset things
                             
-                            movedUnits.Clear();
                             //at end of turn
                             if (testMatch.TurnManager()) //if returns true end game
                                 gameState = States.ENDGAME;
                             else
-                            { 
+                            {
+                                //reset things
+                                movedUnits.Clear();
                                 if(GameVariables.players.Count -1 < currentPlayer + 1) //account for the filler player taking up the first element of the list
                                 {
                                     currentPlayer = 1; //reset to first player
@@ -416,6 +417,7 @@ namespace Arbiter
                                     currentPlayer++; //go to next player
                                 }
                             } //else other players turn
+                            
                         }
                     break;
                 
@@ -446,6 +448,7 @@ namespace Arbiter
             spriteBatch.Begin();
 
             
+            
             ///////////////////////////////// DRAW MENUS //////////////////////////////////////////
 
             //pandora.DisplayTestPopup("Tower Control Game of No-Names", "this is some test text", "USUP", spriteBatch, font, this);
@@ -463,14 +466,20 @@ namespace Arbiter
             if (MenuVariables.MenuStates == MenuVariables.MENUS.OPTIONS)
             {
                 DisplayBox.DisplayOptionsMenu(spriteBatch, font, this);
+                
+
             }
             if (MenuVariables.MenuStates == MenuVariables.MENUS.LOADGAME)
             {
                 DisplayBox.DisplayLoadGameMenu(spriteBatch, font, this);
+
+
             }
             if (MenuVariables.MenuStates == MenuVariables.MENUS.PAUSE)
             {
                 DisplayBox.DisplayPauseMenu(spriteBatch, font, this);
+
+
             }
             if (MenuVariables.MenuStates == MenuVariables.MENUS.WINSCREEN)
             {
