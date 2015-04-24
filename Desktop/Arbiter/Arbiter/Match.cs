@@ -29,35 +29,51 @@ namespace Arbiter
         {
             //Will eventually contain algorithm for a fair draft system for multiple players.
             //For now, just places pieces on the board for the two-player game created in Game1.
-
+            int BoardWidth = (int)Math.Sqrt(GameVariables.board.Length); // the width/height of the board is the square unit of the number of tiles in it
             
             //Player 1's pieces
             for(int i = 0; i < 8; i++) //8 Standard Units
             {
-                pieces[1, i] = new StandardUnit(i + 1, 9, GameVariables.players[1]);
+                int tempX = 0;
+                if (i <= 4)
+                { 
+                    tempX = ((BoardWidth / 2) - (4 - i));
+                }
+                if (i > 4)
+                {
+                    tempX = ((BoardWidth / 2) + (i - 4));
+                }
+                pieces[1, i] = new StandardUnit(tempX, BoardWidth -1, GameVariables.players[1]);
             }
             //2 of each other unit
-            pieces[1, 8] = new HeavyUnit(4, 8, GameVariables.players[1]);
-            pieces[1, 9] = new HeavyUnit(5, 8, GameVariables.players[1]);
-            pieces[1, 10] = new JumperUnit(2, 8, GameVariables.players[1]);
-            pieces[1, 11] = new JumperUnit(7, 8, GameVariables.players[1]);
-            pieces[1, 12] = new LightUnit(3, 8, GameVariables.players[1]);
-            pieces[1, 13] = new LightUnit(6, 8, GameVariables.players[1]);
+            pieces[1, 8] = new HeavyUnit((BoardWidth / 2) - 1, BoardWidth - 2, GameVariables.players[1]);
+            pieces[1, 9] = new HeavyUnit((BoardWidth / 2), BoardWidth - 2, GameVariables.players[1]);
+            pieces[1, 10] = new JumperUnit((BoardWidth / 2) - 3, BoardWidth - 2, GameVariables.players[1]);
+            pieces[1, 11] = new JumperUnit((BoardWidth / 2) + 2, BoardWidth - 2, GameVariables.players[1]);
+            pieces[1, 12] = new LightUnit((BoardWidth / 2) - 2, BoardWidth - 2, GameVariables.players[1]);
+            pieces[1, 13] = new LightUnit((BoardWidth / 2) + 1, BoardWidth - 2, GameVariables.players[1]);
 
 
 
             //Player 2's pieces
             for (int i = 0; i < 8; i++) //8 Standard Units
             {
-                pieces[1, i] = new StandardUnit(i + 1, 0, GameVariables.players[2]);
+                int tempX = 0;
+                if (i <= 4)
+                { tempX = ((BoardWidth / 2) - (4 - i)); }
+                if(i > 4)
+                {
+                    tempX = ((BoardWidth / 2) + (i - 4));
+                }
+                pieces[1, i] = new StandardUnit(tempX, 0, GameVariables.players[2]);
             }
             //2 of each other unit
-            pieces[1, 8] = new HeavyUnit(4, 1, GameVariables.players[2]);
-            pieces[1, 9] = new HeavyUnit(5, 1, GameVariables.players[2]);
-            pieces[1, 10] = new JumperUnit(2, 1, GameVariables.players[2]);
-            pieces[1, 11] = new JumperUnit(7, 1, GameVariables.players[2]);
-            pieces[1, 12] = new LightUnit(3, 1, GameVariables.players[2]);
-            pieces[1, 13] = new LightUnit(6, 1, GameVariables.players[2]);
+            pieces[1, 8] = new HeavyUnit((BoardWidth/2) - 1, 1, GameVariables.players[2]);
+            pieces[1, 9] = new HeavyUnit((BoardWidth/2), 1, GameVariables.players[2]);
+            pieces[1, 10] = new JumperUnit((BoardWidth / 2) - 3, 1, GameVariables.players[2]);
+            pieces[1, 11] = new JumperUnit((BoardWidth / 2) + 2, 1, GameVariables.players[2]);
+            pieces[1, 12] = new LightUnit((BoardWidth / 2) - 2, 1, GameVariables.players[2]);
+            pieces[1, 13] = new LightUnit((BoardWidth / 2) + 1, 1, GameVariables.players[2]);
         }
 
          public bool TurnManager()
