@@ -45,6 +45,7 @@ namespace Arbiter
         public static Texture2D Normal;
         public static Texture2D Obstacle;
         public static Texture2D MenuBorder;
+        public static Texture2D MenuBackground1;
 
         //Player Turn Attributes
         Match testMatch;
@@ -150,7 +151,7 @@ namespace Arbiter
             Normal = Content.Load<Texture2D>("NormalTile");
             Obstacle = Content.Load<Texture2D>("Obstacle");
             MenuBorder = Content.Load<Texture2D>("menu border4");
-
+            MenuBackground1 = Content.Load<Texture2D>("menu background1");
 
         }
 

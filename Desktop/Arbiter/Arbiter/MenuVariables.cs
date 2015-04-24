@@ -28,11 +28,12 @@ namespace Arbiter
         ////////////////////////////////////////////////COLOR VARIABLES///////////////////////////////////////////////////////
         //change the color of different boxes for different menus?
         public static Color BoxColor = Color.Maroon; //thecolor for generic title menu boxes - either equal to normal color, or to hovercolor
-        public static Color TypeColor = Color.MediumBlue;//color for a box that has text you typed into
-        public static Color HoverColor = Color.MediumBlue; //color for when mouse is hovering over a rectangle (not main rectangle)
+        public static Color TypeColor = Color.DarkGray;//color for a box that has text you typed into
+        public static Color HoverColor = new Color(255,200,0); //color for when mouse is hovering over a rectangle (not main rectangle)
         public static Color BackgroundColor = Color.Black; //Color for the mainmenuboxes - used in the background - changes with each update version
         public static Color BackgroundBorderColor = Color.DarkRed;
         public static Color Text = Color.Black;
+        public static Color Background1 = new Color(50, 0, 0); //very very dark red, uses rgb values
         // main menu box colors
         public static Color MainMenuBoxColor = BoxColor;
         public static Color MainTitleColor = BoxColor;

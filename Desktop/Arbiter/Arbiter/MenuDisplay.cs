@@ -22,6 +22,7 @@ namespace Arbiter
     //2.0 Cadetblue
     //3.0 lime
     //4.0 teal
+    //5.0 black/dark red
     public class MenuDisplay
     {
  
@@ -39,7 +40,9 @@ namespace Arbiter
             //double trouble = MainMenuBox.Width/2 + font.MeasureString("This is Our Game's Title!").X/2; // - the code to find the center point for the text of a box
             
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.MainMenuBox, MenuVariables.BackgroundColor); //cornflowerblue, mediumspringgreen, cadetblue
+            batch.Draw(FillText, MenuVariables.MainMenuBox, MenuVariables.BackgroundColor); //cornflowerblue, mediumspringgreen, cadetblue,teal,dark red/black
+
+            batch.Draw(Game1.MenuBackground1, MenuVariables.MainMenuBox, MenuVariables.Background1);
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.MainTitle, MenuVariables.MainTitleColor); // draws the box
             batch.DrawString(font, "Arbiter", new Vector2(MenuVariables.MainMenuBox.Width / 2 - font.MeasureString("Arbiter").X / 2, MenuVariables.MainTitle.Y), MenuVariables.Text); //draws the text within the box
@@ -72,18 +75,20 @@ namespace Arbiter
 
 
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.MainMenuBox, MenuVariables.BackgroundColor); 
+            batch.Draw(FillText, MenuVariables.MainMenuBox, MenuVariables.BackgroundColor);
+
+            batch.Draw(Game1.MenuBackground1, MenuVariables.MainMenuBox, MenuVariables.Background1);
 
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.NewGameTitle, MenuVariables.NewGameTitleColor); // draws the box
-            batch.DrawString(font, "New Game", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("New Game").X / 2, MenuVariables.NewGameTitle.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "New Game", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("New Game").X / 2, MenuVariables.NewGameTitle.Y), MenuVariables.Text); //draws the text within the box
 
             batch.Draw(FillText, MenuVariables.NewGameTwoPlayer, MenuVariables.NewGameTwoPlayerColor); // draws the box
-            batch.DrawString(font, "Start a Two Player Game", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("Start a Two Player Game").X / 2, MenuVariables.NewGameTwoPlayer.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Start a Two Player Game", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("Start a Two Player Game").X / 2, MenuVariables.NewGameTwoPlayer.Y), MenuVariables.Text); //draws the text within the box
 
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.NewGameMainMenuReturn, MenuVariables.NewGameMainMenuReturnColor); // draws the box
-            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.NewGameMainMenuReturn.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.NewGameMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.NewGameMainMenuReturn.Y), MenuVariables.Text); //draws the text within the box
 
             if (MenuVariables.ControllerConnected == false)
             {
@@ -107,18 +112,20 @@ namespace Arbiter
             
 
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.OptionsMenuBox, MenuVariables.BackgroundColor); 
+            batch.Draw(FillText, MenuVariables.OptionsMenuBox, MenuVariables.BackgroundColor);
+
+            batch.Draw(Game1.MenuBackground1, MenuVariables.OptionsMenuBox, MenuVariables.Background1);
 
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.OptionsTitle, MenuVariables.OptionsTitleColor); // draws the box
-            batch.DrawString(font, "Options", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Options").X / 2, MenuVariables.OptionsTitle.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Options", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Options").X / 2, MenuVariables.OptionsTitle.Y), MenuVariables.Text); //draws the text within the box
 
             batch.Draw(FillText, MenuVariables.OptionsInput, MenuVariables.OptionsInputColor); // draws the box
-            batch.DrawString(font, "Select Preferred Input", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Select Preferred Input").X / 2, MenuVariables.OptionsInput.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Select Preferred Input", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Select Preferred Input").X / 2, MenuVariables.OptionsInput.Y), MenuVariables.Text); //draws the text within the box
             
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.OptionsMainMenuReturn, MenuVariables.OptionsMainMenuReturnColor); // draws the box
-            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.OptionsMainMenuReturn.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.OptionsMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.OptionsMainMenuReturn.Y), MenuVariables.Text); //draws the text within the box
 
             batch.Draw(Game1.MenuBorder, MenuVariables.OptionsMenuBox, MenuVariables.BackgroundBorderColor);
         }
@@ -130,27 +137,27 @@ namespace Arbiter
             FillText.SetData(new Color[] { Color.White });
 
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.LoadMenuBox, MenuVariables.BackgroundColor); 
+            batch.Draw(FillText, MenuVariables.OptionsMenuBox, MenuVariables.BackgroundColor); 
             
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.LoadTitle, MenuVariables.LoadTitleColor); // draws the box
-            batch.DrawString(font, "Load Game Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.LoadTitle.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Load Game Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.LoadTitle.Y), MenuVariables.Text); //draws the text within the box
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.LoadMainMenuReturn, MenuVariables.LoadMainMenuReturnColor); // draws the box
-            batch.DrawString(font, "Return to Main menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.LoadMainMenuReturn.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Return to Main menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.LoadMainMenuReturn.Y), MenuVariables.Text); //draws the text within the box
 
             //draw the textbox
             batch.Draw(FillText, MenuVariables.LoadTextTitle, MenuVariables.LoadTextTitleColor); // draws the box
-            batch.DrawString(font, "Click the Box Below and Type the Name of the File to Open:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), Color.Crimson); //draws the text within the textbox
+            batch.DrawString(font, "Click the Box Below and Type the Name of the File to Open:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), MenuVariables.Text); //draws the text within the textbox
 
             batch.Draw(FillText, MenuVariables.LoadTextBox, MenuVariables.LoadTextBoxColor); // draws the box
-            batch.DrawString(font, MenuVariables.filename, new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString(MenuVariables.filename).X / 2, MenuVariables.LoadTextBox.Y), Color.Crimson);
+            batch.DrawString(font, MenuVariables.filename, new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString(MenuVariables.filename).X / 2, MenuVariables.LoadTextBox.Y), MenuVariables.Text);
             ///////
             batch.Draw(FillText, MenuVariables.LoadClear, MenuVariables.LoadClearColor); // draws the box
-            batch.DrawString(font, "Clear", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Clear").X/2, MenuVariables.LoadClear.Y), Color.Crimson); //draws the text within the textbox
+            batch.DrawString(font, "Clear", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Clear").X/2, MenuVariables.LoadClear.Y), MenuVariables.Text); //draws the text within the textbox
 
             batch.Draw(FillText, MenuVariables.LoadSubmit, MenuVariables.LoadSubmitColor); // draws the box
-            batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X/2, MenuVariables.LoadSubmit.Y), Color.Crimson);
+            batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X/2, MenuVariables.LoadSubmit.Y), MenuVariables.Text);
 
             batch.Draw(Game1.MenuBorder, MenuVariables.LoadMenuBox, MenuVariables.BackgroundBorderColor);
         }
@@ -164,25 +171,27 @@ namespace Arbiter
             //draw MainBox
             batch.Draw(FillText, MenuVariables.LoadMenuBox, MenuVariables.BackgroundColor);
 
+            batch.Draw(Game1.MenuBackground1, MenuVariables.LoadMenuBox, MenuVariables.Background1);
+
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.LoadTitle, MenuVariables.LoadTitleColor); // draws the box
-            batch.DrawString(font, "Map Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.LoadTitle.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Map Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.LoadTitle.Y), MenuVariables.Text); //draws the text within the box
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.LoadMainMenuReturn, MenuVariables.LoadMainMenuReturnColor); // draws the box
-            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.LoadMainMenuReturn.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.LoadMainMenuReturn.Y), MenuVariables.Text); //draws the text within the box
 
             //draw the textbox
             batch.Draw(FillText, MenuVariables.LoadTextTitle, MenuVariables.LoadTextTitleColor); // draws the box
-            batch.DrawString(font, "Click the Box Below and Type the Name of the Map File to Open:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), Color.Crimson); //draws the text within the textbox
+            batch.DrawString(font, "Click the Box Below and Type the Name of the Map File to Open:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), MenuVariables.Text); //draws the text within the textbox
 
             batch.Draw(FillText, MenuVariables.LoadTextBox, MenuVariables.LoadTextBoxColor); // draws the box
-            batch.DrawString(font, MenuVariables.filename, new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString(MenuVariables.filename).X / 2, MenuVariables.LoadTextBox.Y), Color.Crimson);
+            batch.DrawString(font, MenuVariables.filename, new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString(MenuVariables.filename).X / 2, MenuVariables.LoadTextBox.Y), MenuVariables.Text);
             ///////
             batch.Draw(FillText, MenuVariables.LoadClear, MenuVariables.LoadClearColor); // draws the box
-            batch.DrawString(font, "Clear", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Clear").X / 2, MenuVariables.LoadClear.Y), Color.Crimson); //draws the text within the textbox
+            batch.DrawString(font, "Clear", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Clear").X / 2, MenuVariables.LoadClear.Y), MenuVariables.Text); //draws the text within the textbox
 
             batch.Draw(FillText, MenuVariables.LoadSubmit, MenuVariables.LoadSubmitColor); // draws the box
-            batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X / 2, MenuVariables.LoadSubmit.Y), Color.Crimson);
+            batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X / 2, MenuVariables.LoadSubmit.Y), MenuVariables.Text);
 
             batch.Draw(Game1.MenuBorder, MenuVariables.LoadMenuBox, MenuVariables.BackgroundBorderColor);
         }
@@ -196,25 +205,27 @@ namespace Arbiter
             //draw MainBox
             batch.Draw(FillText, MenuVariables.LoadMenuBox, MenuVariables.BackgroundColor);
 
+            batch.Draw(Game1.MenuBackground1, MenuVariables.LoadMenuBox, MenuVariables.Background1);
+
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.LoadTitle, MenuVariables.LoadTitleColor); // draws the box
-            batch.DrawString(font, "Save Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.LoadTitle.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Save Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.LoadTitle.Y), MenuVariables.Text); //draws the text within the box
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.LoadMainMenuReturn, MenuVariables.LoadMainMenuReturnColor); // draws the box
-            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.LoadMainMenuReturn.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.LoadMainMenuReturn.Y), MenuVariables.Text); //draws the text within the box
 
             //draw the textbox
             batch.Draw(FillText, MenuVariables.LoadTextTitle, MenuVariables.LoadTextTitleColor); // draws the box
-            batch.DrawString(font, "Click the Box Below and enter your the name of your save file:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), Color.Crimson); //draws the text within the textbox
+            batch.DrawString(font, "Click the Box Below and enter your the name of your save file:", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Click the Box Below and Type the Name of the File to Open:").X / 2, MenuVariables.LoadTextTitle.Y), MenuVariables.Text); //draws the text within the textbox
 
             batch.Draw(FillText, MenuVariables.LoadTextBox, MenuVariables.LoadTextBoxColor); // draws the box
-            batch.DrawString(font, MenuVariables.filename, new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString(MenuVariables.filename).X / 2, MenuVariables.LoadTextBox.Y), Color.Crimson);
+            batch.DrawString(font, MenuVariables.filename, new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString(MenuVariables.filename).X / 2, MenuVariables.LoadTextBox.Y), MenuVariables.Text);
             ///////
             batch.Draw(FillText, MenuVariables.LoadClear, MenuVariables.LoadClearColor); // draws the box
-            batch.DrawString(font, "Clear", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Clear").X / 2, MenuVariables.LoadClear.Y), Color.Crimson); //draws the text within the textbox
+            batch.DrawString(font, "Clear", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Clear").X / 2, MenuVariables.LoadClear.Y), MenuVariables.Text); //draws the text within the textbox
 
             batch.Draw(FillText, MenuVariables.LoadSubmit, MenuVariables.LoadSubmitColor); // draws the box
-            batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X / 2, MenuVariables.LoadSubmit.Y), Color.Crimson);
+            batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X / 2, MenuVariables.LoadSubmit.Y), MenuVariables.Text);
 
             batch.Draw(Game1.MenuBorder, MenuVariables.LoadMenuBox, MenuVariables.BackgroundBorderColor);        
         }
@@ -233,21 +244,22 @@ namespace Arbiter
             //draw MainBox
             batch.Draw(FillText, MenuVariables.PauseMenuBox, MenuVariables.BackgroundColor);
 
+            batch.Draw(Game1.MenuBackground1, MenuVariables.PauseMenuBox, MenuVariables.Background1);
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.PauseTitle, MenuVariables.PauseTitleColor); // draws the box
-            batch.DrawString(font, "GAME PAUSED", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("GAME PAUSED").X / 2, MenuVariables.PauseTitle.Y), Color.Crimson);  //by now i hope you realize these just draw the text in the boxes
+            batch.DrawString(font, "GAME PAUSED", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("GAME PAUSED").X / 2, MenuVariables.PauseTitle.Y), MenuVariables.Text);  //by now i hope you realize these just draw the text in the boxes
             //draw save game
             batch.Draw(FillText, MenuVariables.PauseSaveGame, MenuVariables.PauseSaveGameColor); // draws the box
-            batch.DrawString(font, "Save Game", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Save Game").X / 2, MenuVariables.PauseSaveGame.Y), Color.Crimson); 
+            batch.DrawString(font, "Save Game", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Save Game").X / 2, MenuVariables.PauseSaveGame.Y), MenuVariables.Text); 
 
             //draw return to game box
             batch.Draw(FillText, MenuVariables.PauseReturnToGame, MenuVariables.PauseReturnToGameColor); // draws the box
-            batch.DrawString(font, "Return to Game", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Return to Game").X / 2, MenuVariables.PauseReturnToGame.Y), Color.Crimson); 
+            batch.DrawString(font, "Return to Game", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Return to Game").X / 2, MenuVariables.PauseReturnToGame.Y), MenuVariables.Text); 
             
             
             //Draw mainmenu return box
             batch.Draw(FillText, MenuVariables.PauseMainMenuReturn, MenuVariables.PauseMainMenuReturnColor); // draws the box
-            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.PauseMainMenuReturn.Y), Color.Crimson);
+            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.PauseMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.PauseMainMenuReturn.Y), MenuVariables.Text);
 
             batch.Draw(Game1.MenuBorder, MenuVariables.PauseMenuBox, MenuVariables.BackgroundBorderColor);
         }
@@ -263,20 +275,22 @@ namespace Arbiter
 
 
             //draw MainBox
-            batch.Draw(FillText, MenuVariables.WinMenuBox, MenuVariables.BackgroundColor); 
+            batch.Draw(FillText, MenuVariables.WinMenuBox, MenuVariables.BackgroundColor);
+
+            batch.Draw(Game1.MenuBackground1, MenuVariables.WinMenuBox, MenuVariables.Background1);
 
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.WinTitle, MenuVariables.WinTitleColor); // draws the box for the victory screen title
-            batch.DrawString(font, "Congratulations, Someone has won!", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Congratualtions, Someone has won!").X / 2, MenuVariables.WinTitle.Y), Color.Crimson);  //by now i hope you realize these just draw the text in the boxes
+            batch.DrawString(font, "Congratulations, Someone has won!", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Congratualtions, Someone has won!").X / 2, MenuVariables.WinTitle.Y), MenuVariables.Text);  //by now i hope you realize these just draw the text in the boxes
 
             //draw return to game box
             batch.Draw(FillText, MenuVariables.WinMainMenuReturn, MenuVariables.WinMainMenuReturnColor); // draws the box for returning to main menu
-            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.WinMainMenuReturn.Y), Color.Crimson);
+            batch.DrawString(font, "Return to Main Menu", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Return to Main Menu").X / 2, MenuVariables.WinMainMenuReturn.Y), MenuVariables.Text);
 
 
             //Draw mainmenu return box
             batch.Draw(FillText, MenuVariables.WinExit, MenuVariables.WinExitColor); // draws the box for exiting the game from the win screen
-            batch.DrawString(font, "Exit Game", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Exit Game").X / 2, MenuVariables.WinExit.Y), Color.Crimson);
+            batch.DrawString(font, "Exit Game", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Exit Game").X / 2, MenuVariables.WinExit.Y), MenuVariables.Text);
 
             batch.Draw(Game1.MenuBorder, MenuVariables.WinMenuBox, MenuVariables.BackgroundBorderColor);
         }
@@ -292,37 +306,40 @@ namespace Arbiter
             //define rectangles boxes thingys
             //draw MainBox
             batch.Draw(FillText, MenuVariables.InputMenuBox, MenuVariables.BackgroundColor); // draws the menu box
+
+            batch.Draw(Game1.MenuBackground1, MenuVariables.InputMenuBox, MenuVariables.Background1);
+
             ///main title
             batch.Draw(FillText, MenuVariables.InputTitle, MenuVariables.InputTitleColor);
-            batch.DrawString(font, "Select Your Input Mehod", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Select Your Input Method").X / 2, MenuVariables.InputTitle.Y), Color.Crimson); //draws the text within the box
+            batch.DrawString(font, "Select Your Input Mehod", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Select Your Input Method").X / 2, MenuVariables.InputTitle.Y), MenuVariables.Text); //draws the text within the box
             //mouse
-            batch.Draw(FillText, MenuVariables.InputMouse, MenuVariables.InputMouseColor); 
-            batch.DrawString(font, "Mouse", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Mouse").X / 2, MenuVariables.InputMouse.Y), Color.Crimson); 
+            batch.Draw(FillText, MenuVariables.InputMouse, MenuVariables.InputMouseColor);
+            batch.DrawString(font, "Mouse", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Mouse").X / 2, MenuVariables.InputMouse.Y), MenuVariables.Text); 
             //gamepad
-            batch.Draw(FillText, MenuVariables.InputGamePad, MenuVariables.InputGamePadColor); 
-            batch.DrawString(font, "GamePad", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("GamePad").X / 2, MenuVariables.InputGamePad.Y), Color.Crimson); 
+            batch.Draw(FillText, MenuVariables.InputGamePad, MenuVariables.InputGamePadColor);
+            batch.DrawString(font, "GamePad", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("GamePad").X / 2, MenuVariables.InputGamePad.Y), MenuVariables.Text); 
             //keyboard
             batch.Draw(FillText, MenuVariables.InputKeyBoard, MenuVariables.InputKeyBoardColor);
-            batch.DrawString(font, "KeyBoard", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("KeyBoard").X / 2, MenuVariables.InputKeyBoard.Y), Color.Crimson); 
+            batch.DrawString(font, "KeyBoard", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("KeyBoard").X / 2, MenuVariables.InputKeyBoard.Y), MenuVariables.Text); 
             //return to options menu
             batch.Draw(FillText, MenuVariables.InputOptionsReturn, MenuVariables.InputOptionsReturnColor);
-            batch.DrawString(font, "Return to Options Menu", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Return to Option Menu").X / 2, MenuVariables.InputOptionsReturn.Y), Color.Crimson); 
+            batch.DrawString(font, "Return to Options Menu", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Return to Option Menu").X / 2, MenuVariables.InputOptionsReturn.Y), MenuVariables.Text); 
             
             //display a different message for the input depending on what input method is selected
            switch(Game1.preferredInput)
             {
                 case 0:
                         batch.Draw(FillText, MenuVariables.InputMessage, MenuVariables.InputMessageColor);
-                        batch.DrawString(font, "Your Current Input Method is the Mouse", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the Mouse").X / 2, MenuVariables.InputMessage.Y), Color.Gold); 
+                        batch.DrawString(font, "Your Current Input Method is the Mouse", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the Mouse").X / 2, MenuVariables.InputMessage.Y), Color.White); 
             
                         break;
                 case 1:
                         batch.Draw(FillText, MenuVariables.InputMessage, MenuVariables.InputMessageColor);
-                        batch.DrawString(font, "Your Current Input Method is the GamePad", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the GamePad").X / 2, MenuVariables.InputMessage.Y), Color.DarkOrange); 
+                        batch.DrawString(font, "Your Current Input Method is the GamePad", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the GamePad").X / 2, MenuVariables.InputMessage.Y), Color.White); 
                         break;
                 case 2:
                         batch.Draw(FillText, MenuVariables.InputMessage, MenuVariables.InputMessageColor);
-                        batch.DrawString(font, "Your Current Input Method is the KeyBoard", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the KeyBoard").X / 2, MenuVariables.InputMessage.Y), Color.Yellow); 
+                        batch.DrawString(font, "Your Current Input Method is the KeyBoard", new Vector2(MenuVariables.InputMenuBox.Width / 2 - font.MeasureString("Your Current Input Method is the KeyBoard").X / 2, MenuVariables.InputMessage.Y), Color.White); 
                         break;
             }
 
