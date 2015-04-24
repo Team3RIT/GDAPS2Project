@@ -29,7 +29,7 @@ namespace Arbiter
         {
             //Will eventually contain algorithm for a fair draft system for multiple players.
             //For now, just places pieces on the board for the two-player game created in Game1.
-            int BoardWidth = (int)Math.Sqrt(GameVariables.board.Length); // the width/height of the board is the square unit of the number of tiles in it
+            int BoardWidth = GameVariables.BoardSpaceDim; // the width/height of the board is the square unit of the number of tiles in it
             
             //Player 1's pieces
             for(int i = 0; i < 8; i++) //8 Standard Units
