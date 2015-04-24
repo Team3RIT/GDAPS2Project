@@ -21,7 +21,7 @@ namespace Arbiter
         #region map methods
         public static bool ReadMapFile(string filepath) //will read file and make changes to board. 
         {
-            if (!File.Exists("..\\..\\maps\\"+filepath))
+            if (!File.Exists("..\\..\\maps\\"+filepath+"\\.dat"))
                 return false; //method just dies if it's a bad path
 
             reader = new BinaryReader(File.Open("..\\..\\maps\\" + filepath+".dat", FileMode.Open)); //initialize the reader
@@ -116,7 +116,7 @@ namespace Arbiter
             Player player = null;
             int ownerID;
             string ownerName;
-            while ((i = reader.ReadInt32())!= -40) //flag is -40
+            while ((i = reader.ReadInt32()) != -40) //flag is -40
             {
                 
                 if (i != -1) //not a blank space
