@@ -500,8 +500,8 @@ namespace Arbiter
 
             if (gameState == States.MENU)
             {
-                
-                spriteBatch.DrawString(font, "Remember the Menus Only Take Mouse Input Right Now!", new Vector2(150, 500), Color.Black);
+               //no longer really necessary (I mean they still only take mouse input but do we really have to say that?) - nick, i mean it was in the way of the menu boxes - still nick 
+                //spriteBatch.DrawString(font, "Remember the Menus Only Take Mouse Input Right Now!", new Vector2(150, 500), Color.Black);
             }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
             
