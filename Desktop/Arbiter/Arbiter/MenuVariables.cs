@@ -147,6 +147,8 @@ namespace Arbiter
         public static Rectangle InputOptionsReturn;
         public static Rectangle InputMessage;
 
+        public static Rectangle InGame;
+
         //game screen variables - Margaret
         public static Texture2D playerIndicatorContainer;
         public static Texture2D playerIndicatorColorBox;

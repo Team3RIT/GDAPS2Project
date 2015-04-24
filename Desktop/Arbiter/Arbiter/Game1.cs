@@ -57,7 +57,7 @@ namespace Arbiter
         int cycle = 0;
         int count = 14;
         //int parity;
-        int player = 1;
+        public static int player = 1; //whose turn it si to place pieces during setup
         int cycleIterator = 0;
         int[] playerPieces = new int[3]{0,0,0};
 
@@ -547,11 +547,21 @@ namespace Arbiter
             }
             //////////////////////////////// END OF DRAW MENUS //////////////////////////////////
             
+            if(gameState == States.SETUP)
+            {
+                DisplayBox.DisplaySetup(spriteBatch, font, this);
+
+
+            }
+
+
+
             if(gameState == States.PLAYERTURN)
             {
                 DrawBoard();
                 
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
+                DisplayBox.DisplayInGame(spriteBatch, font, this);
             }
 
 

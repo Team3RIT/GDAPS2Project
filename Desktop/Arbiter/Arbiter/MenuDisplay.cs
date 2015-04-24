@@ -25,10 +25,56 @@ namespace Arbiter
     //5.0 black/dark red
     public class MenuDisplay
     {
- 
+        
+        public void DisplayInGame(SpriteBatch batch, SpriteFont font, Game1 checkers)
+        {
+            //create the regular text standards
+            Texture2D FillText = new Texture2D(checkers.GraphicsDevice, 1, 1); //the two ints at the end change the boxes fading, both left and up
+            FillText.SetData(new Color[] { Color.White });
 
+            int x = (checkers.Window.ClientBounds.Width / 2) - 300;
+            MenuVariables.InGame = new Rectangle(x, 660, 600, GameVariables.screenbufferVertical);
+            
+            //change color for whose turn it is
+            if (Game1.currentPlayer == 1)
+            {
+                batch.Draw(FillText, MenuVariables.InGame, Color.Red);
+            }
+            if (Game1.currentPlayer == 2)
+            {
+                batch.Draw(FillText, MenuVariables.InGame, Color.RoyalBlue);
+            }
+            //actually print out the text
+            string units = "" + (GameVariables.NumPiecesPerTurn - Game1.movedUnits.Count); 
 
-        //creates the main menu
+            batch.DrawString(font, "Pieces to move: " + units, new Vector2(MenuVariables.InGame.Width / 2 - font.MeasureString("Pieces to move: " + units).X / 2, MenuVariables.InGame.Y), MenuVariables.Text); //draws the text within the box
+        }
+
+        //ui for during the game
+        public void DisplaySetup(SpriteBatch batch, SpriteFont font, Game1 checkers)
+        {
+            //create the regular text standards
+            Texture2D FillText = new Texture2D(checkers.GraphicsDevice, 1, 1); //the two ints at the end change the boxes fading, both left and up
+            FillText.SetData(new Color[] { Color.White });
+
+            int x = (checkers.Window.ClientBounds.Width / 2) - 300;
+            MenuVariables.InGame = new Rectangle(x, 660, 600, GameVariables.screenbufferVertical);
+            //change colro depending on whose turn it is to draft
+            if (Game1.player == 1)
+            {
+                batch.Draw(FillText, MenuVariables.InGame, Color.Red);
+            }
+            if (Game1.player == 2)
+            {
+                batch.Draw(FillText, MenuVariables.InGame, Color.RoyalBlue);
+            }
+            //actually print text
+            string units = "" + Game1.player;
+
+            batch.DrawString(font, "Player " + units + " can draft a unit", new Vector2(MenuVariables.InGame.Width / 2 - font.MeasureString("Player " + units + " can draft a unit").X / 2, MenuVariables.InGame.Y), MenuVariables.Text); //draws the text within the box
+        }
+
+        //ui for the when placing down pieces
         public void DisplayMainMenu(SpriteBatch batch, SpriteFont font, Game1 checkers)
         {
             //create the regular text standards
