@@ -130,6 +130,7 @@ namespace Arbiter
                     if (this.PathTracker(this.location, plannedMove, "horizontal"))
                         if (this.PathTracker(this.location, plannedMove, "vertical"))
                             possibleMoves.Add(plannedMove);
+                    
                 }
             }
 

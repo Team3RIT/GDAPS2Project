@@ -82,13 +82,14 @@ namespace Arbiter
                             writer.Write(GameVariables.board[x, y].owner.ID);
                             writer.Write(GameVariables.board[x, y].owner.Name);
                         }
+                        //board location
+                        writer.Write(x);
+                        writer.Write(y);
                     }
                     else
                         writer.Write(-1); //for blank spaces
 
-                    //board location
-                    writer.Write(x);
-                    writer.Write(y);
+                    
                 }
             }
 
