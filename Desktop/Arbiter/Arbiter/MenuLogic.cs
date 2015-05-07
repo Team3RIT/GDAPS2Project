@@ -454,6 +454,7 @@ namespace Arbiter
                 {
                     //LOAD THE GAME HERE!!!!!!!!!!!!!
                     FileIO.LoadGame(MenuVariables.filename);
+                    MenuVariables.filename = "";
                     MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
 
                 }
@@ -536,6 +537,7 @@ namespace Arbiter
                 {
                     //LOAD THE GAME HERE!!!!!!!!!!!!!
                     FileIO.ReadMapFile(MenuVariables.filename);
+                    MenuVariables.filename = "";
                     MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
                 }
             }
@@ -618,6 +620,7 @@ namespace Arbiter
                 {
                     //SAVE THE GAME HERE!!!!!!!!!!!!!
                     FileIO.SaveGame(MenuVariables.filename);
+                    MenuVariables.filename = "";
                     MenuVariables.MenuStates = MenuVariables.MENUS.PAUSE;
                     
                 }
