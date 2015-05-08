@@ -31,23 +31,38 @@ namespace Arbiter
             //create the regular text standards
             Texture2D FillText = new Texture2D(checkers.GraphicsDevice, 1, 1); //the two ints at the end change the boxes fading, both left and up
             FillText.SetData(new Color[] { Color.White });
+            int bottomWidth = 800;
+            int bottomHeight = 50;
+            int sideWidth = GameVariables.screenbufferHorizontal/2;
+            int sideHeight = GameVariables.screenHeight/2;
+      
 
-            int x = (checkers.Window.ClientBounds.Width / 2) - 300;
-            MenuVariables.InGame = new Rectangle(x, 660, 600, GameVariables.screenbufferVertical);
-            
+            MenuVariables.InGameBottom = new Rectangle((checkers.Window.ClientBounds.Width / 2) - (bottomWidth / 2), GameVariables.screenHeight - (3 * (GameVariables.screenbufferVertical / 4)), bottomWidth, bottomHeight);
+            MenuVariables.InGameLeft = new Rectangle((GameVariables.screenbufferHorizontal/4), (GameVariables.screenHeight/4), sideWidth, sideHeight);
+            MenuVariables.InGameRight = new Rectangle(GameVariables.screenWidth - (3 * GameVariables.screenbufferHorizontal / 4), (GameVariables.screenHeight / 4), sideWidth, sideHeight);
+
+            //draw in the background
+            batch.Draw(FillText, MenuVariables.InGame, MenuVariables.BackgroundColor);
+            batch.Draw(Game1.MenuBackground1, MenuVariables.InGame, MenuVariables.Background1);
+            batch.Draw(Game1.MenuBorder, MenuVariables.InGame, MenuVariables.BackgroundBorderColor);
+
             //change color for whose turn it is
             if (Game1.currentPlayer == 1)
             {
-                batch.Draw(FillText, MenuVariables.InGame, Color.Red);
+                batch.Draw(FillText, MenuVariables.InGameBottom, Color.Red);
+                batch.Draw(FillText, MenuVariables.InGameLeft, Color.Red);
+                batch.Draw(FillText, MenuVariables.InGameRight, Color.Red);
             }
             if (Game1.currentPlayer == 2)
             {
-                batch.Draw(FillText, MenuVariables.InGame, Color.RoyalBlue);
+                batch.Draw(FillText, MenuVariables.InGameBottom, Color.RoyalBlue);
+                batch.Draw(FillText, MenuVariables.InGameLeft, Color.RoyalBlue);
+                batch.Draw(FillText, MenuVariables.InGameRight, Color.RoyalBlue);
             }
             //actually print out the text
             string units = "" + (GameVariables.NumPiecesPerTurn - Game1.movedUnits.Count); 
 
-            batch.DrawString(font, "Pieces to move: " + units, new Vector2(MenuVariables.InGame.Width / 2 - font.MeasureString("Pieces to move: " + units).X / 2, MenuVariables.InGame.Y), MenuVariables.Text); //draws the text within the box
+            batch.DrawString(font, "Pieces to move: " + units, new Vector2((MenuVariables.InGameBottom.Width / 2 - (font.MeasureString("Pieces to move: " + units).X / 2)), MenuVariables.InGameBottom.Y), MenuVariables.Text); //draws the text within the box
         }
 
         //ui for during the game
@@ -57,21 +72,38 @@ namespace Arbiter
             Texture2D FillText = new Texture2D(checkers.GraphicsDevice, 1, 1); //the two ints at the end change the boxes fading, both left and up
             FillText.SetData(new Color[] { Color.White });
 
-            int x = (checkers.Window.ClientBounds.Width / 2) - 300;
-            MenuVariables.InGame = new Rectangle(x, 660, 600, GameVariables.screenbufferVertical);
+            int bottomWidth = 800;
+            int bottomHeight = 50;
+            int sideWidth = GameVariables.screenbufferHorizontal / 2;
+            int sideHeight = GameVariables.screenHeight / 2;
+
+            //draw in the background
+            batch.Draw(FillText, MenuVariables.InGame, MenuVariables.BackgroundColor);
+            batch.Draw(Game1.MenuBackground1, MenuVariables.InGame, MenuVariables.Background1);
+            batch.Draw(Game1.MenuBorder, MenuVariables.InGame, MenuVariables.BackgroundBorderColor);
+
+            MenuVariables.InGameBottom = new Rectangle((checkers.Window.ClientBounds.Width / 2) - (bottomWidth / 2), GameVariables.screenHeight - (3 * (GameVariables.screenbufferVertical / 4)), bottomWidth, bottomHeight);
+            MenuVariables.InGameLeft = new Rectangle((GameVariables.screenbufferHorizontal / 4), (GameVariables.screenHeight / 4), sideWidth, sideHeight);
+            MenuVariables.InGameRight = new Rectangle(GameVariables.screenWidth - (3 * GameVariables.screenbufferHorizontal / 4), (GameVariables.screenHeight / 4), sideWidth, sideHeight);
+
             //change colro depending on whose turn it is to draft
             if (Game1.player == 1)
             {
-                batch.Draw(FillText, MenuVariables.InGame, Color.Red);
+                batch.Draw(FillText, MenuVariables.InGameBottom, Color.Red);
+                batch.Draw(FillText, MenuVariables.InGameLeft, Color.Red);
+                batch.Draw(FillText, MenuVariables.InGameRight, Color.Red);
             }
             if (Game1.player == 2)
             {
-                batch.Draw(FillText, MenuVariables.InGame, Color.RoyalBlue);
+                batch.Draw(FillText, MenuVariables.InGameBottom, Color.RoyalBlue);
+                batch.Draw(FillText, MenuVariables.InGameLeft, Color.RoyalBlue);
+                batch.Draw(FillText, MenuVariables.InGameRight, Color.RoyalBlue);
             }
             //actually print text
             string units = "" + Game1.player;
 
-            batch.DrawString(font, "Player " + units + " can draft a unit", new Vector2(MenuVariables.InGame.Width / 2 - font.MeasureString("Player " + units + " can draft a unit").X / 2, MenuVariables.InGame.Y), MenuVariables.Text); //draws the text within the box
+            batch.DrawString(font, "Player " + units + " can draft a unit", new Vector2((MenuVariables.InGameBottom.Width / 2) - (font.MeasureString("Player 2 can draft a unit").X / 2), MenuVariables.InGameBottom.Y), MenuVariables.Text); //draws the text within the box
+        
         }
 
         //ui for the when placing down pieces

@@ -204,7 +204,7 @@ namespace Arbiter
         {
             //create the main menu
             //define all of the necessary rectangles - variables inherited from MenuVariables
-            MenuVariables.MainMenuBox = CreateMainBox(checkers, 800, 680);
+            MenuVariables.MainMenuBox = CreateMainBox(checkers, GameVariables.screenWidth, GameVariables.screenHeight);
             MenuVariables.MainTitle = CreateTitleBox("Arbiter", 500, 200, font, MenuVariables.MainMenuBox);
             MenuVariables.MainNewGame = CreateTitleBox("New Game", 500, 250, font, MenuVariables.MainMenuBox);
             MenuVariables.MainLoadGame = CreateTitleBox("Load Game", 500, 300, font, MenuVariables.MainMenuBox);
@@ -291,7 +291,7 @@ namespace Arbiter
         public void OptionsMenuLogic(Game1 checkers, SpriteFont font)
         {
             //create the options menu
-            MenuVariables.OptionsMenuBox = CreateMainBox(checkers, 800, 680);
+            MenuVariables.OptionsMenuBox = CreateMainBox(checkers, GameVariables.screenWidth,GameVariables.screenHeight);
             MenuVariables.OptionsTitle = CreateTitleBox("Options Menu", 600, 200, font, MenuVariables.OptionsMenuBox);  //give options a title
             MenuVariables.OptionsInput = CreateTitleBox("Select Preferred Input", 500, 250, font, MenuVariables.OptionsMenuBox);  //return to main menu
             MenuVariables.OptionsMainMenuReturn = CreateTitleBox("Return to Main Menu", 600, 450, font, MenuVariables.OptionsMenuBox);  //return to main menu
@@ -337,7 +337,7 @@ namespace Arbiter
         {
 
             //create all of the boxes
-            MenuVariables.InputMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.InputMenuBox = CreateMainBox(checkers, GameVariables.screenWidth, GameVariables.screenHeight); //create the box to hold the entire menu
             MenuVariables.InputTitle = CreateTitleBox("Select Your Input Method", 600, 200, font, MenuVariables.InputMenuBox);
             MenuVariables.InputMouse = CreateTitleBox("Mouse", 500, 250, font, MenuVariables.InputMenuBox);
             MenuVariables.InputGamePad = CreateTitleBox("GamePad", 500, 300, font, MenuVariables.InputMenuBox);
@@ -402,7 +402,7 @@ namespace Arbiter
 
             //define all of the necessary rectangles - variables inherited from MenuVariables
             //define rectangles boxes thingys
-            MenuVariables.LoadMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.LoadMenuBox = CreateMainBox(checkers, GameVariables.screenWidth, GameVariables.screenHeight); //create the box to hold the entire menu
             MenuVariables.LoadTitle = CreateTitleBox("Load Game Menu", 500, 150, font, MenuVariables.LoadMenuBox);  //give LoadGame a title
             MenuVariables.LoadTextTitle = CreateTitleBox("Click the Box Below and Type the Name of the File to Open:", 600, 200, font, MenuVariables.LoadMenuBox);
             MenuVariables.LoadTextBox = CreateTitleBox("random extraneous text", 500, 250, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
@@ -493,7 +493,7 @@ namespace Arbiter
 
             //define all of the necessary rectangles - variables inherited from MenuVariables
             //define rectangles boxes thingys
-            MenuVariables.LoadMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.LoadMenuBox = CreateMainBox(checkers, GameVariables.screenWidth, GameVariables.screenHeight); //create the box to hold the entire menu
             MenuVariables.LoadTitle = CreateTitleBox("Map Menu", 500, 150, font, MenuVariables.LoadMenuBox);  //give LoadGame a title
             MenuVariables.LoadTextTitle = CreateTitleBox("Click the Box Below and Type the Name of the File to Open:", 600, 200, font, MenuVariables.LoadMenuBox);
             MenuVariables.LoadTextBox = CreateTitleBox("random extraneous text", 500, 300, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
@@ -576,7 +576,7 @@ namespace Arbiter
 
             //define all of the necessary rectangles - variables inherited from MenuVariables
             //define rectangles boxes thingys
-            MenuVariables.LoadMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.LoadMenuBox = CreateMainBox(checkers, GameVariables.screenWidth, GameVariables.screenHeight); //create the box to hold the entire menu
             MenuVariables.LoadTitle = CreateTitleBox("Map Menu", 600, 150, font, MenuVariables.LoadMenuBox);  //give LoadGame a title
             MenuVariables.LoadTextTitle = CreateTitleBox("Click the Box Below and Type the Name of the File to Open:", 600, 200, font, MenuVariables.LoadMenuBox);
             MenuVariables.LoadTextBox = CreateTitleBox("random extraneous text", 500, 250, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
@@ -662,7 +662,7 @@ namespace Arbiter
 
             //define all of the necessary rectangles - variables inherited from MenuVariables
             //define rectangles boxes thingys
-            MenuVariables.NewGameMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.NewGameMenuBox = CreateMainBox(checkers, GameVariables.screenWidth, GameVariables.screenHeight); //create the box to hold the entire menu
             MenuVariables.NewGameTitle = CreateTitleBox("New Game Menu", 600, 50, font, MenuVariables.NewGameMenuBox);  //give NewGame a title
             MenuVariables.NewGameTwoPlayer = CreateTitleBox("Start Two Player Game", 600, 100, font, MenuVariables.NewGameMenuBox);  //start a two player game!
             MenuVariables.NewGameControllerConnected = CreateTitleBox("I don't quite remeber why I needed text for this", 600, 250, font, MenuVariables.NewGameMenuBox);  //start a two player game!
@@ -719,7 +719,7 @@ namespace Arbiter
 
             //define all of the necessary rectangles - variables inherited from MenuVariables
             //define rectangles boxes thingys
-            MenuVariables.PauseMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.PauseMenuBox = CreateMainBox(checkers, GameVariables.screenWidth, GameVariables.screenHeight); //create the box to hold the entire menu
             MenuVariables.PauseTitle = CreateTitleBox("GAME PAUSED", 600, 200, font, MenuVariables.PauseMenuBox);  //pause menu title
             MenuVariables.PauseSaveGame = CreateTitleBox("Save Game", 600, 300, font, MenuVariables.PauseMenuBox);  //save your game
             
@@ -785,7 +785,7 @@ namespace Arbiter
 
             //define all of the necessary rectangles - variables inherited from MenuVariables
             //define rectangles boxes thingys
-            MenuVariables.WinMenuBox = CreateMainBox(checkers, 800, 680); //create the box to hold the entire menu
+            MenuVariables.WinMenuBox = CreateMainBox(checkers, GameVariables.screenWidth, GameVariables.screenHeight); //create the box to hold the entire menu
             MenuVariables.WinTitle = CreateTitleBox("Congratulations! Someone has won!", 600, 200, font, MenuVariables.WinMenuBox);  //win menu title
             MenuVariables.WinExit = CreateTitleBox("Exit Game", 600, 350, font, MenuVariables.WinMenuBox);  //Return to the active game
             MenuVariables.WinMainMenuReturn = CreateTitleBox("Return to Main Menu", 600, 500, font, MenuVariables.WinMenuBox);  //return to the main menu

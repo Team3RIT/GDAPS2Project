@@ -519,7 +519,7 @@ namespace Arbiter
             if(gameState == States.SETUP)
             {
                 DisplayBox.DisplaySetup(spriteBatch, font, this);
-
+                DrawBoard();
 
             }
 
@@ -527,10 +527,11 @@ namespace Arbiter
 
             if(gameState == States.PLAYERTURN)
             {
+                DisplayBox.DisplayInGame(spriteBatch, font, this);
                 DrawBoard();
                 
                 spriteBatch.Draw(Normal, new Rectangle((int)GameVariables.gamePadLocation.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal,(int)GameVariables.gamePadLocation.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical,GameVariables.spaceDim,GameVariables.spaceDim), Color.Red * 0.5f);
-                DisplayBox.DisplayInGame(spriteBatch, font, this);
+                
             }
 
 

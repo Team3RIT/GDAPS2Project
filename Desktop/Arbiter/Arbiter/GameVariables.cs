@@ -21,8 +21,8 @@ namespace Arbiter
         static public List<Player> players;
 
         //board dimensions
-        public const int screenWidth = 800;
-        public const int screenHeight = 680;
+        public const int screenWidth = 1000;
+        public const int screenHeight = 800;
         public static int boardDim = 640; //square board, only need one dimension
         public static int spaceDim; //square spaces, one dimension
         private static int boardSpaceDim; 
