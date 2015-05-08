@@ -59,7 +59,7 @@ namespace Arbiter
             writer.Write(GameVariables.BoardSpaceDim);
             foreach(Player player in GameVariables.players)
             {
-                writer.Write(1);
+                writer.Write(1); //does fuck all. it's just not -500.
                 writer.Write(player.Name);
                 writer.Write(player.ID);
                 writer.Write(player.VictoryTally);
@@ -90,12 +90,27 @@ namespace Arbiter
                         {
                             writer.Write(GameVariables.board[x, y].Rank);
                             writer.Write(GameVariables.board[x, y].owner.ID);
+                           
                             
                         }
                         //board location
                         writer.Write(x);
                         writer.Write(y);
                         writer.Write(Game1.movedUnits.Contains(GameVariables.board[x, y]));
+                        if (GameVariables.board[x, y] is LightUnit || GameVariables.board[x, y] is StandardUnit) //only types that can claim towers
+                        {
+                            bool own = false;
+                            foreach (Tower tower in GameVariables.towers)
+                            {
+                                if (tower.claimedBy == GameVariables.board[x, y])
+                                {
+                                    own = true;
+
+                                    break;
+                                }
+                            }
+                            writer.Write(own);
+                        }
                     }
                     else
                         writer.Write(-1); //for blank spaces
@@ -123,6 +138,7 @@ namespace Arbiter
             Player player = null;
             int ownerID;
             string name;
+            bool own;
             Game1.movedUnits.Clear();
             GameVariables.players.Clear();
 
@@ -175,6 +191,12 @@ namespace Arbiter
                             GameVariables.board[x, y] = unit;
                             if (moved)
                                 Game1.movedUnits.Add(unit);
+                            own = reader.ReadBoolean();
+                            if(own)
+                            {
+                                player.TowersOwned.Add(new Tower(x, y));
+                                
+                            }
                             break;
                         }
                     case 3: //light unit
@@ -183,6 +205,12 @@ namespace Arbiter
                             GameVariables.board[x, y] = unit;
                             if (moved)
                                 Game1.movedUnits.Add(unit);
+                            own = reader.ReadBoolean();
+                            if(own)
+                            {
+                                player.TowersOwned.Add(new Tower(x, y));
+                                
+                            }
                             break;
                         }
                     case 4: //jumper unit

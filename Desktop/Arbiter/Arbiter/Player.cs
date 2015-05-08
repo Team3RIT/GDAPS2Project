@@ -31,6 +31,8 @@ namespace Arbiter
         {
             name = nm;
             playerNum = playerNumber;
+            towersOwned = new List<Tower>();
+            victoryTally = 0;
 
 
 
