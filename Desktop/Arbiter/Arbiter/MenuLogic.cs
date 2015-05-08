@@ -452,11 +452,16 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //LOAD THE GAME HERE!!!!!!!!!!!!!
+<<<<<<< HEAD
                     bool success = FileIO.LoadGame(MenuVariables.filename);
 
                     if (success)
                         Game1.gameState = Game1.States.PLAYERTURN;
                     
+=======
+                    FileIO.LoadGame(MenuVariables.filename);
+                    MenuVariables.filename = "";
+>>>>>>> 0cb6ec6e842e985c2669b282db97e3a5b396a90e
                     MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
 
                 }
@@ -539,6 +544,7 @@ namespace Arbiter
                 {
                     //LOAD THE GAME HERE!!!!!!!!!!!!!
                     FileIO.ReadMapFile(MenuVariables.filename);
+                    MenuVariables.filename = "";
                     MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
                 }
             }
@@ -621,6 +627,7 @@ namespace Arbiter
                 {
                     //SAVE THE GAME HERE!!!!!!!!!!!!!
                     FileIO.SaveGame(MenuVariables.filename);
+                    MenuVariables.filename = "";
                     MenuVariables.MenuStates = MenuVariables.MENUS.PAUSE;
                     
                 }
