@@ -47,7 +47,7 @@ namespace Arbiter
         public static Texture2D MenuBorder;
         public static Texture2D MenuBackground1;
 
-        //Player Turn Attributes
+        //Player Turn Variables
         Match testMatch;
         Unit selectedunit;
         public static List<Unit> movedUnits;
@@ -57,7 +57,7 @@ namespace Arbiter
         int cycle = 0;
         int count = 14;
         //int parity;
-        public static int player = 1; //whose turn it si to place pieces during setup
+        public static int player = 1; //whose turn it is to place pieces during setup
         int cycleIterator = 0;
         int[] playerPieces = new int[3]{0,0,0};
 
