@@ -55,9 +55,16 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X + 2, location.Y - 1);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "horizontal")) //because of the way path tracker works, it's easier to iterate this way
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && GameVariables.board[(int)plannedMove.X, (int)location.Y] == null)
+                    {
                         if (this.PathTracker(this.location, plannedMove, "vertical"))
                             possibleMoves.Add(plannedMove);
+                    }
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && GameVariables.board[(int)location.X, (int)plannedMove.Y] == null)
+                    {
+                        if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                            possibleMoves.Add(plannedMove);
+                    }
                 }
             }
             //one space up, two spaces left
@@ -66,9 +73,16 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X - 2, location.Y - 1);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && GameVariables.board[(int)plannedMove.X, (int)location.Y] == null)
+                    {
                         if (this.PathTracker(this.location, plannedMove, "vertical"))
                             possibleMoves.Add(plannedMove);
+                    }
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && GameVariables.board[(int)location.X, (int)plannedMove.Y] == null)
+                    {
+                        if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                            possibleMoves.Add(plannedMove);
+                    }
                 }
             }
             //one space down, two spaces left
@@ -76,9 +90,16 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X - 2, location.Y + 1);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && GameVariables.board[(int)plannedMove.X, (int)location.Y] == null)
+                    {
                         if (this.PathTracker(this.location, plannedMove, "vertical"))
                             possibleMoves.Add(plannedMove);
+                    }
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && GameVariables.board[(int)location.X, (int)plannedMove.Y] == null)
+                    {
+                        if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                            possibleMoves.Add(plannedMove);
+                    }
                 }
             }
              //one space down, two spaces right
@@ -86,9 +107,16 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X + 2, location.Y + 1);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && GameVariables.board[(int)plannedMove.X, (int)location.Y] == null)
+                    {
                         if (this.PathTracker(this.location, plannedMove, "vertical"))
                             possibleMoves.Add(plannedMove);
+                    }
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && GameVariables.board[(int)location.X, (int)plannedMove.Y] == null)
+                    {
+                        if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                            possibleMoves.Add(plannedMove);
+                    }
                 }
             }
             //one space right, two spaces up
@@ -97,9 +125,16 @@ namespace Arbiter
                
                     if (GameVariables.OnBoard(plannedMove))
                     {
-                        if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                        if (this.PathTracker(this.location, plannedMove, "horizontal") && GameVariables.board[(int)plannedMove.X, (int)location.Y] == null)
+                        {
                             if (this.PathTracker(this.location, plannedMove, "vertical"))
                                 possibleMoves.Add(plannedMove);
+                        }
+                        else if (this.PathTracker(this.location, plannedMove, "vertical") && GameVariables.board[(int)location.X, (int)plannedMove.Y] == null)
+                        {
+                            if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                                possibleMoves.Add(plannedMove);
+                        }
                     }
             }
             //one space right, two spaces down
@@ -107,9 +142,16 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X + 1, location.Y + 2);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && GameVariables.board[(int)plannedMove.X, (int)location.Y] == null)
+                    {
                         if (this.PathTracker(this.location, plannedMove, "vertical"))
                             possibleMoves.Add(plannedMove);
+                    }
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && GameVariables.board[(int)location.X, (int)plannedMove.Y] == null)
+                    {
+                        if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                            possibleMoves.Add(plannedMove);
+                    }
                 }
             }
             //one space left, two spaces up
@@ -117,9 +159,16 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X - 1, location.Y - 2);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && GameVariables.board[(int)plannedMove.X, (int)location.Y] == null)
+                    {
                         if (this.PathTracker(this.location, plannedMove, "vertical"))
                             possibleMoves.Add(plannedMove);
+                    }
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && GameVariables.board[(int)location.X, (int)plannedMove.Y] == null)
+                    {
+                        if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                            possibleMoves.Add(plannedMove);
+                    }
                 }
             }
              //one space left, two spaces down
@@ -127,10 +176,17 @@ namespace Arbiter
                 plannedMove = new Vector2(location.X - 1, location.Y + 2);
                 if (GameVariables.OnBoard(plannedMove))
                 {
-                    if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                    if (this.PathTracker(this.location, plannedMove, "horizontal") && GameVariables.board[(int)plannedMove.X, (int)location.Y] == null)
+                    {
                         if (this.PathTracker(this.location, plannedMove, "vertical"))
                             possibleMoves.Add(plannedMove);
-                    
+                    }
+                    else if (this.PathTracker(this.location, plannedMove, "vertical") && GameVariables.board[(int)location.X, (int)plannedMove.Y] == null)
+                    {
+                        if (this.PathTracker(this.location, plannedMove, "horizontal"))
+                            possibleMoves.Add(plannedMove);
+                    }
+                   
                 }
             }
 

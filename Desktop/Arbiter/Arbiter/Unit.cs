@@ -94,11 +94,19 @@ namespace Arbiter
                     newTower = tower;
                 }
             }
-            
+
             if (myTower != null)
+            {
+                owner.TowerManage(myTower, false);
                 myTower.Abandon(this); //abandon it if you're on one
-            if(newTower != null)
+                
+            }
+            if (newTower != null)
+            {
+                owner.TowerManage(newTower, true);
                 newTower.Claim(this);
+                
+            }
             if (GameVariables.board[(int)location.X, (int)location.Y] != null && GameVariables.board[(int)location.X, (int)location.Y].Rank < rank && GameVariables.board[(int)location.X, (int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
             {
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);

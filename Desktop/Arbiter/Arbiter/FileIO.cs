@@ -57,7 +57,14 @@ namespace Arbiter
         {
             writer = new BinaryWriter(File.Open("..\\..\\savedGames\\"+filepath+".dat", FileMode.Create)); //initialize the reader, it will overwrite or create the file
             writer.Write(GameVariables.BoardSpaceDim);
-            
+            foreach(Player player in GameVariables.players)
+            {
+                writer.Write(1); //does fuck all. it's just not -500.
+                writer.Write(player.Name);
+                writer.Write(player.ID);
+                writer.Write(player.VictoryTally);
+            }
+            writer.Write(-500);
             for (int y = 0; y < GameVariables.BoardSpaceDim; y++) //cycle through all the array values
             {
                 for (int x = 0; x < GameVariables.BoardSpaceDim; x++) 
@@ -70,25 +77,40 @@ namespace Arbiter
                             {
                                 writer.Write(GameVariables.board[x, y].Rank); //writes out rank, then owner id, then owner name
                                 writer.Write(GameVariables.board[x, y].owner.ID);
-                                writer.Write(GameVariables.board[x, y].owner.Name);
+                                
                             }
                             else
                             {
                                 writer.Write(4);
                                 writer.Write(GameVariables.board[x, y].owner.ID);
-                                writer.Write(GameVariables.board[x, y].owner.Name);
+                                
                             }
                         }
                         else
                         {
                             writer.Write(GameVariables.board[x, y].Rank);
                             writer.Write(GameVariables.board[x, y].owner.ID);
-                            writer.Write(GameVariables.board[x, y].owner.Name);
+                           
+                            
                         }
                         //board location
                         writer.Write(x);
                         writer.Write(y);
                         writer.Write(Game1.movedUnits.Contains(GameVariables.board[x, y]));
+                        if (GameVariables.board[x, y] is LightUnit || GameVariables.board[x, y] is StandardUnit) //only types that can claim towers
+                        {
+                            bool own = false;
+                            foreach (Tower tower in GameVariables.towers)
+                            {
+                                if (tower.claimedBy == GameVariables.board[x, y])
+                                {
+                                    own = true;
+
+                                    break;
+                                }
+                            }
+                            writer.Write(own);
+                        }
                     }
                     else
                         writer.Write(-1); //for blank spaces
@@ -115,25 +137,37 @@ namespace Arbiter
             bool moved = false;
             Player player = null;
             int ownerID;
-            string ownerName;
+
+            bool own;
             Game1.movedUnits.Clear();
             GameVariables.players.Clear();
 
             GameVariables.BoardSpaceDim = reader.ReadInt32();
-
+            while ((i = reader.ReadInt32()) != -500) //flag is -500
+            {
+                player = new Player(reader.ReadString(), reader.ReadInt32());
+                player.VictoryTally = reader.ReadInt32();
+                GameVariables.players.Add(player);
+            }
             while ((i = reader.ReadInt32()) != -40) //flag is -40
             {
                 
                 if (i != -1) //not a blank space
                 {
                     ownerID = reader.ReadInt32();
-                    ownerName = reader.ReadString(); //data will come in sets of 3, so these ones should not be null.
+                    //data will come in sets of 3, so these ones should not be null.
+                    if (ownerID != -1)
+                    {
+                        player = GameVariables.players[ownerID];
+                    }
+                    else
+                    {
+                        player = GameVariables.players[0];
+                    }
                     x = reader.ReadInt32();
                     y = reader.ReadInt32();
                     moved = reader.ReadBoolean();
-                    player = new Player(ownerName, ownerID);
-                    if (!GameVariables.players.Contains(player)) //don't want duplicates in the list
-                        GameVariables.players.Add(player);
+                    
                 }
                 switch(i)
                 {
@@ -161,6 +195,12 @@ namespace Arbiter
                             GameVariables.board[x, y] = unit;
                             if (moved)
                                 Game1.movedUnits.Add(unit);
+                            own = reader.ReadBoolean();
+                            if(own)
+                            {
+                                player.TowersOwned.Add(new Tower(x, y));
+                                
+                            }
                             break;
                         }
                     case 3: //light unit
@@ -169,6 +209,12 @@ namespace Arbiter
                             GameVariables.board[x, y] = unit;
                             if (moved)
                                 Game1.movedUnits.Add(unit);
+                            own = reader.ReadBoolean();
+                            if(own)
+                            {
+                                player.TowersOwned.Add(new Tower(x, y));
+                                
+                            }
                             break;
                         }
                     case 4: //jumper unit

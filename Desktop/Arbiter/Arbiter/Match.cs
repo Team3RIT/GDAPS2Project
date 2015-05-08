@@ -23,7 +23,10 @@ namespace Arbiter
             whoseTurn = 1;
             victoryTally = new int[playerCount];
             for (int i = 0; i < victoryTally.Length; i++)
+            {
                 victoryTally[i] = 0;
+                GameVariables.players[i].VictoryTally = 1;
+            }
         }
         /*public void Draft()
         {
@@ -102,11 +105,13 @@ namespace Arbiter
                 if (towersControlled > (float)(GameVariables.towers.Count / 2))
                 {
                     victoryTally[whoseTurn - 1]++;
+                    GameVariables.players[whoseTurn].VictoryTally++;
                    
                 }
                 else //If they don't own the majority of the towers at the end of their turn, their tally is reset to 0.
                 {
                     victoryTally[whoseTurn - 1] = 0;
+                    GameVariables.players[whoseTurn].VictoryTally = 0;
                 }
             
 

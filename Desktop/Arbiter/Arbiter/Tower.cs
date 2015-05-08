@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace Arbiter
 {
-    class Tower:Piece
+    public class Tower:Piece
     {
         public bool isClaimed = false;
         public Unit claimedBy;
@@ -20,7 +20,8 @@ namespace Arbiter
         {
             rank = 5; //anything should be able to get in unless the if statement below catches it
             GameVariables.towers.Add(this);
-            GameVariables.board[x, y] = this;
+            if(GameVariables.board[x,y] == null)
+                GameVariables.board[x, y] = this;
             icon = Game1.Tower;
         }
 

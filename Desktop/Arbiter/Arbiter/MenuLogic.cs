@@ -452,7 +452,6 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //LOAD THE GAME HERE!!!!!!!!!!!!!
-
                     bool success = FileIO.LoadGame(MenuVariables.filename);
 
                     if (success)
