@@ -137,7 +137,7 @@ namespace Arbiter
             bool moved = false;
             Player player = null;
             int ownerID;
-            string name;
+
             bool own;
             Game1.movedUnits.Clear();
             GameVariables.players.Clear();
@@ -157,9 +157,13 @@ namespace Arbiter
                     ownerID = reader.ReadInt32();
                     //data will come in sets of 3, so these ones should not be null.
                     if (ownerID != -1)
-                        name = GameVariables.players[ownerID].Name;
+                    {
+                        player = GameVariables.players[ownerID];
+                    }
                     else
-                        name = GameVariables.players[0].Name;
+                    {
+                        player = GameVariables.players[0];
+                    }
                     x = reader.ReadInt32();
                     y = reader.ReadInt32();
                     moved = reader.ReadBoolean();
