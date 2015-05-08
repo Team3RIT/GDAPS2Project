@@ -21,7 +21,8 @@ namespace Arbiter
         #region map methods
         public static bool ReadMapFile(string filepath) //will read file and make changes to board. 
         {
-            if (!File.Exists("..\\..\\maps\\"+filepath+"\\.dat"))
+            
+            if (!File.Exists("..\\..\\maps\\"+filepath+".dat"))
                 return false; //method just dies if it's a bad path
 
             reader = new BinaryReader(File.Open("..\\..\\maps\\" + filepath+".dat", FileMode.Open)); //initialize the reader
@@ -55,6 +56,8 @@ namespace Arbiter
         public static void SaveGame(string filepath) //saves game data
         {
             writer = new BinaryWriter(File.Open("..\\..\\savedGames\\"+filepath+".dat", FileMode.Create)); //initialize the reader, it will overwrite or create the file
+            writer.Write(GameVariables.BoardSpaceDim);
+            
             for (int y = 0; y < GameVariables.BoardSpaceDim; y++) //cycle through all the array values
             {
                 for (int x = 0; x < GameVariables.BoardSpaceDim; x++) 
@@ -85,6 +88,7 @@ namespace Arbiter
                         //board location
                         writer.Write(x);
                         writer.Write(y);
+                        writer.Write(Game1.movedUnits.Contains(GameVariables.board[x, y]));
                     }
                     else
                         writer.Write(-1); //for blank spaces
@@ -96,27 +100,27 @@ namespace Arbiter
             writer.Write(-40); //loop's over
             //gameplay data 
             writer.Write(Game1.currentPlayer);
-            foreach(Unit movedUnit in Game1.movedUnits)
-            {
-                writer.Write((int)movedUnit.Location.X);
-                writer.Write((int)movedUnit.Location.Y);
-                
-            }
             writer.Close();
         }
 
-        public static void LoadGame(string filepath) //loads game data
+        public static bool LoadGame(string filepath) //loads game data
         {
             if (!File.Exists("..\\..\\savedGames\\" + filepath+".dat"))
-                return; //method just dies if it's a bad path
+                return false; //method just dies if it's a bad path
 
             reader = new BinaryReader(File.Open("..\\..\\savedGames\\" + filepath+".dat", FileMode.Open)); //initialize the reader
             int i;
             int x = 0;
             int y = 0;
+            bool moved = false;
             Player player = null;
             int ownerID;
             string ownerName;
+            Game1.movedUnits.Clear();
+            GameVariables.players.Clear();
+
+            GameVariables.BoardSpaceDim = reader.ReadInt32();
+
             while ((i = reader.ReadInt32()) != -40) //flag is -40
             {
                 
@@ -126,6 +130,7 @@ namespace Arbiter
                     ownerName = reader.ReadString(); //data will come in sets of 3, so these ones should not be null.
                     x = reader.ReadInt32();
                     y = reader.ReadInt32();
+                    moved = reader.ReadBoolean();
                     player = new Player(ownerName, ownerID);
                     if (!GameVariables.players.Contains(player)) //don't want duplicates in the list
                         GameVariables.players.Add(player);
@@ -144,23 +149,34 @@ namespace Arbiter
                         }
                     case 1: //heavy unit
                         {
-
-                            GameVariables.board[x,y] = new HeavyUnit(x,y,player);
+                            HeavyUnit unit = new HeavyUnit(x,y,player);
+                            GameVariables.board[x,y] = unit;
+                            if (moved)
+                                Game1.movedUnits.Add(unit);
                             break;
                         }
                     case 2: //standard unit
                         {
-                            GameVariables.board[x,y] = new StandardUnit(x,y,player);
+                            StandardUnit unit = new StandardUnit(x,y,player);
+                            GameVariables.board[x, y] = unit;
+                            if (moved)
+                                Game1.movedUnits.Add(unit);
                             break;
                         }
                     case 3: //light unit
                         {
-                            GameVariables.board[x,y] = new LightUnit(x,y,player);
+                            LightUnit unit =  new LightUnit(x,y,player);
+                            GameVariables.board[x, y] = unit;
+                            if (moved)
+                                Game1.movedUnits.Add(unit);
                             break;
                         }
                     case 4: //jumper unit
                         {
-                            GameVariables.board[x,y] = new JumperUnit(x,y,player);
+                            JumperUnit unit = new JumperUnit(x, y, player);
+                            GameVariables.board[x, y] = unit;
+                            if (moved)
+                                Game1.movedUnits.Add(unit);
                             break;
                         }
                     case 5: //Tower
@@ -171,14 +187,9 @@ namespace Arbiter
                 }
             }
             Game1.currentPlayer = reader.ReadInt32();
-            Game1.movedUnits.Clear();
-            while(reader.BaseStream.Position != reader.BaseStream.Length)
-            {
-                x = reader.ReadInt32();
-                y = reader.ReadInt32();
-                Game1.movedUnits.Add((Unit)GameVariables.board[x,y]);
-            }
+            
             reader.Close();
+            return true;
         }
 
         #endregion

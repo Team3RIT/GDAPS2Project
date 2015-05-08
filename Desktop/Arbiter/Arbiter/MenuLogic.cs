@@ -29,7 +29,6 @@ namespace Arbiter
         ////////////variables////////////////
 
         KeyboardState keyboard;
-        string previouslyPressed;
         KeyboardState previousKeyboard;
         
         ///////////////////////////////---- HELPER METHODS ----/////////////////////////////////////////////////////
@@ -453,7 +452,11 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //LOAD THE GAME HERE!!!!!!!!!!!!!
-                    FileIO.LoadGame(MenuVariables.filename);
+                    bool success = FileIO.LoadGame(MenuVariables.filename);
+
+                    if (success)
+                        Game1.gameState = Game1.States.PLAYERTURN;
+                    
                     MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
 
                 }
@@ -738,7 +741,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //go to main menu, perhaps we want a message asking if they were sure?
-
+                    GameVariables.ClearBoard();
                     MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
 
                 }

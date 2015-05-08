@@ -30,7 +30,7 @@ namespace Arbiter
             {
                 isClaimed = true;
                 claimedBy = unit;
-                GameVariables.board[(int)location.X, (int)location.Y] = unit;
+                GameVariables.board[(int)this.location.X, (int)this.location.Y] = unit;
             }
         }
 
@@ -38,7 +38,7 @@ namespace Arbiter
         {
             isClaimed = false;
             claimedBy = null;
-            GameVariables.board[(int)location.X, (int)location.Y] = this;
+            GameVariables.board[(int)this.location.X, (int)this.location.Y] = this;
         }
         
     }

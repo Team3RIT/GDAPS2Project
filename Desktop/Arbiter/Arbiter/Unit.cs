@@ -99,7 +99,7 @@ namespace Arbiter
                 myTower.Abandon(this); //abandon it if you're on one
             if(newTower != null)
                 newTower.Claim(this);
-            else if (GameVariables.board[(int)location.X, (int)location.Y] != null && GameVariables.board[(int)location.X, (int)location.Y].Rank < rank && GameVariables.board[(int)location.X, (int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
+            if (GameVariables.board[(int)location.X, (int)location.Y] != null && GameVariables.board[(int)location.X, (int)location.Y].Rank < rank && GameVariables.board[(int)location.X, (int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
             {
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
@@ -107,7 +107,8 @@ namespace Arbiter
             {
                 GameVariables.board[(int)newLocation.X, (int)newLocation.Y] = this;
             }
-                GameVariables.board[(int)location.X, (int)location.Y] = null; //previous space will be left empty    
+                if(GameVariables.board[(int)location.X, (int)location.Y] == this) //allows towers to live after abandon
+                    GameVariables.board[(int)location.X, (int)location.Y] = null; //previous space will be left empty    
                 location = newLocation;
                 //region.X = (int)location.X*GameVariables.spaceDim+GameVariables.screenbufferHorizontal;
                 //region.Y = (int)location.Y*GameVariables.spaceDim+GameVariables.screenbufferVertical;

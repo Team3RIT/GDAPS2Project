@@ -273,42 +273,7 @@ namespace Arbiter
             #endregion
                 break;
             }
-            #region Josh's code - doesn't work
-            /*Vector2 left = sticks.Left;
-            Vector2 right = sticks.Right;
-            int state = 0; // number 0 to three. different states will be different locations for rectangles to be drawn each corresponding to one of the menu buttons
             
-            //todo - add a range of values that will work for left and right. 
-            
-            else
-            {
-                if (left.X == 0 && left.Y == 32767)
-                {
-                    // move up calls
-                    if (state > 0)
-                    {
-                        state--;
-                    }
-                }
-                if (left.X == 32767 && left.Y == 0)
-                {
-                    // move right calls
-                }
-                if (left.X == 0 && left.Y == 32768)
-                {
-                    // move down calls
-                    if (state < 3)
-                    {
-                        state++;
-                    }
-                }
-                if (left.X == -32768 && left.Y == 0)
-                {
-                    // move left calls
-                }
-            }
-            */
-            #endregion
         
             //finite state machine - Travis
             switch(gameState)
@@ -321,8 +286,12 @@ namespace Arbiter
                     }
                     if (MenuVariables.MenuStates == MenuVariables.MENUS.NEWGAME)
                     {
+                        
                         LogicBox.NewGameMenuLogic(this, font);
+                        
                         gameState = States.SETUP;
+                            
+                        
                     }
                     if (MenuVariables.MenuStates == MenuVariables.MENUS.OPTIONS)
                     {

@@ -96,12 +96,7 @@ namespace Arbiter
         }
         public void Remove(Unit piece)
         {
-            if (location.X == piece.location.X && location.Y == piece.location.Y)
-            {
-
-                GameVariables.board[(int)location.X, (int)location.Y] = piece; //takes itself off the back end board
-
-            }
+            return; //does nothing, towers and structures can't be removed
         }
         #endregion
 

@@ -71,6 +71,11 @@ namespace Arbiter
                 return false;
         }
 
+        public static void ClearBoard()
+        {
+            BoardSpaceDim = boardSpaceDim;
+            Game1.movedUnits.Clear();
+        }
 
         
     }
