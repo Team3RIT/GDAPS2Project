@@ -120,8 +120,8 @@ namespace Arbiter
             // TODO: Add your initialization logic here
             //MenuVariables.playerIndicatorContainer = new Texture2D(GraphicsDevice, (int)GameVariables.screenbufferHorizontal - 50, 300,false,SurfaceFormat.Color);
             MenuVariables.playerIndicatorColorBox = new Texture2D(GraphicsDevice, (int)GameVariables.screenbufferHorizontal - 100, 200,false,SurfaceFormat.Color);
-            
-            
+
+            testMatch = new Match(2);
 
             //make the mouse visible on screen
             this.IsMouseVisible = true;
@@ -323,7 +323,7 @@ namespace Arbiter
                     }
                     break;
                 case States.SETUP:
-                    testMatch = new Match(2);
+                    //testMatch = new Match(2);
                     //testMatch.Draft();
                     
                     if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space) || click.LeftButton == ButtonState.Pressed)
