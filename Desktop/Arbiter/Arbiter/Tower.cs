@@ -20,8 +20,8 @@ namespace Arbiter
         {
             rank = 5; //anything should be able to get in unless the if statement below catches it
             GameVariables.towers.Add(this);
-            if(GameVariables.board[x,y] == null)
-                GameVariables.board[x, y] = this;
+           
+            GameVariables.board[x, y] = this;
             icon = Game1.Tower;
         }
 

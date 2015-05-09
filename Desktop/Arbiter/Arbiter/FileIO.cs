@@ -21,14 +21,14 @@ namespace Arbiter
         #region map methods
         public static bool ReadMapFile(string filepath) //will read file and make changes to board. 
         {
-            
-            if (!File.Exists("..\\..\\maps\\"+filepath+".dat"))
+
+            if (!File.Exists("..\\..\\maps\\" + filepath + ".dat"))
                 return false; //method just dies if it's a bad path
 
-            reader = new BinaryReader(File.Open("..\\..\\maps\\" + filepath+".dat", FileMode.Open)); //initialize the reader
+            reader = new BinaryReader(File.Open("..\\..\\maps\\" + filepath + ".dat", FileMode.Open)); //initialize the reader
 
             Piece[,] board = new Piece[GameVariables.BoardSpaceDim, GameVariables.BoardSpaceDim];
-            int x; 
+            int x;
             int y;
             x = reader.ReadInt32();
             GameVariables.BoardSpaceDim = (int)x;
@@ -36,15 +36,15 @@ namespace Arbiter
             {
                 y = reader.ReadInt32();
                 if (x < GameVariables.BoardSpaceDim && x >= 0 && y < GameVariables.BoardSpaceDim && y >= 0)
-                   new Structure(x, y); 
-                
+                    new Structure(x, y);
+
             }
-            while(reader.BaseStream.Position != reader.BaseStream.Length) //until end of file
+            while (reader.BaseStream.Position != reader.BaseStream.Length) //until end of file
             {
                 x = reader.ReadInt32();
                 y = reader.ReadInt32();
                 if (x < GameVariables.BoardSpaceDim && x >= 0 && y < GameVariables.BoardSpaceDim && y >= 0)
-                    new Tower(x, y); 
+                    new Tower(x, y);
 
             }
             reader.Close();
@@ -55,9 +55,9 @@ namespace Arbiter
         #region save file handling
         public static void SaveGame(string filepath) //saves game data
         {
-            writer = new BinaryWriter(File.Open("..\\..\\savedGames\\"+filepath+".dat", FileMode.Create)); //initialize the reader, it will overwrite or create the file
+            writer = new BinaryWriter(File.Open("..\\..\\savedGames\\" + filepath + ".dat", FileMode.Create)); //initialize the reader, it will overwrite or create the file
             writer.Write(GameVariables.BoardSpaceDim);
-            foreach(Player player in GameVariables.players)
+            foreach (Player player in GameVariables.players)
             {
                 writer.Write(1); //does fuck all. it's just not -500.
                 writer.Write(player.Name);
@@ -65,9 +65,9 @@ namespace Arbiter
                 writer.Write(player.VictoryTally);
             }
             writer.Write(-500);
-            for (int y = 0; y < GameVariables.BoardSpaceDim; y++) //cycle through all the array values
+            for (int x = 0; x < GameVariables.BoardSpaceDim; x++) //cycle through all the array values
             {
-                for (int x = 0; x < GameVariables.BoardSpaceDim; x++) 
+                for (int y = 0; y < GameVariables.BoardSpaceDim; y++)
                 {
                     if (GameVariables.board[x, y] != null)
                     {
@@ -77,25 +77,24 @@ namespace Arbiter
                             {
                                 writer.Write(GameVariables.board[x, y].Rank); //writes out rank, then owner id, then owner name
                                 writer.Write(GameVariables.board[x, y].owner.ID);
-                                
+
                             }
                             else
                             {
                                 writer.Write(4);
                                 writer.Write(GameVariables.board[x, y].owner.ID);
-                                
+
                             }
                         }
                         else
                         {
                             writer.Write(GameVariables.board[x, y].Rank);
                             writer.Write(GameVariables.board[x, y].owner.ID);
-                           
-                            
+
+
                         }
                         //board location
-                        writer.Write(x);
-                        writer.Write(y);
+                        
                         writer.Write(Game1.movedUnits.Contains(GameVariables.board[x, y]));
                         if (GameVariables.board[x, y] is LightUnit || GameVariables.board[x, y] is StandardUnit) //only types that can claim towers
                         {
@@ -115,11 +114,11 @@ namespace Arbiter
                     else
                         writer.Write(-1); //for blank spaces
 
-                    
+
                 }
             }
 
-            writer.Write(-40); //loop's over
+            
             //gameplay data 
             writer.Write(Game1.currentPlayer);
             writer.Close();
@@ -127,13 +126,12 @@ namespace Arbiter
 
         public static bool LoadGame(string filepath) //loads game data
         {
-            if (!File.Exists("..\\..\\savedGames\\" + filepath+".dat"))
+            if (!File.Exists("..\\..\\savedGames\\" + filepath + ".dat"))
                 return false; //method just dies if it's a bad path
 
-            reader = new BinaryReader(File.Open("..\\..\\savedGames\\" + filepath+".dat", FileMode.Open)); //initialize the reader
+            reader = new BinaryReader(File.Open("..\\..\\savedGames\\" + filepath + ".dat", FileMode.Open)); //initialize the reader
             int i;
-            int x = 0;
-            int y = 0;
+
             bool moved = false;
             Player player = null;
             int ownerID;
@@ -149,97 +147,109 @@ namespace Arbiter
                 player.VictoryTally = reader.ReadInt32();
                 GameVariables.players.Add(player);
             }
-            while ((i = reader.ReadInt32()) != -40) //flag is -40
+
+
+            for (int x = 0; x < GameVariables.BoardSpaceDim; x++)
             {
-                
-                if (i != -1) //not a blank space
+                for (int y = 0; y < GameVariables.BoardSpaceDim; y++)
                 {
-                    ownerID = reader.ReadInt32();
-                    //data will come in sets of 3, so these ones should not be null.
-                    if (ownerID != -1)
+                    i = reader.ReadInt32();
+                    if (i != -1)
                     {
-                        player = GameVariables.players[ownerID];
+                        ownerID = reader.ReadInt32();
+                        //data will come in sets of 3, so these ones should not be null.
+                        if (ownerID != -1)
+                        {
+                            player = GameVariables.players[ownerID];
+                        }
+                        else
+                        {
+                            player = GameVariables.players[0];
+                        }
+
+                        moved = reader.ReadBoolean();
+
+
+                        switch (i)
+                        {
+                            case -1: //empty space
+                                {
+                                    GameVariables.board[x, y] = null;
+                                    break;
+                                }
+                            case 0: //structure
+                                {
+                                    GameVariables.board[x, y] = new Structure(x, y); // all of these units need filler content
+                                    break;
+                                }
+                            case 1: //heavy unit
+                                {
+                                    HeavyUnit unit = new HeavyUnit(x, y, player);
+                                    GameVariables.board[x, y] = unit;
+                                    if (moved)
+                                        Game1.movedUnits.Add(unit);
+                                    break;
+                                }
+                            case 2: //standard unit
+                                {
+                                    StandardUnit unit = new StandardUnit(x, y, player);
+                                    GameVariables.board[x, y] = unit;
+                                    if (moved)
+                                        Game1.movedUnits.Add(unit);
+                                    own = reader.ReadBoolean();
+                                    if (own)
+                                    {
+                                        Tower newTower = new Tower(x, y);
+                                        player.TowersOwned.Add(newTower);
+                                        newTower.Claim(unit);
+
+                                    }
+                                    break;
+                                }
+                            case 3: //light unit
+                                {
+                                    LightUnit unit = new LightUnit(x, y, player);
+                                    GameVariables.board[x, y] = unit;
+                                    if (moved)
+                                        Game1.movedUnits.Add(unit);
+                                    own = reader.ReadBoolean();
+                                    if (own)
+                                    {
+                                        Tower newTower = new Tower(x, y);
+                                        player.TowersOwned.Add(newTower);
+                                        newTower.Claim(unit);
+
+                                    }
+                                    break;
+                                }
+                            case 4: //jumper unit
+                                {
+                                    JumperUnit unit = new JumperUnit(x, y, player);
+                                    GameVariables.board[x, y] = unit;
+                                    if (moved)
+                                        Game1.movedUnits.Add(unit);
+                                    break;
+                                }
+                            case 5: //Tower
+                                {
+                                    GameVariables.board[x, y] = new Tower(x, y);
+                                    break;
+                                }
+                        }
                     }
-                    else
-                    {
-                        player = GameVariables.players[0];
-                    }
-                    x = reader.ReadInt32();
-                    y = reader.ReadInt32();
-                    moved = reader.ReadBoolean();
-                    
-                }
-                switch(i)
-                {
-                    case -1: //empty space
-                        {
-                            GameVariables.board[x, y] = null;
-                            break;
-                        }
-                    case 0: //structure
-                        {
-                            GameVariables.board[x, y] = new Structure(x, y); // all of these units need filler content
-                            break;
-                        }
-                    case 1: //heavy unit
-                        {
-                            HeavyUnit unit = new HeavyUnit(x,y,player);
-                            GameVariables.board[x,y] = unit;
-                            if (moved)
-                                Game1.movedUnits.Add(unit);
-                            break;
-                        }
-                    case 2: //standard unit
-                        {
-                            StandardUnit unit = new StandardUnit(x,y,player);
-                            GameVariables.board[x, y] = unit;
-                            if (moved)
-                                Game1.movedUnits.Add(unit);
-                            own = reader.ReadBoolean();
-                            if(own)
-                            {
-                                player.TowersOwned.Add(new Tower(x, y));
-                                
-                            }
-                            break;
-                        }
-                    case 3: //light unit
-                        {
-                            LightUnit unit =  new LightUnit(x,y,player);
-                            GameVariables.board[x, y] = unit;
-                            if (moved)
-                                Game1.movedUnits.Add(unit);
-                            own = reader.ReadBoolean();
-                            if(own)
-                            {
-                                player.TowersOwned.Add(new Tower(x, y));
-                                
-                            }
-                            break;
-                        }
-                    case 4: //jumper unit
-                        {
-                            JumperUnit unit = new JumperUnit(x, y, player);
-                            GameVariables.board[x, y] = unit;
-                            if (moved)
-                                Game1.movedUnits.Add(unit);
-                            break;
-                        }
-                    case 5: //Tower
-                        {
-                            GameVariables.board[x,y] = new Tower(x,y);
-                            break;
-                        }
+
+
                 }
             }
-            Game1.currentPlayer = reader.ReadInt32();
+                Game1.currentPlayer = reader.ReadInt32();
+
+                reader.Close();
+                return true;
             
-            reader.Close();
-            return true;
-        }
 
         #endregion
 
 
+        }
     }
 }
