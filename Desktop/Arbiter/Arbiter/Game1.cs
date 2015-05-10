@@ -286,13 +286,21 @@ namespace Arbiter
                     }
                     if (MenuVariables.MenuStates == MenuVariables.MENUS.NEWGAME)
                     {
-                        
+
                         LogicBox.NewGameMenuLogic(this, font);
-                        
-                        gameState = States.SETUP;
+                        if(GameVariables.gameLoaded == false)
+                            gameState = States.SETUP;
+                        else
+                        {
+                            testMatch = new Match();
+                            gameState = States.PLAYERTURN;
+                            
+                        }
+                    }
                             
                         
-                    }
+                    
+                    
                     if (MenuVariables.MenuStates == MenuVariables.MENUS.OPTIONS)
                     {
                         LogicBox.OptionsMenuLogic(this, font);
@@ -322,6 +330,7 @@ namespace Arbiter
                         LogicBox.SaveGameMenuLogic(this,font);
                     }
                     break;
+        
                 case States.SETUP:
                     testMatch = new Match(2);
                     //testMatch.Draft();

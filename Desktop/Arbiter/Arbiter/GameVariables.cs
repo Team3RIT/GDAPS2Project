@@ -19,7 +19,7 @@ namespace Arbiter
         static public List<Tower> towers; //important lists that multiple classes will need
         static public List<Structure> structures;
         static public List<Player> players;
-
+        public static bool gameLoaded;
         //board dimensions
         public const int screenWidth = 1000;
         public const int screenHeight = 800;

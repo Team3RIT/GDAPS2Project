@@ -452,13 +452,7 @@ namespace Arbiter
                 if (Game1.click.LeftButton == ButtonState.Pressed)
                 {
                     //LOAD THE GAME HERE!!!!!!!!!!!!!
-                    bool success = FileIO.LoadGame(MenuVariables.filename);
-
-                    if (success)
-                        Game1.gameState = Game1.States.PLAYERTURN;
-                    
-
-                    FileIO.LoadGame(MenuVariables.filename);
+                    GameVariables.gameLoaded = FileIO.LoadGame(MenuVariables.filename);
                     MenuVariables.filename = "";
                     MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
 

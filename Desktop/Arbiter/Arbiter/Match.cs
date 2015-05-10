@@ -25,7 +25,18 @@ namespace Arbiter
             for (int i = 0; i < victoryTally.Length; i++)
             {
                 victoryTally[i] = 0;
-                GameVariables.players[i].VictoryTally = 1;
+                GameVariables.players[i].VictoryTally = 0;
+            }
+        }
+
+        public Match()
+        {
+            whoseTurn = Game1.currentPlayer;
+            victoryTally = new int[GameVariables.players.Count-1];
+            for (int i = 0; i < victoryTally.Length; i++)
+            {
+                victoryTally[i] = 0;
+                GameVariables.players[i].VictoryTally = 0;
             }
         }
         /*public void Draft()
