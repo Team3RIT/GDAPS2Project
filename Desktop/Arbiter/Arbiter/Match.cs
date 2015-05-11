@@ -12,7 +12,7 @@ namespace Arbiter
     {
         Unit[,] pieces; //Player followed by piece number.
         int whoseTurn; //Index of whose turn it happens to be.
-        int[] victoryTally;
+        //int[] victoryTally;
         public Match(int playerCount)
         {
             //initialize Player and Pieces arrays to the number of players specified in match creation.
@@ -21,10 +21,10 @@ namespace Arbiter
             for (int i = 1; i < playerCount + 1; i++ )
                 GameVariables.players.Add(new Player(("Player " + i), i));
             whoseTurn = 1;
-            victoryTally = new int[playerCount];
-            for (int i = 0; i < victoryTally.Length; i++)
+            //victoryTally = new int[playerCount];
+            for (int i = 0; i < GameVariables.players.Count; i++)
             {
-                victoryTally[i] = 0;
+                //victoryTally[i] = 0;
                 GameVariables.players[i].VictoryTally = 0;
             }
         }
@@ -32,10 +32,10 @@ namespace Arbiter
         public Match()
         {
             whoseTurn = Game1.currentPlayer;
-            victoryTally = new int[GameVariables.players.Count-1];
-            for (int i = 0; i < victoryTally.Length; i++)
+            //victoryTally = new int[GameVariables.players.Count-1];
+            for (int i = 0; i < GameVariables.players.Count; i++)
             {
-                victoryTally[i] = 0;
+                //victoryTally[i] = 0;
                 GameVariables.players[i].VictoryTally = 0;
             }
         }
@@ -115,13 +115,13 @@ namespace Arbiter
                 //If the player owns the majority of the towers, increment their victory tally by 1.
                 if (towersControlled > (float)(GameVariables.towers.Count / 2))
                 {
-                    victoryTally[whoseTurn - 1]++;
+                    //victoryTally[whoseTurn - 1]++;
                     GameVariables.players[whoseTurn].VictoryTally++;
                    
                 }
                 else //If they don't own the majority of the towers at the end of their turn, their tally is reset to 0.
                 {
-                    victoryTally[whoseTurn - 1] = 0;
+                    //victoryTally[whoseTurn - 1] = 0;
                     GameVariables.players[whoseTurn].VictoryTally = 0;
                 }
             
@@ -129,7 +129,7 @@ namespace Arbiter
                 
                 //GameVariables.players[whoseTurn].MovedUnits = 0;
 
-                if (victoryTally[whoseTurn-1] >= 2)
+                if (/*victoryTally[whoseTurn-1] >= 2*/ GameVariables.players[whoseTurn].VictoryTally >= 2)
                 {
                     return true;
                 }
