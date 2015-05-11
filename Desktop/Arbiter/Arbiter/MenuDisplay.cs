@@ -49,15 +49,15 @@ namespace Arbiter
             //change color for whose turn it is
             if (Game1.currentPlayer == 1)
             {
-                batch.Draw(FillText, MenuVariables.InGameBottom, Color.Red);
-                batch.Draw(FillText, MenuVariables.InGameLeft, Color.Red);
-                batch.Draw(FillText, MenuVariables.InGameRight, Color.Red);
+                batch.Draw(FillText, MenuVariables.InGameBottom, Color.DarkRed);
+                batch.Draw(FillText, MenuVariables.InGameLeft, Color.DarkRed);
+                batch.Draw(FillText, MenuVariables.InGameRight, Color.DarkRed);
             }
             if (Game1.currentPlayer == 2)
             {
-                batch.Draw(FillText, MenuVariables.InGameBottom, Color.RoyalBlue);
-                batch.Draw(FillText, MenuVariables.InGameLeft, Color.RoyalBlue);
-                batch.Draw(FillText, MenuVariables.InGameRight, Color.RoyalBlue);
+                batch.Draw(FillText, MenuVariables.InGameBottom, Color.DodgerBlue);
+                batch.Draw(FillText, MenuVariables.InGameLeft, Color.DodgerBlue);
+                batch.Draw(FillText, MenuVariables.InGameRight, Color.DodgerBlue);
             }
             //actually print out the text
             string units = "" + (GameVariables.NumPiecesPerTurn - Game1.movedUnits.Count); 
@@ -101,15 +101,15 @@ namespace Arbiter
             //change colro depending on whose turn it is to draft
             if (Game1.player == 1)
             {
-                batch.Draw(FillText, MenuVariables.InGameBottom, Color.Red);
-                batch.Draw(FillText, MenuVariables.InGameLeft, Color.Red);
-                batch.Draw(FillText, MenuVariables.InGameRight, Color.Red);
+                batch.Draw(FillText, MenuVariables.InGameBottom, Color.DarkRed);
+                batch.Draw(FillText, MenuVariables.InGameLeft, Color.DarkRed);
+                batch.Draw(FillText, MenuVariables.InGameRight, Color.DarkRed);
             }
             if (Game1.player == 2)
             {
-                batch.Draw(FillText, MenuVariables.InGameBottom, Color.RoyalBlue);
-                batch.Draw(FillText, MenuVariables.InGameLeft, Color.RoyalBlue);
-                batch.Draw(FillText, MenuVariables.InGameRight, Color.RoyalBlue);
+                batch.Draw(FillText, MenuVariables.InGameBottom, Color.DodgerBlue);
+                batch.Draw(FillText, MenuVariables.InGameLeft, Color.DodgerBlue);
+                batch.Draw(FillText, MenuVariables.InGameRight, Color.DodgerBlue);
             }
             //actually print text
             string units = "" + Game1.player;
