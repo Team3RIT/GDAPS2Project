@@ -493,8 +493,9 @@ namespace Arbiter
             MenuVariables.LoadMainMenuReturn = CreateTitleBox("Return to Main Menu", 500, 500, font, MenuVariables.LoadMenuBox);  //Return to main menu
             MenuVariables.LoadSubmit = CreateTitleBox("Submit", 200, 350, font, MenuVariables.LoadMenuBox);  //give LoadGame a textbox
             MenuVariables.LoadClear = CreateTitleBox("Clear", 200, 400, font, MenuVariables.LoadMenuBox);  //Return to main menu
-
-
+            MenuVariables.DefaultMap1 = CreateTitleBox("Default Map 1", 300, 535,font,MenuVariables.LoadMenuBox);
+            MenuVariables.DefaultMap2 = CreateTitleBox("Default Map 1", 300, 585, font, MenuVariables.LoadMenuBox);
+            MenuVariables.DefaultMap3 = CreateTitleBox("Default Map 1", 300, 635, font, MenuVariables.LoadMenuBox);
             /////////////////////type in your file name
 
             keyboard = Keyboard.GetState();
@@ -554,6 +555,41 @@ namespace Arbiter
                 {
                     //pull up main menu, get rid of loadGame menu
                     MenuVariables.MenuStates = MenuVariables.MENUS.MAIN;
+                }
+            }
+            if (ThinkOutsideTheBox(MenuVariables.LoadSubmit) == true)
+            { MenuVariables.LoadMainMenuReturnColor = MenuVariables.BoxColor; }
+            if (ThinkInsideTheBox(MenuVariables.DefaultMap1) == true)
+            {
+                
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //LOAD THE GAME HERE!!!!!!!!!!!!!
+                    FileIO.ReadMapFile("default1");
+                    MenuVariables.filename = "";
+                    MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
+                }
+            }
+            if (ThinkInsideTheBox(MenuVariables.DefaultMap2) == true)
+            {
+                
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //LOAD THE GAME HERE!!!!!!!!!!!!!
+                    FileIO.ReadMapFile("default2");
+                    MenuVariables.filename = "";
+                    MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
+                }
+            }
+            if (ThinkInsideTheBox(MenuVariables.DefaultMap3) == true)
+            {
+                
+                if (Game1.click.LeftButton == ButtonState.Pressed)
+                {
+                    //LOAD THE GAME HERE!!!!!!!!!!!!!
+                    FileIO.ReadMapFile("default3");
+                    MenuVariables.filename = "";
+                    MenuVariables.MenuStates = MenuVariables.MENUS.NEWGAME;
                 }
             }
             if (ThinkOutsideTheBox(MenuVariables.LoadMainMenuReturn) == true)
