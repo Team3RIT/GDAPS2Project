@@ -61,8 +61,20 @@ namespace Arbiter
             }
             //actually print out the text
             string units = "" + (GameVariables.NumPiecesPerTurn - Game1.movedUnits.Count); 
+            int whoseTurn = Game1.currentPlayer;
+            
+            if(GameVariables.players[1].TowersOwned.Count > ((float)(GameVariables.towers.Count / 2)))
+            {
+                string message = "Player 1 will win in " + (2 - GameVariables.players[1].VictoryTally) + " Turns";
+                batch.DrawString(font, message, new Vector2(MenuVariables.InGame.Width/2 - (font.MeasureString(message).X/2),MenuVariables.InGameBottom.Y), MenuVariables.Text);
+            }
+            if (GameVariables.players[2].TowersOwned.Count > ((float)(GameVariables.towers.Count / 2)))
+            {
+                string message = "Player 2 will win in " + (2 - GameVariables.players[1].VictoryTally) + " Turns";
+                batch.DrawString(font, message, new Vector2(MenuVariables.InGame.Width / 2 - (font.MeasureString(message).X / 2), MenuVariables.InGameBottom.Y), MenuVariables.Text);
+            }
 
-            batch.DrawString(font, "Pieces to move: " + units, new Vector2((MenuVariables.InGameBottom.Width / 2 - (font.MeasureString("Pieces to move: " + units).X / 2)), MenuVariables.InGameBottom.Y), MenuVariables.Text); //draws the text within the box
+            batch.DrawString(font, "Pieces to move: " + units, new Vector2((MenuVariables.InGame.Width / 2 - (font.MeasureString("Pieces to move: " + units).X / 2)), MenuVariables.InGameBottom.Y + 30), MenuVariables.Text); //draws the text within the box
         }
 
         //ui for during the game
@@ -102,7 +114,7 @@ namespace Arbiter
             //actually print text
             string units = "" + Game1.player;
 
-            batch.DrawString(font, "Player " + units + " can draft a unit", new Vector2((MenuVariables.InGameBottom.Width / 2) - (font.MeasureString("Player 2 can draft a unit").X / 2), MenuVariables.InGameBottom.Y), MenuVariables.Text); //draws the text within the box
+            batch.DrawString(font, "Player " + units + " can draft a unit", new Vector2((MenuVariables.InGame.Width / 2) - (font.MeasureString("Player 2 can draft a unit").X / 2), MenuVariables.InGameBottom.Y), MenuVariables.Text); //draws the text within the box
         
         }
 
@@ -359,7 +371,7 @@ namespace Arbiter
 
             //Draw TitleBox
             batch.Draw(FillText, MenuVariables.WinTitle, MenuVariables.WinTitleColor); // draws the box for the victory screen title
-            batch.DrawString(font, "Congratulations, Someone has won!", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Congratualtions, Someone has won!").X / 2, MenuVariables.WinTitle.Y), MenuVariables.Text);  //by now i hope you realize these just draw the text in the boxes
+            batch.DrawString(font, "Congratulations! Player " + Game1.currentPlayer + " has won!", new Vector2(MenuVariables.WinMenuBox.Width / 2 - font.MeasureString("Congratualtions, Someone has won!").X / 2, MenuVariables.WinTitle.Y), MenuVariables.Text);  //by now i hope you realize these just draw the text in the boxes
 
             //draw return to game box
             batch.Draw(FillText, MenuVariables.WinMainMenuReturn, MenuVariables.WinMainMenuReturnColor); // draws the box for returning to main menu

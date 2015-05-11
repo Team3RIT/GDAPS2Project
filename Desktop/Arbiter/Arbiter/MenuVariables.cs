@@ -91,7 +91,7 @@ namespace Arbiter
         1.1 MediumSpringGreen
         2.0 CadetBlue;
         3.0 Lime - boxes change to MediumBlue
-         
+        4.0 - black/darkish reds
         */
         /////////////////////////////////////////////// RECTANGLE VARIABLES /////////////////////////////////////////////////////
         
@@ -165,53 +165,7 @@ namespace Arbiter
         public static string filename = "";
 
         ///////////////////PROPERTIES//////////////////////////////////
-        /*public static bool Main
-        {
-            get { return main; }
-            set { main = value; }
-        }
-        public static bool Pause
-        {
-            get { return pause; }
-            set { pause = value; }
-        }
-        public static bool LoadGame
-        {
-            get { return loadGame; }
-            set { loadGame = value; }
-        }
-        public static bool SaveGame
-        {
-            get { return saveGame; }
-            set { saveGame = value; }
-        }
-        public static bool Options
-        {
-            get { return options; }
-            set { options = value; }
-        }
-        public static bool NewGame
-        {
-            get { return newGame; }
-            set { newGame = value; }
-        }
-        public static bool LoadingScreen
-        {
-            get { return loadingScreen; }
-            set { LoadingScreen = value; }
-        }
-        public static bool WinScreen
-        {
-            get { return winScreen; }
-            set { winScreen = value; }
-        }
 
-        public static bool Input
-        {
-            get { return input; }
-            set { input = value; }
-        }
-        */
 
         //Reads keyboard input, puts appends it to MenuVariables.filename within the method, yay. -Margaret
         public static void GetKey(KeyboardState keyState, ref KeyboardState oldKeyboardState)
