@@ -135,8 +135,39 @@ namespace Arbiter
                 }
                 else
                 {
+                    int p1Units = 0;
+                    int p2Units = 0;
                     //victoryTally[whoseTurn-1] = 0; //reset victory tally
-                    return false;
+                    for (int i = 0; i < GameVariables.BoardSpaceDim; i++ )
+                    {
+                        for(int j = 0; j < GameVariables.BoardSpaceDim; j++)
+                        {
+                            if(GameVariables.board[i, j] is Unit)
+                            {
+                                if(((Unit)GameVariables.board[i, j]).Owner == GameVariables.players[1])
+                                {
+                                    p1Units++;
+                                }
+                                else if(((Unit)GameVariables.board[i, j]).Owner == GameVariables.players[2])
+                                {
+                                    p2Units++;
+                                }
+                            }
+                        }
+                    }
+
+                    if (p1Units <= GameVariables.towers.Count / 2)
+                    {
+                        GameVariables.players[1].VictoryTally = 3;
+                        return true;
+                    }
+                    else if(p2Units <= GameVariables.towers.Count / 2)
+                    {
+                        GameVariables.players[2].VictoryTally = 3;
+                        return true;
+                    }
+                    else
+                        return false;
                 }
             
         }
