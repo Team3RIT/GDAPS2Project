@@ -118,7 +118,9 @@ namespace Arbiter
         public static Rectangle LoadTextBox; //changes to a different color
         public static Rectangle LoadSubmit;
         public static Rectangle LoadClear;
-        
+        public static Rectangle DefaultMap1;
+        public static Rectangle DefaultMap2;
+        public static Rectangle DefaultMap3;
         //options rectangles
         public static Rectangle OptionsMenuBox;
         public static Rectangle OptionsTitle;

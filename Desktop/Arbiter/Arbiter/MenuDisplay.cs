@@ -249,6 +249,7 @@ namespace Arbiter
             batch.Draw(FillText, MenuVariables.LoadSubmit, MenuVariables.LoadSubmitColor); // draws the box
             batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X/2, MenuVariables.LoadSubmit.Y), MenuVariables.Text);
 
+
             batch.Draw(Game1.MenuBorder, MenuVariables.LoadMenuBox, MenuVariables.BackgroundBorderColor);
         }
 
@@ -282,6 +283,17 @@ namespace Arbiter
 
             batch.Draw(FillText, MenuVariables.LoadSubmit, MenuVariables.LoadSubmitColor); // draws the box
             batch.DrawString(font, "Submit", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Submit").X / 2, MenuVariables.LoadSubmit.Y), MenuVariables.Text);
+
+
+            batch.Draw(FillText, MenuVariables.DefaultMap1, MenuVariables.LoadTitleColor); // draws the box
+            batch.DrawString(font, "Default Map 1", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.DefaultMap1.Y), MenuVariables.Text); //draws the text within the box
+
+            batch.Draw(FillText, MenuVariables.DefaultMap2, MenuVariables.LoadTitleColor); // draws the box
+            batch.DrawString(font, "Default Map 2", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.DefaultMap2.Y), MenuVariables.Text); //draws the text within the box
+
+            batch.Draw(FillText, MenuVariables.DefaultMap3, MenuVariables.LoadTitleColor); // draws the box
+            batch.DrawString(font, "Default Map 3", new Vector2(MenuVariables.LoadMenuBox.Width / 2 - font.MeasureString("Load Game Menu").X / 2, MenuVariables.DefaultMap3.Y), MenuVariables.Text); //draws the text within the box
+
 
             batch.Draw(Game1.MenuBorder, MenuVariables.LoadMenuBox, MenuVariables.BackgroundBorderColor);
         }
