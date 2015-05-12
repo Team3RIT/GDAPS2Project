@@ -181,11 +181,18 @@ namespace MapTool
 
             if (towers.Count < 3 || towers.Count > 11) //good number of towers
             {
-                return false;
+                label.Text = "File path broken.";
+                Environment.Exit(0);
             }
 
-            writer = new BinaryWriter(File.Open("..\\..\\..\\..\\Arbiter\\bin\\maps\\"+path+".dat",FileMode.Create));
-
+            try
+            {
+                writer = new BinaryWriter(File.Open("..\\..\\..\\..\\Arbiter\\bin\\maps\\" + path + ".dat", FileMode.Create));
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
             writer.Write(dim); //first thing in the map file is dimension of board in spaces
 
             foreach(Point point in structures) //structures come first

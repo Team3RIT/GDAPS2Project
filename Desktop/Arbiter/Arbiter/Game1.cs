@@ -28,6 +28,7 @@ namespace Arbiter
 
         //controller attributes
         public static int preferredInput; //controls which input is used for the game
+        public static int input; //makes up for the fact that menus only use mouse
         GamePadState gamepad;
         GamePadState previousgamepadState;
 
@@ -181,7 +182,13 @@ namespace Arbiter
             click = Mouse.GetState();
             //Josh - gamepad stuff
             //GamePadThumbSticks sticks = gamepad.ThumbSticks;
-            switch(preferredInput)
+
+            if (gameState == States.PLAYERTURN)
+                input = preferredInput;
+            else
+                input = 0;
+
+            switch(input)
             { 
                 case 0:
                 #region mouse movement
