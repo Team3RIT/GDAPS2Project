@@ -217,7 +217,7 @@ namespace Arbiter
             int i = 0;
             if(up)
             {   //must check that it's on the board first to avoid out of bounds exception
-                while (GameVariables.OnBoard(new Vector2(Location.X, Location.Y + i)) && CheckSides(new Vector2(Location.X, Location.Y - i), 0)) //follows that line until it ends
+                while (GameVariables.OnBoard(new Vector2(Location.X, Location.Y - i)) && CheckSides(new Vector2(Location.X, Location.Y - i), 0)) //follows that line until it ends
                 {
                     i++;
                 }
