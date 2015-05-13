@@ -79,6 +79,7 @@ namespace Arbiter
         {
             if (!possibleMoves.Contains(newLocation)) //if it's not valid, just another check..
                 return; //quit the method
+            
             Tower myTower = null; // will be null if the loop doesnt find a tower
             Tower newTower = null;// will be null if you aren't moving to the tower
             foreach(Tower tower in GameVariables.towers) //checks all the towers to see if this piece is currently on one before moving
@@ -107,7 +108,8 @@ namespace Arbiter
                 newTower.Claim(this);
                 
             }
-            if (GameVariables.board[(int)location.X, (int)location.Y] != null && GameVariables.board[(int)location.X, (int)location.Y].Rank < rank && GameVariables.board[(int)location.X, (int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
+            if (GameVariables.board[(int)location.X, (int)location.Y] != null && GameVariables.board[(int)location.X, (int)location.Y].Rank < rank
+                && GameVariables.board[(int)location.X, (int)location.Y].owner != this.owner) //have to check to make sure there is a piece there before trying to look at its owner
             {
                 GameVariables.board[(int)location.X, (int)location.Y].Remove(this);
             }
@@ -402,6 +404,16 @@ namespace Arbiter
                     list.Remove(space);
                 else if (GameVariables.board[(int)space.X, (int)space.Y] != null && GameVariables.board[(int)space.X, (int)space.Y].owner == this.owner)
                     list.Remove(space);
+                foreach (Tower tower in GameVariables.towers)
+                {
+                    if (this is HeavyUnit || this is JumperUnit)
+                    {
+                        if (GameVariables.board[(int)space.X, (int)space.Y] == tower.claimedBy)
+                        {
+                            list.Remove(space);
+                        }
+                    }
+                }
                 
             }
         }
