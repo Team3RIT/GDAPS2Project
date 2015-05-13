@@ -430,7 +430,38 @@ namespace Arbiter
 
 
 #endregion
-                        if (movedUnits.Count == GameVariables.NumPiecesPerTurn && Anim == false) //signals end of turn
+                        GameVariables.piecesLeft[0] = 0;
+                        GameVariables.piecesLeft[1] = 0;
+                        GameVariables.piecesLeft[2] = 0;
+                        GameVariables.piecesLeft[3] = 0;
+                        //victoryTally[whoseTurn-1] = 0; //reset victory tally
+                        for (int i = 0; i < GameVariables.BoardSpaceDim; i++ )
+                        {
+                            for(int j = 0; j < GameVariables.BoardSpaceDim; j++)
+                            {
+                                if(GameVariables.board[i, j] is Unit)
+                                {
+                                    if(((Unit)GameVariables.board[i, j]).Owner == GameVariables.players[1])
+                                    {
+                                        GameVariables.piecesLeft[0]++;
+                                        if(GameVariables.board[i,j] is StandardUnit || GameVariables.board[i,j] is LightUnit)
+                                        {
+                                            GameVariables.piecesLeft[2]++;
+                                        }
+                                    }
+                                    else if(((Unit)GameVariables.board[i, j]).Owner == GameVariables.players[2])
+                                    {
+                                        GameVariables.piecesLeft[1]++;
+                                        if (GameVariables.board[i, j] is StandardUnit || GameVariables.board[i, j] is LightUnit)
+                                        {
+                                            GameVariables.piecesLeft[3]++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if ((movedUnits.Count == GameVariables.NumPiecesPerTurn || movedUnits.Count == GameVariables.piecesLeft[currentPlayer-1]) && Anim == false) //signals end of turn
                         {
                             
                             //at end of turn
@@ -715,7 +746,7 @@ namespace Arbiter
                 
             }
 
-            if (finished && movedUnits.Count == GameVariables.NumPiecesPerTurn) //loop is finished
+            if (finished && (movedUnits.Count == GameVariables.NumPiecesPerTurn || movedUnits.Count == GameVariables.piecesLeft[currentPlayer-1])) //loop is finished
             {
                 Anim = false;
                 return;

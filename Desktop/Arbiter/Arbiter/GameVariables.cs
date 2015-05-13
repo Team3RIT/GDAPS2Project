@@ -30,6 +30,8 @@ namespace Arbiter
         public static int screenbufferVertical = (screenHeight - boardDim)/2;
         //location.X*spaceDim+screenbufferHorizontal, location.Y*spaceDim+screenbufferHorizontal will work for giving a board location.
 
+        public static int[] piecesLeft = new int[4];
+
      
         public const int NumPiecesPerTurn = 5;
         

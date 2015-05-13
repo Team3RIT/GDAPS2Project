@@ -135,8 +135,10 @@ namespace Arbiter
                 }
                 else
                 {
-                    int p1Units = 0;
-                    int p2Units = 0;
+                    GameVariables.piecesLeft[0] = 0;
+                    GameVariables.piecesLeft[1] = 0;
+                    GameVariables.piecesLeft[2] = 0;
+                    GameVariables.piecesLeft[3] = 0;
                     //victoryTally[whoseTurn-1] = 0; //reset victory tally
                     for (int i = 0; i < GameVariables.BoardSpaceDim; i++ )
                     {
@@ -146,22 +148,30 @@ namespace Arbiter
                             {
                                 if(((Unit)GameVariables.board[i, j]).Owner == GameVariables.players[1])
                                 {
-                                    p1Units++;
+                                    GameVariables.piecesLeft[0]++;
+                                    if(GameVariables.board[i,j] is StandardUnit || GameVariables.board[i,j] is LightUnit)
+                                    {
+                                        GameVariables.piecesLeft[2]++;
+                                    }
                                 }
                                 else if(((Unit)GameVariables.board[i, j]).Owner == GameVariables.players[2])
                                 {
-                                    p2Units++;
+                                    GameVariables.piecesLeft[1]++;
+                                    if (GameVariables.board[i, j] is StandardUnit || GameVariables.board[i, j] is LightUnit)
+                                    {
+                                        GameVariables.piecesLeft[3]++;
+                                    }
                                 }
                             }
                         }
                     }
 
-                    if (p1Units <= GameVariables.towers.Count / 2)
+                    if (GameVariables.piecesLeft[2] <= GameVariables.towers.Count / 2)
                     {
                         GameVariables.players[1].VictoryTally = 3;
                         return true;
                     }
-                    else if(p2Units <= GameVariables.towers.Count / 2)
+                    else if (GameVariables.piecesLeft[3] <= GameVariables.towers.Count / 2)
                     {
                         GameVariables.players[2].VictoryTally = 3;
                         return true;
