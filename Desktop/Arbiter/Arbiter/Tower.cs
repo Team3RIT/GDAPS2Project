@@ -32,6 +32,7 @@ namespace Arbiter
                 isClaimed = true;
                 claimedBy = unit;
                 GameVariables.board[(int)this.location.X, (int)this.location.Y] = unit;
+                unit.Owner.TowersOwned.Add(this);
             }
         }
 
@@ -40,6 +41,7 @@ namespace Arbiter
             isClaimed = false;
             claimedBy = null;
             GameVariables.board[(int)this.location.X, (int)this.location.Y] = this;
+            unit.Owner.TowersOwned.Remove(this);
         }
         
     }

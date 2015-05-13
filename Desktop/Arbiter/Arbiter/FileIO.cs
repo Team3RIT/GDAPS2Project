@@ -200,7 +200,7 @@ namespace Arbiter
                                     if (own)
                                     {
                                         Tower newTower = new Tower(x, y);
-                                        player.TowersOwned.Add(newTower);
+                                        
                                         newTower.Claim(unit);
 
                                     }
