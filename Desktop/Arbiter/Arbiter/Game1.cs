@@ -342,11 +342,6 @@ namespace Arbiter
                     //testMatch = new Match(2);
                     //testMatch.Draft();
 
-                    if (keyboard.IsKeyDown(Keys.P) || click.RightButton == ButtonState.Pressed || gamepad.IsButtonDown(Buttons.Start))
-                    {
-                        MenuVariables.MenuStates = MenuVariables.MENUS.PAUSE;
-                        gameState = States.MENU;
-                    }
 
                     if ((gamepad.IsButtonDown(Buttons.A) || keyboard.IsKeyDown(Keys.Space) || click.LeftButton == ButtonState.Pressed)
                         && !((previousgamepadState.IsButtonDown(Buttons.A) || previouskeyboardState.IsKeyDown(Keys.Space) || previousmouseState.LeftButton == ButtonState.Pressed))
